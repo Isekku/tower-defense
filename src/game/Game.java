@@ -3,12 +3,11 @@ package game;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.Console;
-import java.io.IOException;
 
 import javax.swing.*;
 
 public class Game {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Button consoleButton = new Button("jeu dans la console");
         Button graphucButton = new Button("jeu graphique");
         Frame gameFrame = new Frame("Tower Defense");
