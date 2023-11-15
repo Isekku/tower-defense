@@ -12,6 +12,7 @@
 
 #IDE
 .idea
+.vscode
 
 # Package Files #
 *.iml
