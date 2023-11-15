@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Game {
     public static void main(String[] args) {
-        Button button = new Button("click zdsijcodsijcdsiocj");
+        Button button = new Button("click");
         Frame gameFrame = new Frame("Tower Defense");
         gameFrame.setSize(400, 400);
         gameFrame.setVisible(true);
