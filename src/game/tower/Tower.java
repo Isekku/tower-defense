@@ -20,11 +20,11 @@ public abstract class Tower {
     }
 
     public int getX() {
-        return this.x;
+        return this.posX;
     }
 
     public int getY() {
-        return this.y;
+        return this.posY;
     }
     
 
