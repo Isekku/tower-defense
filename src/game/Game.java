@@ -13,9 +13,9 @@ public class Game {
         // if contain "console" then run console
         Game game = new Game();
 
-        // if (args.length > 0 && args[0].equals("console")) {
-            game.runTerminal();
-        // } 
+        // if (args.length > 0 && args[0].equals("console") || args[0].equals("-terminal") || args[0].equals("--terminal")) {
+            // game.runTerminal();
+        // }
         // else {
         //     game.runGraphic();
         // }
