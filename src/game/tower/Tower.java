@@ -18,5 +18,5 @@ public abstract class Tower {
         this.pv = pv;
         this.pvMax = pv;
     }
-
+    
 }

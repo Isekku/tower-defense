@@ -5,6 +5,6 @@ Repository du tower defense de Dimitri Fernez et de Sékou Cissé
 Pour lancer le jeu :
 ```
 javac src/game/Game.java
-java src/game/Game
+java src.game.Game
 ```
 
