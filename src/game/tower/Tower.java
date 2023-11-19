@@ -1,17 +1,17 @@
 package game.tower;
 
 public abstract class Tower {
-    private int x;
-    private int y;
+    private int posX;
+    private int posY;
     private int range;
     private int cost;    
     private int damage;
     private int pv;
     private int pvMax;
 
-    public Tower(int x, int y, int range, int cost, int damage, int pv) {
-        this.x = x;
-        this.y = y;
+    public Tower(int posX, int posY, int range, int cost, int damage, int pv) {
+        this.posX = posX;
+        this.posY = posY;
         this.range = range;
         this.cost = cost;
         this.damage = damage;
