@@ -1,20 +1,14 @@
-package game.tower;
+package game.entities;
 
-public abstract class Tower {
+public abstract class Entity {
     private int x;
     private int y;
-    private int range;
-    private int cost;    
-    private int damage;
     private int pv;
     private int pvMax;
 
-    public Tower(int x, int y, int range, int cost, int damage, int pv) {
+    public Entity(int x, int y, int pv) {
         this.x = x;
         this.y = y;
-        this.range = range;
-        this.cost = cost;
-        this.damage = damage;
         this.pv = pv;
         this.pvMax = pv;
     }
@@ -26,6 +20,15 @@ public abstract class Tower {
     public int getY() {
         return this.y;
     }
-    
+
+    public void takeDamage(int damage) {
+        this.pv -= damage;
+        if (this.pv < 0){
+            destroy();
+        }
+    }
+
+    public abstract void destroy();
+
 
 }
