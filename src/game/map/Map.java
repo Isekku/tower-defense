@@ -1,7 +1,7 @@
 package game.map;
 
 import game.entities.Entity;
-import game.tower.Tower;
+import game.entities.Tower;
 import game.geometry.Coordinates;
 
 import java.awt.*;

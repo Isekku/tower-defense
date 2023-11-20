@@ -1,4 +1,4 @@
-package game.tower;
+package game.entities;
 
 public abstract class Tower {
     private int posX;
