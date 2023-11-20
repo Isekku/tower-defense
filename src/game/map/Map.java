@@ -30,8 +30,20 @@ public class Map {
         this.makeEmptyCells();
     }
 
+    /**
+     * Permet d'obtenir une cellule à partir de la map. Elle renvoie null si les valeurs indiqués ne sont pas incluses dans la map.
+     * */
     public Cell getCell(int x, int y) {
-        return null;
+        if(isValid(x, y)) return map[x][y];
+        else return null;
+    }
+
+    /**
+     * Permet d'obtenir une cellule à partir de la map. Elle renvoie null si les valeurs indiqués ne sont pas incluse dans la map.
+     * */
+    public Cell getCell(Coordinates c){
+        if(isValid(c)) return map[c.getX()][c.getY()];
+        else return null;
     }
 
     /**
