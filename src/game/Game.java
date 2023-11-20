@@ -1,12 +1,9 @@
 package game;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.Console;
-import javax.swing.*;
-
+import game.map.Map;
 import game.ui.Terminal;
 import game.ui.Window;
+import game.geometry.Coordinates;
 
 public class Game {
     public static void main(String[] args) {
@@ -19,6 +16,10 @@ public class Game {
         // else {
         //     game.runGraphic();
         // }
+
+        Map map = new Map(10, 11);
+        System.out.println(map);
+        System.out.println(Coordinates.coordonateToPoint("E5"));
     }
 
     public void runTerminal() {
