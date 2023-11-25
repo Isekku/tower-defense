@@ -1,13 +1,14 @@
 package game.ui;
 
-import javax.swing.JFrame;
-import java.awt.Frame;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Window extends JFrame{
     public Window(String title) {
         Frame gameFrame = new Frame(title);
-        // Button button = new Button("jeu dans la console");
+        Button button = new Button("jeu dans la console");
+        gameFrame.add(button);
 
 
         gameFrame.setSize(400, 400);

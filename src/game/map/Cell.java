@@ -1,48 +1,35 @@
 package game.map;
 
-import game.entities.Entity;
-import game.entities.Tower;
+import game.mobs.Mobs;
+import game.mobs.entities.Entity;
+import game.mobs.towers.Tower;
 
 class Cell {
-    private Entity entity;
-    private Tower tower;
+    private Mobs mob;
 
     //Création d'une cellule vide;
     public Cell() {
-        this.entity = null;
-        this.tower = null;
+        this.mob = null;
     }
 
-    //Création d'une cellule ayant un entité
-    public Cell(Entity entity) {
-        this.entity = entity;
+    //Création d'une cellule ayant un mob (une entité ou une tour)
+    public Cell(Mobs entity) {
+        this.mob = entity;
     }
 
-    //Création d'une cellule ayant une tour
-    public Cell(Tower tower) {
-        this.tower = tower;
+    public void setMob(Mobs mob) {
+        this.mob = mob;
     }
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
+    public Mobs getMob() {
+        return this.mob;
     }
 
-    public void setTower(Tower tower) {
-        this.tower = tower;
-    }
-
-    public Entity getEntity() {
-        return this.entity;
-    }
-
-    public Tower getTower() {
-        return this.tower;
-    }
 
     public String toString() {
-        if (entity == null && tower == null) return ".  ";
-        else if (entity == null) return "X  ";
-        else return "T  ";
+        if (this.mob == null) return ".  ";
+        else if(this.mob instanceof Tower) return "T  ";
+        else return "X  ";
     }
 
 }

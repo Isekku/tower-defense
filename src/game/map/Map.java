@@ -1,18 +1,15 @@
 package game.map;
 
-import game.entities.Entity;
-import game.entities.Tower;
+import game.mobs.Mobs;
+import game.mobs.entities.Entity;
+import game.mobs.towers.Tower;
 import game.geometry.Coordinates;
 
 import java.awt.*;
 
-/*
-Class Map :
-
-- Elle sert à créer la map.
-- Elle est pareil pour la version terminale et graphique.
-- Elle contient une classe interne Cell qui représente chaque cellule de la map
-
+/**
+* Classe permettant la création d'une map. Elle représente la map pour la version terminale et graphique et elle contient un tableau de
+* Cellule représentant chaque cellule de la map.
 */
 
 public class Map {
@@ -44,6 +41,26 @@ public class Map {
     public Cell getCell(Coordinates c){
         if(isValid(c)) return map[c.getX()][c.getY()];
         else return null;
+    }
+
+    /**
+     * Méthode permettant de placer un mob (Entité ou Tour) dans la map. Elle renvoie true si cela s'est bien passé et false sinon.
+     * */
+    public boolean setSell(int x, int y, Mobs mob){
+        try{
+            map[x-1][y-1].setMob(mob);
+        }
+        catch(IndexOutOfBoundsException e){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Méthode permettant de placer un mob (Entité ou Tour) dans la map. Elle renvoie true si cela s'est bien passé et false sinon.
+     * */
+    public boolean setSell(Coordinates c, Mobs mob){
+        return setSell(c.getX(), c.getY(), mob);
     }
 
     /**
