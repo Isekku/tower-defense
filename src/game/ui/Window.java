@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import java.awt.Frame;
 import java.awt.event.*;
 
-public class Window extends Frame{
+public class Window extends JFrame{
     public Window(String title) {
         Frame gameFrame = new Frame(title);
         // Button button = new Button("jeu dans la console");
