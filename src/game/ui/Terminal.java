@@ -12,20 +12,7 @@ public class Terminal {
             System.err.println("No console.");
             System.exit(1);
         }
-        for(int i = 0; i < longueur; i++) {
-            System.out.print("*");
-        }
-        for(int i = 0; i < hauteur; i++) {
-            System.out.print("\n*");
-            for(int j = 0; j < longueur-2; j++) {
-                System.out.print(" ");
-            }
-            System.out.print("*");
-        }
-        System.out.println();
-        for(int i = 0; i < longueur; i++) {
-            System.out.print("*");
-        }
+        System.out.println("mode console");
 
     }
     

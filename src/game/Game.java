@@ -10,13 +10,13 @@ import game.geometry.Coordinates;
 public class Game {
     public static void main(String[] args) {
         // if contain "console" then run console
-        Game game = new Game();
+
 
         // if (args.length > 0 && args[0].equals("console") || args[0].equals("-terminal") || args[0].equals("--terminal")) {
-            // game.runTerminal();
+            Game.runTerminal();
         // }
         // else {
-        //     game.runGraphic();
+            Game.runGraphic();
         // }
 
         Map map = new Map(10, 11);
@@ -25,12 +25,12 @@ public class Game {
         System.out.println(map);
     }
 
-    public void runTerminal() {
+    public static void runTerminal() {
         // use Terminal class
         Terminal terminal = new Terminal();
     }
 
-    public void runGraphic() {
+    public static void runGraphic() {
         // use Window class
         Window window = new Window("Tower Defense");
 
