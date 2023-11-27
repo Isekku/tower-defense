@@ -9,9 +9,13 @@ import game.geometry.Coordinates;
 
 public class Game {
     public static void main(String[] args) {
+        Map map = new Map(10, 11);
+        System.out.println(map.setSell(5, 5, new Tower(5, 5, 0, 0, 0, 0, 0)));
+        System.out.println(map.setSell(6, 6, new Entity(6, 6, 0, 0, 0)));
+        // System.out.println(map);
+
+
         // if contain "console" then run console
-
-
         // if (args.length > 0 && args[0].equals("console") || args[0].equals("-terminal") || args[0].equals("--terminal")) {
             Game.runTerminal();
         // }
@@ -19,10 +23,7 @@ public class Game {
             Game.runGraphic();
         // }
 
-        Map map = new Map(10, 11);
-        System.out.println(map.setSell(5, 5, new Tower(5, 5, 0, 0, 0, 0, 0)));
-        System.out.println(map.setSell(6, 6, new Entity(6, 6, 0, 0, 0)));
-        System.out.println(map);
+
     }
 
     public static void runTerminal() {

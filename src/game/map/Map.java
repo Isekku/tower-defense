@@ -16,7 +16,7 @@ public class Map {
     private int width;
     private int height;
     private Cell[][] map;
-
+    private static Map instance;
     /**
      * Création d'une map avec width et height. Les cellules seront toutes initialisé à null
      */
@@ -25,6 +25,7 @@ public class Map {
         this.height = height;
         this.map = new Cell[height][width];
         this.makeEmptyCells();
+        instance = this;
     }
 
     /**
@@ -91,19 +92,23 @@ public class Map {
      * Permet de placer une tour dans la map si les coordonnées fournis sont valides
      */
 
-        public String toString () {
-            String res = "    ";
-            char letter = 'A';
-            for (int i = 0; i < width; i++) {
-                res += (i + 1) + "  ";
-            }
-            for (int i = 0; i < this.height; i++) {
-                res += "\n" + letter + " | ";
-                letter++;
-                for (int j = 0; j < this.width; j++) {
-                    res += map[i][j].toString();
-                }
-            }
-            return res;
+    public String toString () {
+        String res = "    ";
+        char letter = 'A';
+        for (int i = 0; i < width; i++) {
+            res += (i + 1) + "  ";
         }
+        for (int i = 0; i < this.height; i++) {
+            res += "\n" + letter + " | ";
+            letter++;
+            for (int j = 0; j < this.width; j++) {
+                res += map[i][j].toString();
+            }
+        }
+        return res;
+    }
+
+    public static Map getInstance() {
+        return instance;
+    }
 }

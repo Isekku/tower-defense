@@ -1,6 +1,7 @@
 package game.ui;
 
 import java.io.Console;
+import game.map.Map;
 
 public class Terminal {
     public Terminal(){
@@ -13,6 +14,7 @@ public class Terminal {
             System.exit(1);
         }
         System.out.println("mode console");
+        System.err.println(Map.getInstance());
 
     }
     
