@@ -14,8 +14,15 @@ public class Terminal {
             System.exit(1);
         }
         System.out.println("mode console");
-        System.err.println(Map.getInstance());
-
+        System.out.println(Map.getInstance());
     }
-    
+
+    public void update() {
+        // clear screen
+        System.out.print("\033[H\033[2J"); 
+        System.out.flush(); 
+    }
+
+
+
 }

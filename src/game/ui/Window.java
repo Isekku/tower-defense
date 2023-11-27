@@ -9,18 +9,21 @@ public class Window extends JFrame{
 
     public Window(String title) {
         super(title);
-        button = new Button("jeu dans la console");
-        this.add(button);
-
-
         this.setSize(400, 400);
         this.setVisible(true);
+
+        button = new Button("jeu dans la console");
+        this.add(button);
 
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent) {
                 System.exit(0);
             }
         });
+    }
+
+    public void update(){
+        this.repaint(); // pas sur que ça marche :/
     }
     
 }
