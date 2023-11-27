@@ -44,6 +44,11 @@ public class Map {
         else return null;
     }
 
+    // si la cellule ne contient pas de mob, elle renvoie true
+    public boolean isNull(int x, int y){
+        return getCell(x, y).getMob() == null;
+    }
+
     /**
      * Méthode permettant de placer un mob (Entité ou Tour) dans la map. Elle renvoie true si cela s'est bien passé et false sinon.
      * */
