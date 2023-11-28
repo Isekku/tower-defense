@@ -11,9 +11,14 @@ public class Model {
 
     public Model() {
         this.state = GameState.MENU;
-        this.map = null;
+        this.map = new Map(10, 11);
         this.money = 100;
         this.life = 10;
         this.wave = 0;
     }
+
+    public void printMap(){
+        System.out.println(map);
+    }
+
 }

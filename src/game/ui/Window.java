@@ -3,13 +3,16 @@ package game.ui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import game.Controller;
+import game.View;
 import game.map.Map; // à changer 
 
-public class Window extends JFrame{
+public class Window extends JFrame implements View{
     private JPanel carte;
     private Button button;
 
-    public Window(String title) {
+    public Window(String title, Controller controller) {
         super(title);
         this.setSize(400, 400);
         this.setVisible(true);
@@ -28,16 +31,14 @@ public class Window extends JFrame{
                 System.exit(0);
             }
         });
-        update();
 
     }
 
-    public void update(){
+    public void update(Map map){
         this.repaint(); // pas sur que ça marche :/
-
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                if (Map.getInstance().isNull(i, j)){
+                if (map.isNull(i, j)){
                     carte.add(new JLabel("test")); // test mais ça marche pas  il faut peut etre mettre null à la place de d'une cellule vide
                 }
             }

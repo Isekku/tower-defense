@@ -1,10 +1,13 @@
 package game.ui;
 
 import java.io.Console;
+
+import game.Controller;
+import game.View;
 import game.map.Map;
 
-public class Terminal {
-    public Terminal(){
+public class Terminal implements View{
+    public Terminal(Controller controller){
         System.out.println("console");
         Console console = System.console();
         int longueur = 80;
@@ -14,14 +17,17 @@ public class Terminal {
             System.exit(1);
         }
         System.out.println("mode console");
-        System.out.println(Map.getInstance());
+        controller.printMap();
     }
 
-    public void update() {
+    public void update(Map map){
         // clear screen
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
+        // print map
+        System.out.println(map);
     }
+    
 
 
 
