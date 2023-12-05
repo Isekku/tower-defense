@@ -13,6 +13,7 @@
 #IDE
 .idea
 .vscode
+.DS_Store
 
 # Package Files #
 *.iml
