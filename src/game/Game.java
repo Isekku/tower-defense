@@ -3,8 +3,8 @@ package game;
 import game.map.Map;
 import game.mobs.entities.Entity;
 import game.mobs.towers.Tower;
-import game.ui.Terminal;
-import game.ui.Window;
+import game.ui.Vue.Terminal;
+import game.ui.Vue.Window;
 import game.geometry.Coordinates;
 
 public class Game {
