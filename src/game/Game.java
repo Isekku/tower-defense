@@ -1,11 +1,7 @@
 package game;
 
-import game.map.Map;
-import game.mobs.entities.Entity;
-import game.mobs.towers.Tower;
-import game.ui.Vue.Terminal;
-import game.ui.Vue.Window;
-import game.geometry.Coordinates;
+
+import game.ui.Terminal;
 
 public class Game {
     public static void main(String[] args) {
@@ -34,7 +30,7 @@ public class Game {
 
     public static void runGraphic(Controller controller) {
         // use Window class
-        Window window = new Window("Tower Defense",controller);
+        game.ui.Vue.Window window = new game.ui.Vue.Window("Tower Defense",controller);
 
     }
 

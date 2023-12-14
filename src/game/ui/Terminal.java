@@ -1,4 +1,4 @@
-package game.ui.Vue;
+package game.ui;
 
 import java.io.Console;
 
