@@ -17,7 +17,7 @@ public class ScreenMenuController extends Controller{
 
     public void mouseClicked(int value) {
         if (value == PLAY_GAME) {
-            super.changeView(GameState.VERSION, this);
+            super.changeView(GameState.VERSION);
         }
         if (value == OPTION_GAME) {
         }
@@ -28,11 +28,13 @@ public class ScreenMenuController extends Controller{
 
     public void mouseIsHovering(JButton button){
         System.out.println("Arrête de me toucher");
+        System.out.println(button.getText());
         button.setForeground(Color.YELLOW);
     }
 
     public void mouseIsOut(JButton button){
         System.out.println("Enfin");
+        System.out.println(button.getText());
         button.setForeground(Color.BLACK);
     }
 }

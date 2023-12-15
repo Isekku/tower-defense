@@ -12,16 +12,16 @@ import game.ui.Controller.ScreenMenuController;
 import game.ui.State;
 
 public class ScreenMenu extends JFrame implements State {
-
+    JPanel screenMenuPanel;
     private static final ScreenMenu instance = new ScreenMenu();
     ScreenMenuController controller = new ScreenMenuController(this);
-    Container screen = this.getContentPane();
     Dimension buttonDimension = new Dimension(300, 100);
 
+    public ScreenMenu(){
+        this.screenMenuPanel = new JPanel();
+    }
+
     public void enterState() {
-        this.setSize(800, 800);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
 
         //Création et gestion du Panel principale
         JPanel mainMenu = new JPanel(new GridLayout(2, 1));
@@ -52,7 +52,7 @@ public class ScreenMenu extends JFrame implements State {
         mainMenu.add(logoPanel);
         mainMenu.add(buttonPanel);
 
-        screen.add(mainMenu, BorderLayout.CENTER);
+        screenMenuPanel.add(mainMenu, BorderLayout.CENTER);
 
 
         //Ligne de code permetttant d'afficher correctement l'écran sous Mac et autre OS Unix.
@@ -62,6 +62,10 @@ public class ScreenMenu extends JFrame implements State {
 
     public static ScreenMenu getInstance(){
         return instance;
+    }
+
+    public JPanel getView(){
+        return this.screenMenuPanel;
     }
 
     private JPanel createButton(JButton button){

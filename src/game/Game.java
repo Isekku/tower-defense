@@ -5,6 +5,7 @@ import game.ui.*;
 
 public class Game {
     public static GameState game_state = GameState.MENU;
+    public static GameFrame screen = new GameFrame();
     public static void main(String[] args) {
         // Map map = new Map(10, 11);
         // System.out.println(map.setSell(5, 5, new Tower(5, 5, 0, 0, 0, 0, 0)));
@@ -16,9 +17,15 @@ public class Game {
         // if (args.length > 0 && args[0].equals("console") || args[0].equals("-terminal") || args[0].equals("--terminal")) {
             //Game.runTerminal(controller);
         // }
-        // else {
-            Game.runGraphic();
-        // }
+        Game.runGraphic();
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                screen.setCurrentPanel(game_state.getState().getView());
+                screen.revalidate();
+                screen.repaint();
+            }
+        });
 
 
     }
@@ -30,7 +37,6 @@ public class Game {
 
     public static void runGraphic() {
         // use Window class
-        game_state.startState();
     }
 
 }

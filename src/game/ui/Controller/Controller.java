@@ -2,6 +2,7 @@ package game.ui.Controller;
 
 import game.Game;
 import game.GameState;
+import game.ui.State;
 import game.ui.Vue.ChooseVersion;
 
 import javax.swing.*;
@@ -9,13 +10,16 @@ import javax.swing.*;
 public class Controller {
 
     JFrame view = null;
-    public void changeView(GameState state, Controller controller){
+    public void changeView(GameState state){
         switch (state){
             case MENU: {
                 break;
             }
             case VERSION: {
-                changeViewToVersion(controller);
+                Game.game_state = GameState.VERSION;
+                Game.screen.setCurrentPanel(Game.game_state.getState().getView());
+                Game.screen.repaint();
+                Game.screen.revalidate();
             }
             /* case OPTION: {
                 break;
@@ -31,10 +35,5 @@ public class Controller {
             }
             */
         }
-    }
-
-    public void changeViewToVersion(Controller controller){
-        ChooseVersion view = new ChooseVersion();
-        controller.view.dispose();
     }
 }

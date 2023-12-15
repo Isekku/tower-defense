@@ -24,10 +24,6 @@ public enum GameState {
         return current_state;
     }
 
-    public void setNewState(State new_state){
-        current_state = new_state;
-    }
-
     public void startState(){
         current_state.enterState();
     }
