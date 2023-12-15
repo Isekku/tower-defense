@@ -1,8 +1,13 @@
 package game;
 
+import game.ui.Vue.ScreenMenu;
+
+import javax.swing.*;
+
 public enum GameState {
     MENU,
-    GAME,
+    VERSION,
+    OPTION,
     PAUSE,
     GAMEOVER,
     WIN
