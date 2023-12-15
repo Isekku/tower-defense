@@ -7,7 +7,7 @@ import game.View;
 import game.map.Map;
 
 public class Terminal implements View{
-    public Terminal(Controller controller){
+    public Terminal(){
         System.out.println("console");
         Console console = System.console();
         int longueur = 80;
@@ -17,7 +17,7 @@ public class Terminal implements View{
             System.exit(1);
         }
         System.out.println("mode console");
-        controller.printMap();
+        //controller.printMap();
     }
 
     public void update(Map map){

@@ -17,7 +17,7 @@ public class Controller {
             case VERSION: {
                 changeViewToVersion(controller);
             }
-            case OPTION: {
+            /* case OPTION: {
                 break;
             }
             case PAUSE: {
@@ -29,13 +29,12 @@ public class Controller {
             case WIN: {
                 break;
             }
+            */
         }
     }
 
     public void changeViewToVersion(Controller controller){
         ChooseVersion view = new ChooseVersion();
         controller.view.dispose();
-        Game.current_view.setView(view);
-        Game.current_view.affiche();
     }
 }

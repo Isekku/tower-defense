@@ -2,17 +2,14 @@ package game;
 
 
 import game.ui.*;
-import game.ui.Vue.ScreenMenu;
-import game.ui.Vue.Vue;
 
 public class Game {
-    public static Vue current_view = new Vue(new ScreenMenu());
+    public static GameState game_state = GameState.MENU;
     public static void main(String[] args) {
         // Map map = new Map(10, 11);
         // System.out.println(map.setSell(5, 5, new Tower(5, 5, 0, 0, 0, 0, 0)));
         // System.out.println(map.setSell(6, 6, new Entity(6, 6, 0, 0, 0)));
         // Model model = new Model();
-        Controller controller = new Controller();
 
 
         // if contain "console" then run console
@@ -26,14 +23,14 @@ public class Game {
 
     }
 
-    public static void runTerminal(Controller controller) {
+    public static void runTerminal() {
         // use Terminal class
-        Terminal terminal = new Terminal(controller);
+        Terminal terminal = new Terminal();
     }
 
     public static void runGraphic() {
         // use Window class
-        current_view.affiche();
+        game_state.startState();
     }
 
 }
