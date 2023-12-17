@@ -2,6 +2,7 @@ package game.ui.Controller;
 
 import game.Game;
 import game.GameState;
+import game.Model;
 import game.ui.State;
 import game.ui.Vue.ChooseVersion;
 
@@ -10,6 +11,7 @@ import javax.swing.*;
 public class Controller {
 
     JFrame view = null;
+    Model model;
     public void changeView(GameState state){
         switch (state){
             case MENU: {

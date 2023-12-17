@@ -5,11 +5,14 @@ import game.mobs.entities.Entity;
 import game.mobs.towers.Tower;
 
 public class Model {
+    private static final Model instance = new Model();
     private GameState state;
     private Map map;
     private int money;
     private int life;
     private int wave;
+    private int difficulty;
+    
 
     public Model() {
         this.state = GameState.MENU;
@@ -25,6 +28,14 @@ public class Model {
 
     public void printMap(){
         System.out.println(map);
+    }
+
+    public static Model getInstance(){
+        return Model.instance;
+    }
+
+    public void setDifficulty(int difficulty){
+        this.difficulty = difficulty;
     }
 
 }

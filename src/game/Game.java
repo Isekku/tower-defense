@@ -5,6 +5,7 @@ import game.ui.*;
 
 public class Game {
     public static GameState game_state = GameState.MENU;
+    public static Model model = new Model();
     public static GameFrame screen = new GameFrame();
     public static void main(String[] args) {
         // Map map = new Map(10, 11);
