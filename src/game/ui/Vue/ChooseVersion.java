@@ -33,7 +33,7 @@ public class ChooseVersion extends JFrame implements State {
 
     public void enterState(){
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+
         // on peut choisir :
         // niveau de difficulté (facile, moyen ou difficile) | slider
         // tableau de jeu (chemins ou décors différents)     | 2 boutons
@@ -79,6 +79,10 @@ public class ChooseVersion extends JFrame implements State {
         buttonPanel.add(modePanel, BorderLayout.CENTER);
 
         JButton play = new JButton("Jouer");
+        // il faut que le bouton soit cliquable uniquement si les 3 choix ont été faits
+        //play.setEnabled(false);
+        
+
         play.addActionListener(e -> {
             System.out.println("Jouer");
             controller.changeView(game.GameState.PLAYING);
