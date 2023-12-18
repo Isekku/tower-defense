@@ -1,6 +1,7 @@
 package game;
 
 import game.ui.State;
+import game.ui.Vue.ChooseMap;
 import game.ui.Vue.ChooseVersion;
 import game.ui.Vue.Playing;
 import game.ui.Vue.ScreenMenu;
@@ -10,7 +11,8 @@ import javax.swing.*;
 public enum GameState {
     MENU(ScreenMenu.getInstance()),
     VERSION(ChooseVersion.getInstance()),
-    PLAYING(Playing.getInstance());
+    PLAYING(Playing.getInstance()),
+    MAP(ChooseMap.getInstance());
     //OPTION,
     //PAUSE,
     //GAMEOVER,

@@ -15,49 +15,58 @@ public class ScreenMenu extends JFrame implements State {
     JPanel screenMenuPanel;
     private static final ScreenMenu instance = new ScreenMenu();
     ScreenMenuController controller = new ScreenMenuController(this);
-    Dimension buttonDimension = new Dimension(300, 100);
+    Dimension buttonDimension = new Dimension(300, 70);
+    Font titleFont = new Font("Comics Sans MS", Font.BOLD, 60);
+    Font buttonFont = new Font("Comics Sans MS", Font.BOLD, 20);
+
+    JPanel menuPanel = new JPanel();
+        JPanel menuTextPanel = new JPanel();
+            JLabel gameTitle = new JLabel("Plants Vs Zombie", JLabel.CENTER);
+        JPanel buttonPanel = new JPanel();
+            JButton playButton = new JButton("Jouer");
+            JButton optionButton = new JButton("Option");
+            JButton quitButton = new JButton("Quitter");
 
     public ScreenMenu(){
         this.screenMenuPanel = new JPanel();
+        screenMenuPanel.setLayout(new BorderLayout());
     }
 
     public void enterState() {
+        menuPanel.setLayout(new GridLayout(2, 1));
+            menuTextPanel.setLayout(new BorderLayout());
+                gameTitle.setFont(titleFont);
+                menuTextPanel.add(gameTitle);
 
-        //Création et gestion du Panel principale
-        JPanel mainMenu = new JPanel(new GridLayout(2, 1));
+                menuTextPanel.setBorder(new EmptyBorder(0, 0, 50, 0));
+                menuTextPanel.add(gameTitle, BorderLayout.SOUTH);
 
-            JPanel logoPanel = new JPanel(new BorderLayout());
-                JLabel logoLabel = new JLabel("Plants vs Zombie");
-                    logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                    logoLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
-                logoPanel.add(logoLabel, BorderLayout.CENTER);
+                buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+                    addMouseListener(playButton);
+                    stylishButton(playButton);
+                    playButton.addActionListener((event) -> controller.mouseClicked(controller.PLAY_GAME));
+                    buttonPanel.add(playButton);
 
-            JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
-                JButton playButton = new JButton("Jouer");
-                playButton.addChangeListener((event) -> controller.mouseClicked(controller.PLAY_GAME));
-                addMouseListener(playButton);
-
-                JButton optionButton = new JButton("Option");
-                optionButton.addChangeListener((event) -> controller.mouseClicked(controller.OPTION_GAME));
-                addMouseListener(optionButton);
-
-                JButton quitButton = new JButton("Quitter");
-                quitButton.addChangeListener((event) -> controller.mouseClicked(controller.LEAVE_GAME));
-                addMouseListener(quitButton);
-
-                buttonPanel.add(createButton(playButton));
-                buttonPanel.add(createButton(optionButton));
-                buttonPanel.add(createButton(quitButton));
-
-        mainMenu.add(logoPanel);
-        mainMenu.add(buttonPanel);
-
-        screenMenuPanel.add(mainMenu, BorderLayout.CENTER);
+                    addMouseListener(optionButton);
+                    stylishButton(optionButton);
+                    optionButton.addActionListener((event) -> controller.mouseClicked(controller.OPTION_GAME));
+                    buttonPanel.add(optionButton);
 
 
-        //Ligne de code permetttant d'afficher correctement l'écran sous Mac et autre OS Unix.
-        this.revalidate();
-        this.repaint();
+                    addMouseListener(quitButton);
+                    stylishButton(quitButton);
+                    quitButton.addActionListener((event) -> controller.mouseClicked(controller.LEAVE_GAME));
+                    buttonPanel.add(quitButton);
+
+
+
+            menuPanel.add(menuTextPanel);
+            menuPanel.add(buttonPanel);
+
+        screenMenuPanel.add(menuPanel, BorderLayout.CENTER);
+    }
+
+    public void quitState(){
     }
 
     public static ScreenMenu getInstance(){
@@ -68,16 +77,24 @@ public class ScreenMenu extends JFrame implements State {
         return this.screenMenuPanel;
     }
 
-    private JPanel createButton(JButton button){
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    private void stylishButton(JButton button){
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setMaximumSize(buttonDimension);
+        button.setFont(buttonFont);
+    }
 
-        button.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-        button.setBackground(Color.BLACK);
+    public static int insta = 0;
 
-
-        button.setPreferredSize(buttonDimension);
-        buttonPanel.add(button);
-        return buttonPanel;
+    private Color c(){
+        insta++;
+        System.out.println(insta);
+        if(insta ==1) return Color.RED;
+        if(insta == 2) return Color.BLUE;
+        if(insta == 3) return Color.GREEN;
+        if(insta == 4) return Color.GRAY;
+        if(insta == 5) return Color.YELLOW;
+        if(insta == 6) return Color.PINK;
+        return Color.BLACK;
     }
 
     private void addMouseListener(JButton button){

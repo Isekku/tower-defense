@@ -23,8 +23,6 @@ public class Game {
             @Override
             public void run() {
                 screen.setCurrentPanel(game_state.getState().getView());
-                screen.revalidate();
-                screen.repaint();
             }
         });
 

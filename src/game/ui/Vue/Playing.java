@@ -28,6 +28,8 @@ public class Playing extends JFrame implements State{
         System.out.println("Entering Playing state");
     }
 
+    public void quitState(){}
+
     public JPanel getView() {
         return playingPanel;
     }
