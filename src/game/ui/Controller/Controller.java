@@ -22,6 +22,14 @@ public class Controller {
                 Game.screen.setCurrentPanel(Game.game_state.getState().getView());
                 Game.screen.repaint();
                 Game.screen.revalidate();
+                break;
+            }
+            case PLAYING: {
+                Game.game_state = GameState.PLAYING;
+                Game.screen.setCurrentPanel(Game.game_state.getState().getView());
+                Game.screen.repaint();
+                Game.screen.revalidate();
+                break;
             }
             /* case OPTION: {
                 break;

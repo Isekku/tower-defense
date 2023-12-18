@@ -33,6 +33,7 @@ public class ChooseVersion extends JFrame implements State {
 
     public void enterState(){
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         // on peut choisir :
         // niveau de difficulté (facile, moyen ou difficile) | slider
         // tableau de jeu (chemins ou décors différents)     | 2 boutons
@@ -74,12 +75,15 @@ public class ChooseVersion extends JFrame implements State {
             modePanel.add(normalButton);
             modePanel.add(marathonButton);
                 
-
         buttonPanel.add(tabPanel, BorderLayout.NORTH);
         buttonPanel.add(modePanel, BorderLayout.CENTER);
 
-
         JButton play = new JButton("Jouer");
+        play.addActionListener(e -> {
+            System.out.println("Jouer");
+            controller.changeView(game.GameState.PLAYING);
+        });
+
 
         this.chooseVersionPanel.add(sliderPanel, BorderLayout.NORTH);
         this.chooseVersionPanel.add(buttonPanel, BorderLayout.CENTER);
