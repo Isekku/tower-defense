@@ -16,17 +16,14 @@ public class GameFrame extends JFrame {
 
         setCurrentPanel(Game.game_state.getState().getView());
 
-        //Ligne de code permetttant d'afficher correctement l'écran sous Mac et autre OS Unix.
-        revalidate();
-        repaint();
     }
 
     public void setCurrentPanel(JPanel panel){
-        if(currentPanel != null) this.remove(currentPanel);
-        this.currentPanel = panel;
-        add(this.currentPanel, BorderLayout.CENTER);
+        if(currentPanel != null) {
+            remove(currentPanel);
+        }
+        currentPanel = panel;
+        add(currentPanel, BorderLayout.CENTER);
         Game.game_state.startState();
-        revalidate();
-        repaint();
     }
 }

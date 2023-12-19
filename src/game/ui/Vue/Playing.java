@@ -2,7 +2,6 @@ package game.ui.Vue;
 
 import javax.swing.JPanel;
 
-import game.ui.State;
 import game.ui.Controller.PlayingController;
 
 import javax.swing.JFrame;
@@ -27,6 +26,8 @@ public class Playing extends JFrame implements State{
         // début du jeu
         System.out.println("Entering Playing state");
     }
+
+    public void quitState(){}
 
     public JPanel getView() {
         return playingPanel;

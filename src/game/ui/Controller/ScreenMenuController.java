@@ -1,10 +1,10 @@
 package game.ui.Controller;
 
 import game.GameState;
+import game.ui.Style;
 import game.ui.Vue.ScreenMenu;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ScreenMenuController extends Controller{
     public final int PLAY_GAME = 1;
@@ -27,14 +27,10 @@ public class ScreenMenuController extends Controller{
     }
 
     public void mouseIsHovering(JButton button){
-        System.out.println("Arrête de me toucher");
-        System.out.println(button.getText());
-        button.setForeground(Color.YELLOW);
+        Style.buttonIsHovered(button);
     }
 
     public void mouseIsOut(JButton button){
-        System.out.println("Enfin");
-        System.out.println(button.getText());
-        button.setForeground(Color.BLACK);
+        Style.buttonIsNormal(button);
     }
 }

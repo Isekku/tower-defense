@@ -5,8 +5,8 @@ import game.ui.*;
 
 public class Game {
     public static GameState game_state = GameState.MENU;
-    public static Model model = new Model();
-    public static GameFrame screen = new GameFrame();
+    public static Model model;
+    public static GameFrame screen;
     public static void main(String[] args) {
         // Map map = new Map(10, 11);
         // System.out.println(map.setSell(5, 5, new Tower(5, 5, 0, 0, 0, 0, 0)));
@@ -22,9 +22,10 @@ public class Game {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                model = new Model();
+                screen = new GameFrame();
                 screen.setCurrentPanel(game_state.getState().getView());
                 screen.revalidate();
-                screen.repaint();
             }
         });
 
