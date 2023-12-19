@@ -16,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.concurrent.Flow;
 
 public class ChooseMap extends JFrame implements State {
@@ -165,6 +166,13 @@ public class ChooseMap extends JFrame implements State {
         slider.setMaximum(2);
         slider.setValue(0);
         slider.setPreferredSize(new Dimension(300, 100));
+
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
+        labelTable.put(0, new JLabel("Facile"));
+        labelTable.put(1, new JLabel("Moyen"));
+        labelTable.put(2, new JLabel("Difficile"));
+
+        slider.setLabelTable(labelTable);
     }
 
     public static void buttonIsHovered(JButton button, JLabel imageLabel, ImageIcon icon, int MODE){
