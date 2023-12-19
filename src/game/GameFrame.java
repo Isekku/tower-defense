@@ -19,9 +19,11 @@ public class GameFrame extends JFrame {
     }
 
     public void setCurrentPanel(JPanel panel){
-        if(currentPanel != null) this.remove(currentPanel);
-        this.currentPanel = panel;
-        add(this.currentPanel, BorderLayout.CENTER);
+        if(currentPanel != null) {
+            remove(currentPanel);
+        }
+        currentPanel = panel;
+        add(currentPanel, BorderLayout.CENTER);
         Game.game_state.startState();
         repaint();
         revalidate();
