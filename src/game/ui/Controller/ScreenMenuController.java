@@ -4,6 +4,10 @@ import game.GameState;
 import game.ui.Vue.ScreenMenu;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class ScreenMenuController extends Controller{
@@ -27,14 +31,16 @@ public class ScreenMenuController extends Controller{
     }
 
     public void mouseIsHovering(JButton button){
-        System.out.println("Arrête de me toucher");
-        System.out.println(button.getText());
-        button.setForeground(Color.YELLOW);
+        button.setForeground(Color.GRAY);
+        Border line = new LineBorder(Color.GRAY,5, true);
+        Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
+        button.setBorder(compound);
     }
 
     public void mouseIsOut(JButton button){
-        System.out.println("Enfin");
-        System.out.println(button.getText());
         button.setForeground(Color.BLACK);
+        Border line = new LineBorder(Color.BLACK,5, true);
+        Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
+        button.setBorder(compound);
     }
 }

@@ -1,7 +1,10 @@
 package game.ui.Vue;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -22,10 +25,11 @@ public class ScreenMenu extends JFrame implements State {
     JPanel menuPanel = new JPanel();
         JPanel menuTextPanel = new JPanel();
             JLabel gameTitle = new JLabel("Plants Vs Zombie", JLabel.CENTER);
-        JPanel buttonPanel = new JPanel();
-            JButton playButton = new JButton("Jouer");
-            JButton optionButton = new JButton("Option");
-            JButton quitButton = new JButton("Quitter");
+        JPanel buttonContainerPanel = new JPanel();
+            JPanel buttonPanel = new JPanel();
+                JButton playButton = new JButton("Jouer");
+                JButton optionButton = new JButton("Option");
+                JButton quitButton = new JButton("Quitter");
 
     public ScreenMenu(){
         this.screenMenuPanel = new JPanel();
@@ -41,32 +45,44 @@ public class ScreenMenu extends JFrame implements State {
                 menuTextPanel.setBorder(new EmptyBorder(0, 0, 50, 0));
                 menuTextPanel.add(gameTitle, BorderLayout.SOUTH);
 
+
                 buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
                     addMouseListener(playButton);
                     stylishButton(playButton);
                     playButton.addActionListener((event) -> controller.mouseClicked(controller.PLAY_GAME));
                     buttonPanel.add(playButton);
 
+                    buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+
                     addMouseListener(optionButton);
                     stylishButton(optionButton);
                     optionButton.addActionListener((event) -> controller.mouseClicked(controller.OPTION_GAME));
                     buttonPanel.add(optionButton);
 
+                    buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
                     addMouseListener(quitButton);
                     stylishButton(quitButton);
                     quitButton.addActionListener((event) -> controller.mouseClicked(controller.LEAVE_GAME));
                     buttonPanel.add(quitButton);
 
+                    buttonPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 
+            buttonContainerPanel.setLayout(new BorderLayout());
+            buttonContainerPanel.add(buttonPanel, BorderLayout.CENTER);
 
             menuPanel.add(menuTextPanel);
-            menuPanel.add(buttonPanel);
+            menuPanel.add(buttonContainerPanel);
 
         screenMenuPanel.add(menuPanel, BorderLayout.CENTER);
     }
 
     public void quitState(){
+        screenMenuPanel.removeAll();
+        menuPanel.removeAll();
+        menuTextPanel.removeAll();
+        buttonContainerPanel.removeAll();
+        buttonPanel.removeAll();
     }
 
     public static ScreenMenu getInstance(){
@@ -81,20 +97,13 @@ public class ScreenMenu extends JFrame implements State {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setMaximumSize(buttonDimension);
         button.setFont(buttonFont);
-    }
 
-    public static int insta = 0;
+        button.setForeground(Color.BLACK);
 
-    private Color c(){
-        insta++;
-        System.out.println(insta);
-        if(insta ==1) return Color.RED;
-        if(insta == 2) return Color.BLUE;
-        if(insta == 3) return Color.GREEN;
-        if(insta == 4) return Color.GRAY;
-        if(insta == 5) return Color.YELLOW;
-        if(insta == 6) return Color.PINK;
-        return Color.BLACK;
+        Border line = new LineBorder(Color.BLACK,5, true);
+        Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
+
+        button.setBorder(compound);
     }
 
     private void addMouseListener(JButton button){
