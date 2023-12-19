@@ -91,7 +91,7 @@ public class ScreenMenu extends JFrame implements State {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setMaximumSize(Style.buttonDimension);
         button.setFont(Style.buttonFont);
-        State.stylishButton(button);
+        Style.stylishButton(button);
     }
 
     private void addMouseListener(JButton button){

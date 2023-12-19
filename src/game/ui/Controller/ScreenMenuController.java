@@ -1,15 +1,10 @@
 package game.ui.Controller;
 
 import game.GameState;
+import game.ui.Style;
 import game.ui.Vue.ScreenMenu;
-import game.ui.Vue.State;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import java.awt.*;
 
 public class ScreenMenuController extends Controller{
     public final int PLAY_GAME = 1;
@@ -32,10 +27,10 @@ public class ScreenMenuController extends Controller{
     }
 
     public void mouseIsHovering(JButton button){
-        State.buttonIsHovered(button);
+        Style.buttonIsHovered(button);
     }
 
     public void mouseIsOut(JButton button){
-        State.buttonIsNormal(button);
+        Style.buttonIsNormal(button);
     }
 }

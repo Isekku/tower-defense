@@ -94,7 +94,7 @@ public class ChooseVersion extends JFrame implements State {
             button.setFont(Style.buttonFont);
             button.setPreferredSize(Style.buttonDimension);
         }
-        State.stylishButton(button);
+        Style.stylishButton(button);
     }
 
     public void quitState(){}

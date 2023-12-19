@@ -1,9 +1,8 @@
 package game.ui.Controller;
 
 import game.GameState;
+import game.ui.Style;
 import game.ui.Vue.ChooseVersion;
-import game.ui.Vue.State;
-
 import javax.swing.*;
 
 public class ChooseVersionController extends Controller {
@@ -24,11 +23,11 @@ public class ChooseVersionController extends Controller {
     }
 
     public void mouseIsHovering(JButton button){
-        State.buttonIsHovered(button);
+        Style.buttonIsHovered(button);
     }
 
     public void mouseIsOut(JButton button){
-        State.buttonIsNormal(button);
+        Style.buttonIsNormal(button);
     }
 
 }
