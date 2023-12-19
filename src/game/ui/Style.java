@@ -14,6 +14,8 @@ public class Style {
     public static Font littleButtonFont = new Font("Comics Sans MS", Font.BOLD, 12);
     public static Dimension buttonDimension = new Dimension(300, 70);
     public static Dimension littleButtonDimension = new Dimension(200, 50);
+    public static Border line = new LineBorder(Color.BLACK,5, true);
+    public static Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
 
     public static void buttonIsHovered(JButton button){
         button.setForeground(Color.GRAY);

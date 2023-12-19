@@ -25,7 +25,5 @@ public class GameFrame extends JFrame {
         currentPanel = panel;
         add(currentPanel, BorderLayout.CENTER);
         Game.game_state.startState();
-        repaint();
-        revalidate();
     }
 }
