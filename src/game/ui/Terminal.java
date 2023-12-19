@@ -2,7 +2,6 @@ package game.ui;
 
 import java.io.Console;
 
-import game.Controller;
 import game.View;
 import game.map.Map;
 

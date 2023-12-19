@@ -1,7 +1,6 @@
 package game.ui.Vue;
 
 import game.ui.Controller.ChooseMapController;
-import game.ui.State;
 
 import javax.swing.*;
 import java.awt.*;

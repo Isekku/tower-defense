@@ -8,19 +8,13 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-import game.Controller;
-import game.View;
-import game.map.Map; // à changer
 import game.ui.Controller.ScreenMenuController;
-import game.ui.State;
+import game.ui.Style;
 
 public class ScreenMenu extends JFrame implements State {
     JPanel screenMenuPanel;
     private static final ScreenMenu instance = new ScreenMenu();
     ScreenMenuController controller = new ScreenMenuController(this);
-    Dimension buttonDimension = new Dimension(300, 70);
-    Font titleFont = new Font("Comics Sans MS", Font.BOLD, 60);
-    Font buttonFont = new Font("Comics Sans MS", Font.BOLD, 20);
 
     JPanel menuPanel = new JPanel();
         JPanel menuTextPanel = new JPanel();
@@ -39,7 +33,7 @@ public class ScreenMenu extends JFrame implements State {
     public void enterState() {
         menuPanel.setLayout(new GridLayout(2, 1));
             menuTextPanel.setLayout(new BorderLayout());
-                gameTitle.setFont(titleFont);
+                gameTitle.setFont(Style.titleFont);
                 menuTextPanel.add(gameTitle);
 
                 menuTextPanel.setBorder(new EmptyBorder(0, 0, 50, 0));
@@ -95,15 +89,9 @@ public class ScreenMenu extends JFrame implements State {
 
     private void stylishButton(JButton button){
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setMaximumSize(buttonDimension);
-        button.setFont(buttonFont);
-
-        button.setForeground(Color.BLACK);
-
-        Border line = new LineBorder(Color.BLACK,5, true);
-        Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
-
-        button.setBorder(compound);
+        button.setMaximumSize(Style.buttonDimension);
+        button.setFont(Style.buttonFont);
+        State.stylishButton(button);
     }
 
     private void addMouseListener(JButton button){

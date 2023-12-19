@@ -2,6 +2,7 @@ package game.ui.Controller;
 
 import game.GameState;
 import game.ui.Vue.ScreenMenu;
+import game.ui.Vue.State;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -31,16 +32,10 @@ public class ScreenMenuController extends Controller{
     }
 
     public void mouseIsHovering(JButton button){
-        button.setForeground(Color.GRAY);
-        Border line = new LineBorder(Color.GRAY,5, true);
-        Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
-        button.setBorder(compound);
+        State.buttonIsHovered(button);
     }
 
     public void mouseIsOut(JButton button){
-        button.setForeground(Color.BLACK);
-        Border line = new LineBorder(Color.BLACK,5, true);
-        Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
-        button.setBorder(compound);
+        State.buttonIsNormal(button);
     }
 }

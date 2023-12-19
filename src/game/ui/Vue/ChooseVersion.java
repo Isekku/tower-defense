@@ -1,15 +1,16 @@
 package game.ui.Vue;
 
 import game.ui.Controller.ChooseVersionController;
-import game.ui.State;
+import game.ui.Style;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ChooseVersion extends JFrame implements State {
     protected JPanel chooseVersionPanel;
-    Dimension buttonDimension = new Dimension(200, 70);
 
         protected JPanel chooseTextPanel = new JPanel();
             protected JLabel chooseVersionText = new JLabel();
@@ -43,25 +44,22 @@ public class ChooseVersion extends JFrame implements State {
             chooseTextPanel.setBorder(new EmptyBorder(0, 0, 50, 0));
 
         buttonPanel.setLayout(new BorderLayout());
-            chooseVersionButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 160, 0));
-                normalButton.setText("Mode Normale");
-                normalButton.setPreferredSize(buttonDimension);
-                normalButton.setFont(new Font("Comics Sans MS", Font.BOLD, 16));
+            chooseVersionButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
+                stylishButton(normalButton, "Mode Normale", false);
                 normalButton.addActionListener((event) -> controller.mouseClicked(controller.NORMAL_MODE));
+                addMouseListener(normalButton);
 
-                marathonButton.setText("Mode Marathon");
-                marathonButton.setPreferredSize(buttonDimension);
-                marathonButton.setFont(new Font("Comics Sans MS", Font.BOLD, 16));
+                stylishButton(marathonButton, "Mode Marathon", false);
                 marathonButton.addActionListener((event) -> controller.mouseClicked(controller.MARATHON_MODE));
+                addMouseListener(marathonButton);
 
                 chooseVersionButtonPanel.add(normalButton);
                 chooseVersionButtonPanel.add(marathonButton);
 
             goBackButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-                goBackButton.setText("<- Retour en arrière");
-                goBackButton.setFont(new Font("Comics Sans MS", Font.BOLD, 12));
-                goBackButton.setPreferredSize(new Dimension(200, 50));
+                stylishButton(goBackButton, "<- Retour en arrière", true);
                 goBackButton.addActionListener((event) -> controller.mouseClicked(controller.GO_BACK));
+                addMouseListener(goBackButton);
 
                 goBackButtonPanel.add(goBackButton);
 
@@ -70,6 +68,33 @@ public class ChooseVersion extends JFrame implements State {
 
         chooseVersionPanel.add(chooseTextPanel);
         chooseVersionPanel.add(buttonPanel);
+    }
+
+    public void addMouseListener(JButton button){
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                controller.mouseIsHovering(button);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                controller.mouseIsOut(button);
+            }
+        });
+    }
+
+    public void stylishButton(JButton button, String text, boolean isLittle){
+        button.setText(text);
+        if(isLittle){
+            button.setFont(Style.littleButtonFont);
+            button.setPreferredSize(Style.littleButtonDimension);
+        }
+        else{
+            button.setFont(Style.buttonFont);
+            button.setPreferredSize(Style.buttonDimension);
+        }
+        State.stylishButton(button);
     }
 
     public void quitState(){}

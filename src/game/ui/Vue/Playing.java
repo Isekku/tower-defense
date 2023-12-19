@@ -2,7 +2,6 @@ package game.ui.Vue;
 
 import javax.swing.JPanel;
 
-import game.ui.State;
 import game.ui.Controller.PlayingController;
 
 import javax.swing.JFrame;

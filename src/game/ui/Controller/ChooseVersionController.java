@@ -1,10 +1,8 @@
 package game.ui.Controller;
 
 import game.GameState;
-import game.Model;
-import game.ui.State;
-import game.ui.Vue.ChooseMap;
 import game.ui.Vue.ChooseVersion;
+import game.ui.Vue.State;
 
 import javax.swing.*;
 
@@ -23,6 +21,14 @@ public class ChooseVersionController extends Controller {
         if (value == GO_BACK) {
             super.changeView(GameState.MENU);
         }
+    }
+
+    public void mouseIsHovering(JButton button){
+        State.buttonIsHovered(button);
+    }
+
+    public void mouseIsOut(JButton button){
+        State.buttonIsNormal(button);
     }
 
 }

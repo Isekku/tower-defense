@@ -3,8 +3,6 @@ package game.ui.Controller;
 import game.Game;
 import game.GameState;
 import game.Model;
-import game.ui.State;
-import game.ui.Vue.ChooseVersion;
 
 import javax.swing.*;
 
