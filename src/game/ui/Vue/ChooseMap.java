@@ -30,16 +30,16 @@ public class ChooseMap extends JFrame implements State {
         chooseMapPanel = new JPanel(new GridLayout(2, 1));
 
         try{
-            plainImage = new ImageIcon(ImageIO.read(getClass().getResource("/game/ressources/plaine_des_vertus.jpeg")));
+            plainImage = new ImageIcon(ImageIO.read(getClass().getResource("/resources/bouttons/plaine_des_vertus.jpeg")));
             plainImage = new ImageIcon(plainImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
-            plainGrayImage = new ImageIcon(ImageIO.read(getClass().getResource("/game/ressources/plaine_des_vertus_gris.jpg")));
+            plainGrayImage = new ImageIcon(ImageIO.read(getClass().getResource("/resources/bouttons/plaine_des_vertus_gris.jpg")));
             plainGrayImage = new ImageIcon(plainGrayImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
-            desertImage = new ImageIcon(ImageIO.read(getClass().getResource("/game/ressources/voie_royale.jpeg")));
+            desertImage = new ImageIcon(ImageIO.read(getClass().getResource("/resources/bouttons/voie_royale.jpeg")));
             desertImage = new ImageIcon(desertImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
-            desertGrayImage = new ImageIcon(ImageIO.read(getClass().getResource("/game/ressources/voie_royale_gris.jpg")));
+            desertGrayImage = new ImageIcon(ImageIO.read(getClass().getResource("/resources/bouttons/voie_royale_gris.jpg")));
             desertGrayImage = new ImageIcon(desertGrayImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
         }
         catch (IOException e){
