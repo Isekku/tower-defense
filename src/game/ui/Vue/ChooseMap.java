@@ -99,6 +99,7 @@ public class ChooseMap extends JFrame implements State {
             mapPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 90));
                 map1Panel.setLayout(new BoxLayout(map1Panel, BoxLayout.X_AXIS));
                 map1Panel.setBorder(Style.compound);
+                map1Panel.setOpaque(false);
                 map1Panel.addActionListener((event) -> controller.mouseClicked(ChooseMapController.PLAIN_MODE));
                 map1Panel.addMouseListener(new MouseAdapter() {
                     @Override
@@ -125,6 +126,7 @@ public class ChooseMap extends JFrame implements State {
 
                 map2Panel.setLayout(new BoxLayout(map2Panel, BoxLayout.X_AXIS));
                 map2Panel.setBorder(Style.compound);
+                map2Panel.setOpaque(false);
                 map2Panel.addActionListener((event) -> controller.mouseClicked(ChooseMapController.DESERT_MODE));
                 map2Panel.addMouseListener(new MouseAdapter() {
                     @Override

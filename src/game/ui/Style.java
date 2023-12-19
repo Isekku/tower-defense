@@ -33,6 +33,7 @@ public class Style {
 
     public static void stylishButton(JButton button){
         button.setForeground(Color.BLACK);
+        button.setOpaque(false);
 
         Border line = new LineBorder(Color.BLACK,5, true);
         Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
