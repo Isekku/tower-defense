@@ -6,10 +6,19 @@ import game.ui.Controller.PlayingController;
 
 public class Playing extends JFrame implements State{
     //Tout attributs permettant d'instancier la classe :
-    protected JPanel playingPanel;
     public static boolean isFirstTime = true;
     private static final Playing instance = new Playing();
     private PlayingController controller;
+
+    protected JPanel playingPanel;
+        protected JPanel mapPanel;
+
+        protected JPanel infoPanel;
+            protected JLabel moneyLabel;
+            protected JLabel lifeLabel;
+            protected JLabel waveLabel;
+            
+                
 
     //Constructeur unique :
     public Playing(){
@@ -19,6 +28,17 @@ public class Playing extends JFrame implements State{
 
     //Les Panels et les Components besoins pour l'affichage :
 
+
+
+
+
+    //Méthodes propre à la construction de Component plus spécifique :
+
+
+
+
+
+    //Méthodes permettant d'attribuer les méthodes en fonctino d'action produit sur le bouton :
 
 
 
@@ -50,18 +70,6 @@ public class Playing extends JFrame implements State{
     public void notFirstTime(){
         if(isFirstTime()) isFirstTime = false;
     }
-
-    //Méthodes propre à la construction de Component plus spécifique :
-
-
-
-
-
-    //Méthodes permettant d'attribuer les méthodes en fonctino d'action produit sur le bouton :
-
-
-
-
 
     //Méthodes nécessaire pour l'accessiblité externe de la classe :
     public static Playing getInstance(){
