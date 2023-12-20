@@ -25,14 +25,14 @@ public class ScreenMenu extends JFrame implements State {
     }
 
     //Les Panels et les Components besoins pour l'affichage :
-    JPanel menuPanel = new JPanel();
-        JPanel menuTextPanel = new JPanel();
-            JLabel gameTitle = new JLabel("Plants Vs Zombie", JLabel.CENTER);
-        JPanel buttonContainerPanel = new JPanel();
-            JPanel buttonPanel = new JPanel();
-                JButton playButton = new JButton("Jouer");
-                JButton optionButton = new JButton("Option");
-                JButton quitButton = new JButton("Quitter");
+    private JPanel menuPanel = new JPanel();
+        private JPanel menuTextPanel = new JPanel();
+            private JLabel gameTitle = new JLabel("Plants Vs Zombie", JLabel.CENTER);
+        private JPanel buttonContainerPanel = new JPanel();
+            private JPanel buttonPanel = new JPanel();
+                private JButton playButton = new JButton("Jouer");
+                private JButton optionButton = new JButton("Option");
+                private JButton quitButton = new JButton("Quitter");
 
     //Méthodes nécessaires pour la construction de la vue :
     public void enterState() {

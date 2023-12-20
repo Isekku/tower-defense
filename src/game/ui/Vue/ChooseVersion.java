@@ -25,14 +25,14 @@ public class ChooseVersion extends JFrame implements State {
         chooseVersionPanel.setLayout(new BorderLayout());
     }
     //Les Panels et les Components besoins pour l'affichage :
-        JPanel chooseTextPanel = new JPanel();
-            JLabel chooseVersionText = new JLabel("Choisissez un mode de jeu :");
-        JPanel buttonPanel = new JPanel();
-            JPanel chooseVersionButtonPanel = new JPanel();
-                JButton normalButton = new JButton("Mode Normale");
-                JButton marathonButton = new JButton("Mode Marathon");
-            JPanel goBackButtonPanel = new JPanel();
-                JButton goBackButton = new JButton("<- Retour en arrière");
+        private JPanel chooseTextPanel = new JPanel();
+            private JLabel chooseVersionText = new JLabel("Choisissez un mode de jeu :");
+        private JPanel buttonPanel = new JPanel();
+            private JPanel chooseVersionButtonPanel = new JPanel();
+                private JButton normalButton = new JButton("Mode Normale");
+                private JButton marathonButton = new JButton("Mode Marathon");
+            private JPanel goBackButtonPanel = new JPanel();
+                private JButton goBackButton = new JButton("<- Retour en arrière");
 
     //Méthodes nécessaires pour la construction de la vue :
     public void enterState(){

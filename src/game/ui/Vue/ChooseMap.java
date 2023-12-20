@@ -52,24 +52,24 @@ public class ChooseMap extends JFrame implements State {
     }
 
     //Les Panels et les Components besoins pour l'affichage :
-    JPanel difficultyPanel = new JPanel();
-        JPanel difficultyAndDescriptionLabel = new JPanel();
-            JLabel difficultyText = new JLabel("Difficulté : ");
-            JSlider difficultySlider = new JSlider();
-    JPanel chooseTextPanel = new JPanel();
-        JLabel chooseText = new JLabel("Choix de Map :");
-    JPanel mapChoicePanel = new JPanel();
-        JPanel mapPanel = new JPanel();
-            JButton map1Panel = new JButton();
-                JLabel map1Image = new JLabel();
-                ImageIcon plainImage;
-                ImageIcon plainGrayImage;
-                JLabel map1Title = new JLabel("Plaine des Vertus");
-            JButton map2Panel = new JButton();
-                JLabel map2Image = new JLabel();
-                ImageIcon desertImage;
-                ImageIcon desertGrayImage;
-                JLabel map2Title = new JLabel("Voie Royale");
+    private JPanel difficultyPanel = new JPanel();
+        private JPanel difficultyAndDescriptionLabel = new JPanel();
+            private JLabel difficultyText = new JLabel("Difficulté : ");
+            private JSlider difficultySlider = new JSlider();
+    private JPanel chooseTextPanel = new JPanel();
+        private JLabel chooseText = new JLabel("Choix de Map :");
+    private JPanel mapChoicePanel = new JPanel();
+        private JPanel mapPanel = new JPanel();
+            private JButton map1Panel = new JButton();
+                private JLabel map1Image = new JLabel();
+                private ImageIcon plainImage;
+                private ImageIcon plainGrayImage;
+                private JLabel map1Title = new JLabel("Plaine des Vertus");
+            private JButton map2Panel = new JButton();
+                private JLabel map2Image = new JLabel();
+                private ImageIcon desertImage;
+                private ImageIcon desertGrayImage;
+                private JLabel map2Title = new JLabel("Voie Royale");
 
 
     //Méthodes nécessaires pour la construction de la vue ;
