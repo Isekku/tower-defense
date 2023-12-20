@@ -6,11 +6,14 @@ import game.ui.Style;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ChooseVersion extends JFrame implements State {
     protected JPanel chooseVersionPanel;
+    public static boolean isFirstTime = true;
 
         protected JPanel chooseTextPanel = new JPanel();
             protected JLabel chooseVersionText = new JLabel();
@@ -46,20 +49,17 @@ public class ChooseVersion extends JFrame implements State {
         buttonPanel.setLayout(new BorderLayout());
             chooseVersionButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
                 stylishButton(normalButton, "Mode Normale", false);
-                normalButton.addActionListener((event) -> controller.mouseClicked(controller.NORMAL_MODE));
-                addMouseListener(normalButton);
+                addClickListener(normalButton, controller.NORMAL_MODE);
 
                 stylishButton(marathonButton, "Mode Marathon", false);
-                marathonButton.addActionListener((event) -> controller.mouseClicked(controller.MARATHON_MODE));
-                addMouseListener(marathonButton);
+                addClickListener(marathonButton, controller.MARATHON_MODE);
 
                 chooseVersionButtonPanel.add(normalButton);
                 chooseVersionButtonPanel.add(marathonButton);
 
             goBackButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
                 stylishButton(goBackButton, "<- Retour en arrière", true);
-                goBackButton.addActionListener((event) -> controller.mouseClicked(controller.GO_BACK));
-                addMouseListener(goBackButton);
+                addClickListener(goBackButton, controller.GO_BACK);
 
                 goBackButtonPanel.add(goBackButton);
 
@@ -68,9 +68,29 @@ public class ChooseVersion extends JFrame implements State {
 
         chooseVersionPanel.add(chooseTextPanel);
         chooseVersionPanel.add(buttonPanel);
+
+        //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
+        refresh();
     }
 
-    public void addMouseListener(JButton button){
+    public void refresh(){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                chooseVersionPanel.revalidate();
+                chooseVersionPanel.repaint();
+            }
+        });
+    }
+
+    public void addClickListener(JButton button, int value) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.mouseClicked(value);
+            }
+        });
+
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -97,7 +117,16 @@ public class ChooseVersion extends JFrame implements State {
         Style.stylishButton(button);
     }
 
-    public void quitState(){}
+    public void quitState(){
+    }
+
+    public boolean isFirstTime(){
+        return isFirstTime;
+    }
+
+    public void notFirstTime(){
+        if(isFirstTime()) isFirstTime = false;
+    }
 
     public static ChooseVersion getInstance(){
         return instance;

@@ -1,15 +1,14 @@
 package game.ui.Vue;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import game.ui.Controller.PlayingController;
-
-import javax.swing.JFrame;
 
 public class Playing extends JFrame implements State{
     private static final Playing instance = new Playing();
     private PlayingController controller;
     protected JPanel playingPanel;
+    public static boolean isFirstTime = true;
 
 
     public Playing(){
@@ -21,13 +20,37 @@ public class Playing extends JFrame implements State{
         return instance;
     }
 
+    public static int compte = 1;
+
     public void enterState() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         // début du jeu
-        System.out.println("Entering Playing state");
+
+        //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
+        refresh();
     }
 
-    public void quitState(){}
+    public void refresh(){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                playingPanel.revalidate();
+                playingPanel.repaint();
+            }
+        });
+
+    }
+
+    public boolean isFirstTime(){
+        return isFirstTime;
+    }
+
+    public void notFirstTime(){
+        if(isFirstTime()) isFirstTime = false;
+    }
+
+    public void quitState(){
+    }
 
     public JPanel getView() {
         return playingPanel;

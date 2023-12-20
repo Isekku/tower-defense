@@ -12,10 +12,8 @@ public class GameFrame extends JFrame {
         setSize(800, 800);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        setVisible(true);
-
         setCurrentPanel(Game.game_state.getState().getView());
-
+        setVisible(true);
     }
 
     public void setCurrentPanel(JPanel panel){
@@ -24,6 +22,9 @@ public class GameFrame extends JFrame {
         }
         currentPanel = panel;
         add(currentPanel, BorderLayout.CENTER);
-        Game.game_state.startState();
+        if(Game.game_state.getState().isFirstTime()){
+            Game.game_state.startState();
+            Game.game_state.getState().notFirstTime();
+        }
     }
 }

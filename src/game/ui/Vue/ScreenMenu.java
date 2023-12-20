@@ -13,6 +13,7 @@ import game.ui.Style;
 
 public class ScreenMenu extends JFrame implements State {
     JPanel screenMenuPanel;
+    public static boolean isFirstTime = true;
     private static final ScreenMenu instance = new ScreenMenu();
     ScreenMenuController controller = new ScreenMenuController(this);
 
@@ -69,14 +70,30 @@ public class ScreenMenu extends JFrame implements State {
             menuPanel.add(buttonContainerPanel);
 
         screenMenuPanel.add(menuPanel, BorderLayout.CENTER);
+
+        //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
+        refresh();
+    }
+
+    public void refresh(){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                screenMenuPanel.revalidate();
+                screenMenuPanel.repaint();
+            }
+        });
     }
 
     public void quitState(){
-        screenMenuPanel.removeAll();
-        menuPanel.removeAll();
-        menuTextPanel.removeAll();
-        buttonContainerPanel.removeAll();
-        buttonPanel.removeAll();
+    }
+
+    public boolean isFirstTime(){
+        return isFirstTime;
+    }
+
+    public void notFirstTime(){
+        if(isFirstTime()) isFirstTime = false;
     }
 
     public static ScreenMenu getInstance(){

@@ -15,10 +15,10 @@ public class ChooseVersionController extends Controller {
 
     public void mouseClicked(int value) {
         if (value == NORMAL_MODE || value == MARATHON_MODE) {
-            super.changeView(GameState.MAP);
+            changeView(GameState.MAP);
         }
         if (value == GO_BACK) {
-            super.changeView(GameState.MENU);
+            changeView(GameState.MENU);
         }
     }
 

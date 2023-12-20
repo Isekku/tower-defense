@@ -21,6 +21,7 @@ import java.util.concurrent.Flow;
 
 public class ChooseMap extends JFrame implements State {
     protected JPanel chooseMapPanel;
+    public static boolean isFirstTime = true;
 
     private ChooseMapController controller;
     private static final ChooseMap instance = new ChooseMap();
@@ -73,6 +74,8 @@ public class ChooseMap extends JFrame implements State {
                 ImageIcon desertImage;
                 ImageIcon desertGrayImage;
                 JLabel map2Title = new JLabel("Voie Royale");
+
+                public static int compte = 1;
 
     public void enterState(){
         difficultyPanel.setLayout(new BorderLayout());
@@ -158,9 +161,32 @@ public class ChooseMap extends JFrame implements State {
 
         chooseMapPanel.add(difficultyPanel, BorderLayout.NORTH);
         chooseMapPanel.add(mapChoicePanel, BorderLayout.CENTER);
+
+        //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
+        refresh();
     }
 
-    public void quitState(){}
+    public void refresh(){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                chooseMapPanel.revalidate();
+                chooseMapPanel.repaint();
+            }
+        });
+    }
+
+    public void quitState(){
+        System.out.println();
+    }
+
+    public boolean isFirstTime(){
+        return isFirstTime;
+    }
+
+    public void notFirstTime(){
+        if(isFirstTime()) isFirstTime = false;
+    }
 
     public void setSlider(JSlider slider){
         slider.setMajorTickSpacing(1);

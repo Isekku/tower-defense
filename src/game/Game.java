@@ -25,7 +25,6 @@ public class Game {
                 model = new Model();
                 screen = new GameFrame();
                 screen.setCurrentPanel(game_state.getState().getView());
-                screen.revalidate();
             }
         });
 

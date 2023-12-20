@@ -13,4 +13,9 @@ public interface State {
     public void enterState();
     public void quitState();
     public JPanel getView();
+
+    public void refresh();
+
+    public boolean isFirstTime();
+    public void notFirstTime();
 }
