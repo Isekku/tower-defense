@@ -171,7 +171,6 @@ public class ChooseMap extends JFrame implements State {
         });
     }
     public void quitState(){
-        System.out.println();
     }
     public boolean isFirstTime(){
         return isFirstTime;

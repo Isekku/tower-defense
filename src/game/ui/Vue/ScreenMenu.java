@@ -85,6 +85,9 @@ public class ScreenMenu extends JFrame implements State {
         });
     }
     public void quitState(){
+        stylishButton(playButton);
+        stylishButton(optionButton);
+        stylishButton(quitButton);
     }
     public boolean isFirstTime(){
         return isFirstTime;

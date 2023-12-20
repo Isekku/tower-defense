@@ -26,13 +26,13 @@ public class ChooseVersion extends JFrame implements State {
     }
     //Les Panels et les Components besoins pour l'affichage :
         JPanel chooseTextPanel = new JPanel();
-            JLabel chooseVersionText = new JLabel();
+            JLabel chooseVersionText = new JLabel("Choisissez un mode de jeu :");
         JPanel buttonPanel = new JPanel();
             JPanel chooseVersionButtonPanel = new JPanel();
-                JButton normalButton = new JButton();
-                JButton marathonButton = new JButton();
+                JButton normalButton = new JButton("Mode Normale");
+                JButton marathonButton = new JButton("Mode Marathon");
             JPanel goBackButtonPanel = new JPanel();
-                JButton goBackButton = new JButton();
+                JButton goBackButton = new JButton("<- Retour en arrière");
 
     //Méthodes nécessaires pour la construction de la vue :
     public void enterState(){
@@ -41,7 +41,6 @@ public class ChooseVersion extends JFrame implements State {
         chooseVersionPanel.setLayout(new GridLayout(2, 1));
 
         chooseTextPanel.setLayout(new BorderLayout());
-            chooseVersionText.setText("Choisissez un mode de jeu :");
             chooseVersionText.setFont(new Font("Comics Sans MS", Font.BOLD, 50));
             chooseVersionText.setHorizontalAlignment(SwingConstants.CENTER);
             chooseTextPanel.add(chooseVersionText, BorderLayout.SOUTH);
@@ -49,17 +48,17 @@ public class ChooseVersion extends JFrame implements State {
 
         buttonPanel.setLayout(new BorderLayout());
             chooseVersionButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
-                stylishButton(normalButton, "Mode Normale", false);
+                stylishButton(normalButton, false);
                 addClickListener(normalButton, controller.NORMAL_MODE);
 
-                stylishButton(marathonButton, "Mode Marathon", false);
+                stylishButton(marathonButton, false);
                 addClickListener(marathonButton, controller.MARATHON_MODE);
 
                 chooseVersionButtonPanel.add(normalButton);
                 chooseVersionButtonPanel.add(marathonButton);
 
             goBackButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-                stylishButton(goBackButton, "<- Retour en arrière", true);
+                stylishButton(goBackButton, true);
                 addClickListener(goBackButton, controller.GO_BACK);
 
                 goBackButtonPanel.add(goBackButton);
@@ -83,6 +82,9 @@ public class ChooseVersion extends JFrame implements State {
         });
     }
     public void quitState(){
+        stylishButton(normalButton, false);
+        stylishButton(marathonButton, false);
+        stylishButton(goBackButton, true);
     }
     public boolean isFirstTime(){
         return isFirstTime;
@@ -93,8 +95,7 @@ public class ChooseVersion extends JFrame implements State {
     }
 
     //Méthodes propre à la construction de Component plus spécifique :
-    public void stylishButton(JButton button, String text, boolean isLittle){
-        button.setText(text);
+    public void stylishButton(JButton button, boolean isLittle){
         if(isLittle){
             button.setFont(Style.littleButtonFont);
             button.setPreferredSize(Style.littleButtonDimension);
