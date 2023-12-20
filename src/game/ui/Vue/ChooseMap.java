@@ -31,7 +31,7 @@ public class ChooseMap extends JFrame implements State {
         chooseMapPanel = new JPanel(new GridLayout(2, 1));
 
         try{
-            plainImage = new ImageIcon(ImageIO.read(getClass().getResource("/resources/bouttons/plaine_des_vertus.jpeg")));
+            plainImage = new ImageIcon(ImageIO.read(getClass().getResource("/ressources/bouttons/plaine_des_vertus.jpeg")));
             plainImage = new ImageIcon(plainImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
             plainGrayImage = new ImageIcon(ImageIO.read(getClass().getResource("/resources/bouttons/plaine_des_vertus_gris.jpg")));
@@ -81,8 +81,6 @@ public class ChooseMap extends JFrame implements State {
 
                 difficultyAndDescriptionLabel.add(difficultyText);
                 difficultyAndDescriptionLabel.add(difficultySlider);
-
-                difficultySlider.addChangeListener((event) -> controller.changeDifficulty(difficultySlider.getValue()));
 
 
 
@@ -173,6 +171,7 @@ public class ChooseMap extends JFrame implements State {
         });
     }
     public void quitState(){
+        controller.changeDifficulty(difficultySlider.getValue());
     }
     public boolean isFirstTime(){
         return isFirstTime;
