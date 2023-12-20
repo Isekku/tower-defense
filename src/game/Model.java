@@ -70,8 +70,8 @@ public class Model {
         System.out.println("life: " + life);
         System.out.println("wave: " + wave);
         System.out.println("difficulty: " + difficulty);
-        System.out.println("mapType: " + mapType);
         System.out.println("mode: " + mode);
+        System.out.println("mapType: " + mapType);
     }
 
 }

@@ -19,6 +19,7 @@ public class GameFrame extends JFrame {
     public void setCurrentPanel(JPanel panel){
         if(currentPanel != null) {
             remove(currentPanel);
+            System.gc();
         }
         currentPanel = panel;
         add(currentPanel, BorderLayout.CENTER);
