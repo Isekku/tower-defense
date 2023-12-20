@@ -65,7 +65,7 @@ public class Model {
 
     public void print(){
        // System.out.println("state: " + state);
-        System.out.println("map: " + map);
+        System.out.println("map: " + '\n' + map);
         System.out.println("money: " + money);
         System.out.println("life: " + life);
         System.out.println("wave: " + wave);
