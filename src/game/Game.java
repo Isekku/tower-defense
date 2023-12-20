@@ -22,7 +22,7 @@ public class Game {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                model = new Model();
+                model = Model.getInstance();
                 screen = new GameFrame();
                 screen.setCurrentPanel(game_state.getState().getView());
             }

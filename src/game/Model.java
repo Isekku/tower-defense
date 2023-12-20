@@ -15,6 +15,13 @@ public class Model {
     
 
     public Model() {
+        if (instance != null) {
+            System.out.println(getClass().getName() + " already instantiated");
+            throw new IllegalStateException("Already instantiated");
+        }
+        else {
+            System.out.println("Model created");
+        }
         this.state = GameState.MENU;
         this.map = new Map(10, 11);
         this.money = 100;
@@ -36,6 +43,10 @@ public class Model {
 
     public void setDifficulty(int difficulty){
         this.difficulty = difficulty;
+    }
+
+    public void reset(){
+
     }
 
 }
