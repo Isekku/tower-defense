@@ -27,6 +27,7 @@ public class Model {
         this.money = 100;
         this.life = 10;
         this.wave = 0;
+        this.difficulty = 0;
 
         map.setSell(5, 5, new Tower(5, 5, 0, 0, 0, 0, 0));
         map.setSell(6, 6, new Entity(6, 6, 0, 0, 0));
