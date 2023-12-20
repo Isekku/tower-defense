@@ -17,7 +17,12 @@ public class ChooseMapController extends Controller{
     public void mouseClicked(int value){
         if(value == PLAIN_MODE || value == DESERT_MODE){
             Controller.changeView(GameState.PLAYING);
+            model.setMapType(value);
         }
+    }
+
+    public void changeDifficulty(int value){
+        model.setDifficulty(value);
     }
 
     public void mouseIsHovering(JButton button, JLabel image, ImageIcon icon, int value){

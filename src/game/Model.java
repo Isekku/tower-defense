@@ -4,15 +4,17 @@ import game.map.Map;
 import game.mobs.entities.Entity;
 import game.mobs.towers.Tower;
 
+
 public class Model {
     private static final Model instance = new Model();
-    private GameState state;
+   // private GameState state;
     private Map map;
     private int money;
     private int life;
     private int wave;
     private int difficulty;
-    
+    private int mapType;
+    private int mode;
 
     public Model() {
         if (instance != null) {
@@ -22,7 +24,7 @@ public class Model {
         else {
             System.out.println("Model created");
         }
-        this.state = GameState.MENU;
+        //this.state = GameState.MENU;
         this.map = new Map(10, 11);
         this.money = 100;
         this.life = 10;
@@ -44,10 +46,32 @@ public class Model {
 
     public void setDifficulty(int difficulty){
         this.difficulty = difficulty;
+        print();
+    }
+
+    public void setMapType(int mapType){
+        this.mapType = mapType;
+        print();
+    }
+
+    public void setMode(int mode){
+        this.mode = mode;
+        print();
     }
 
     public void reset(){
 
+    }
+
+    public void print(){
+       // System.out.println("state: " + state);
+        System.out.println("map: " + map);
+        System.out.println("money: " + money);
+        System.out.println("life: " + life);
+        System.out.println("wave: " + wave);
+        System.out.println("difficulty: " + difficulty);
+        System.out.println("mapType: " + mapType);
+        System.out.println("mode: " + mode);
     }
 
 }

@@ -25,6 +25,7 @@ public class Game {
                 model = Model.getInstance();
                 screen = new GameFrame();
                 screen.setCurrentPanel(game_state.getState().getView());
+                model.print();
             }
         });
 

@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Controller {
     protected JFrame view ;
-    protected Model model;
+    protected Model model = Model.getInstance();
     public static void changeView(GameState state){
         Game.game_state.getState().quitState();
         System.out.println("Changing view to: " + state);

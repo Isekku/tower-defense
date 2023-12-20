@@ -82,6 +82,8 @@ public class ChooseMap extends JFrame implements State {
                 difficultyAndDescriptionLabel.add(difficultyText);
                 difficultyAndDescriptionLabel.add(difficultySlider);
 
+                difficultySlider.addChangeListener((event) -> controller.changeDifficulty(difficultySlider.getValue()));
+
 
 
             difficultyPanel.add(difficultyAndDescriptionLabel, BorderLayout.CENTER);
