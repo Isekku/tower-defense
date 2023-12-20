@@ -5,23 +5,25 @@ import javax.swing.*;
 import game.ui.Controller.PlayingController;
 
 public class Playing extends JFrame implements State{
-    private static final Playing instance = new Playing();
-    private PlayingController controller;
+    //Tout attributs permettant d'instancier la classe :
     protected JPanel playingPanel;
     public static boolean isFirstTime = true;
+    private static final Playing instance = new Playing();
+    private PlayingController controller;
 
-
+    //Constructeur unique :
     public Playing(){
         controller = new PlayingController(this);
         playingPanel = new JPanel();
     }
 
-    public static Playing getInstance(){
-        return instance;
-    }
+    //Les Panels et les Components besoins pour l'affichage :
 
-    public static int compte = 1;
 
+
+
+
+    //Méthodes nécessaires pour la construction de la vue :
     public void enterState() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         // début du jeu
@@ -29,7 +31,6 @@ public class Playing extends JFrame implements State{
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
     }
-
     public void refresh(){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -40,7 +41,8 @@ public class Playing extends JFrame implements State{
         });
 
     }
-
+    public void quitState(){
+    }
     public boolean isFirstTime(){
         return isFirstTime;
     }
@@ -49,9 +51,22 @@ public class Playing extends JFrame implements State{
         if(isFirstTime()) isFirstTime = false;
     }
 
-    public void quitState(){
-    }
+    //Méthodes propre à la construction de Component plus spécifique :
 
+
+
+
+
+    //Méthodes permettant d'attribuer les méthodes en fonctino d'action produit sur le bouton :
+
+
+
+
+
+    //Méthodes nécessaire pour l'accessiblité externe de la classe :
+    public static Playing getInstance(){
+        return instance;
+    }
     public JPanel getView() {
         return playingPanel;
     }

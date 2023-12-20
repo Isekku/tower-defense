@@ -12,11 +12,19 @@ import game.ui.Controller.ScreenMenuController;
 import game.ui.Style;
 
 public class ScreenMenu extends JFrame implements State {
-    JPanel screenMenuPanel;
+    //Tout attributs permettant d'instancier la classe :
+    protected JPanel screenMenuPanel;
     public static boolean isFirstTime = true;
     private static final ScreenMenu instance = new ScreenMenu();
-    ScreenMenuController controller = new ScreenMenuController(this);
+    private ScreenMenuController controller = new ScreenMenuController(this);
 
+    //Constructeur unique :
+    public ScreenMenu(){
+        this.screenMenuPanel = new JPanel();
+        screenMenuPanel.setLayout(new BorderLayout());
+    }
+
+    //Les Panels et les Components besoins pour l'affichage :
     JPanel menuPanel = new JPanel();
         JPanel menuTextPanel = new JPanel();
             JLabel gameTitle = new JLabel("Plants Vs Zombie", JLabel.CENTER);
@@ -26,11 +34,7 @@ public class ScreenMenu extends JFrame implements State {
                 JButton optionButton = new JButton("Option");
                 JButton quitButton = new JButton("Quitter");
 
-    public ScreenMenu(){
-        this.screenMenuPanel = new JPanel();
-        screenMenuPanel.setLayout(new BorderLayout());
-    }
-
+    //Méthodes nécessaires pour la construction de la vue :
     public void enterState() {
         menuPanel.setLayout(new GridLayout(2, 1));
             menuTextPanel.setLayout(new BorderLayout());
@@ -42,23 +46,20 @@ public class ScreenMenu extends JFrame implements State {
 
 
                 buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-                    addMouseListener(playButton);
+                    addClickListener(playButton, controller.PLAY_GAME);
                     stylishButton(playButton);
-                    playButton.addActionListener((event) -> controller.mouseClicked(controller.PLAY_GAME));
                     buttonPanel.add(playButton);
 
                     buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-                    addMouseListener(optionButton);
+                    addClickListener(optionButton, controller.OPTION_GAME);
                     stylishButton(optionButton);
-                    optionButton.addActionListener((event) -> controller.mouseClicked(controller.OPTION_GAME));
                     buttonPanel.add(optionButton);
 
                     buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-                    addMouseListener(quitButton);
+                    addClickListener(quitButton, controller.LEAVE_GAME);
                     stylishButton(quitButton);
-                    quitButton.addActionListener((event) -> controller.mouseClicked(controller.LEAVE_GAME));
                     buttonPanel.add(quitButton);
 
                     buttonPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
@@ -74,7 +75,6 @@ public class ScreenMenu extends JFrame implements State {
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
     }
-
     public void refresh(){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -84,26 +84,16 @@ public class ScreenMenu extends JFrame implements State {
             }
         });
     }
-
     public void quitState(){
     }
-
     public boolean isFirstTime(){
         return isFirstTime;
     }
-
     public void notFirstTime(){
         if(isFirstTime()) isFirstTime = false;
     }
 
-    public static ScreenMenu getInstance(){
-        return instance;
-    }
-
-    public JPanel getView(){
-        return this.screenMenuPanel;
-    }
-
+    //Méthode propre à la construction de Component plus spécifiques :
     private void stylishButton(JButton button){
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setMaximumSize(Style.buttonDimension);
@@ -111,7 +101,14 @@ public class ScreenMenu extends JFrame implements State {
         Style.stylishButton(button);
     }
 
-    private void addMouseListener(JButton button){
+    //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
+    private void addClickListener(JButton button, int value){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                controller.mouseClicked(value);
+            }
+        });
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -122,5 +119,13 @@ public class ScreenMenu extends JFrame implements State {
                 controller.mouseIsOut(button);
             }
         });
+    }
+
+    //Méthodes nécessaire pour l'accessibilité externe de la classe :
+    public static ScreenMenu getInstance(){
+        return instance;
+    }
+    public JPanel getView(){
+        return this.screenMenuPanel;
     }
 }

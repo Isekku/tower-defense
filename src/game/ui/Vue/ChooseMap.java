@@ -10,9 +10,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +18,14 @@ import java.util.Hashtable;
 import java.util.concurrent.Flow;
 
 public class ChooseMap extends JFrame implements State {
+
+    //Tout attributs permettant d'instancier la classe :
     protected JPanel chooseMapPanel;
     public static boolean isFirstTime = true;
-
-    private ChooseMapController controller;
     private static final ChooseMap instance = new ChooseMap();
+    private ChooseMapController controller;
 
+    //Constructeur unique :
     public ChooseMap() {
         controller = new ChooseMapController(this);
         chooseMapPanel = new JPanel(new GridLayout(2, 1));
@@ -51,32 +51,28 @@ public class ChooseMap extends JFrame implements State {
         }
     }
 
-    //Les Panel et les Components besoins pour l'affichage :
+    //Les Panels et les Components besoins pour l'affichage :
     JPanel difficultyPanel = new JPanel();
         JPanel difficultyAndDescriptionLabel = new JPanel();
             JLabel difficultyText = new JLabel("Difficulté : ");
             JSlider difficultySlider = new JSlider();
-
     JPanel chooseTextPanel = new JPanel();
         JLabel chooseText = new JLabel("Choix de Map :");
-
     JPanel mapChoicePanel = new JPanel();
-
         JPanel mapPanel = new JPanel();
             JButton map1Panel = new JButton();
                 JLabel map1Image = new JLabel();
                 ImageIcon plainImage;
                 ImageIcon plainGrayImage;
                 JLabel map1Title = new JLabel("Plaine des Vertus");
-
             JButton map2Panel = new JButton();
                 JLabel map2Image = new JLabel();
                 ImageIcon desertImage;
                 ImageIcon desertGrayImage;
                 JLabel map2Title = new JLabel("Voie Royale");
 
-                public static int compte = 1;
 
+    //Méthodes nécessaires pour la construction de la vue ;
     public void enterState(){
         difficultyPanel.setLayout(new BorderLayout());
             difficultyAndDescriptionLabel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -165,7 +161,6 @@ public class ChooseMap extends JFrame implements State {
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
     }
-
     public void refresh(){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -175,19 +170,17 @@ public class ChooseMap extends JFrame implements State {
             }
         });
     }
-
     public void quitState(){
         System.out.println();
     }
-
     public boolean isFirstTime(){
         return isFirstTime;
     }
-
     public void notFirstTime(){
         if(isFirstTime()) isFirstTime = false;
     }
 
+    //Méthode propre à la construction de Components plus spécifiques :
     public void setSlider(JSlider slider){
         slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
@@ -206,6 +199,7 @@ public class ChooseMap extends JFrame implements State {
         slider.setLabelTable(labelTable);
     }
 
+    //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
     public static void buttonIsHovered(JButton button, JLabel imageLabel, ImageIcon icon, int MODE){
         if(MODE == 1){
             Border line = new LineBorder(new Color(154, 255, 138),5, true);
@@ -223,7 +217,6 @@ public class ChooseMap extends JFrame implements State {
             imageLabel.setIcon(icon);
         }
     }
-
     public static void buttonIsNormal(JButton button, JLabel imageLabel, ImageIcon icon){
             Border line = new LineBorder(Color.BLACK,5, true);
             Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
@@ -232,10 +225,10 @@ public class ChooseMap extends JFrame implements State {
             imageLabel.setIcon(icon);
     }
 
+    //Méthode nécessaire pour l'accessibilité externe de la classe :
     public static ChooseMap getInstance(){
         return instance;
     }
-
     public JPanel getView(){
         return this.chooseMapPanel;
     }

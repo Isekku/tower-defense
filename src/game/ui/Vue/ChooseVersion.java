@@ -12,28 +12,29 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ChooseVersion extends JFrame implements State {
+    //Tout attributs permettant d'instancier la classe :
     protected JPanel chooseVersionPanel;
     public static boolean isFirstTime = true;
-
-        protected JPanel chooseTextPanel = new JPanel();
-            protected JLabel chooseVersionText = new JLabel();
-        protected JPanel buttonPanel = new JPanel();
-            protected JPanel chooseVersionButtonPanel = new JPanel();
-                protected JButton normalButton = new JButton();
-                protected JButton marathonButton = new JButton();
-            protected JPanel goBackButtonPanel = new JPanel();
-                protected JButton goBackButton = new JButton();
-
-
-    private ChooseVersionController controller;
     private static final ChooseVersion instance = new ChooseVersion();
+    private ChooseVersionController controller;
 
+    //Constructeur unique :
     public ChooseVersion(){
         controller = new ChooseVersionController(this);
         chooseVersionPanel = new JPanel();
         chooseVersionPanel.setLayout(new BorderLayout());
     }
+    //Les Panels et les Components besoins pour l'affichage :
+        JPanel chooseTextPanel = new JPanel();
+            JLabel chooseVersionText = new JLabel();
+        JPanel buttonPanel = new JPanel();
+            JPanel chooseVersionButtonPanel = new JPanel();
+                JButton normalButton = new JButton();
+                JButton marathonButton = new JButton();
+            JPanel goBackButtonPanel = new JPanel();
+                JButton goBackButton = new JButton();
 
+    //Méthodes nécessaires pour la construction de la vue :
     public void enterState(){
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -72,7 +73,6 @@ public class ChooseVersion extends JFrame implements State {
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
     }
-
     public void refresh(){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -82,7 +82,31 @@ public class ChooseVersion extends JFrame implements State {
             }
         });
     }
+    public void quitState(){
+    }
+    public boolean isFirstTime(){
+        return isFirstTime;
+    }
 
+    public void notFirstTime(){
+        if(isFirstTime()) isFirstTime = false;
+    }
+
+    //Méthodes propre à la construction de Component plus spécifique :
+    public void stylishButton(JButton button, String text, boolean isLittle){
+        button.setText(text);
+        if(isLittle){
+            button.setFont(Style.littleButtonFont);
+            button.setPreferredSize(Style.littleButtonDimension);
+        }
+        else{
+            button.setFont(Style.buttonFont);
+            button.setPreferredSize(Style.buttonDimension);
+        }
+        Style.stylishButton(button);
+    }
+
+    //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
     public void addClickListener(JButton button, int value) {
         button.addActionListener(new ActionListener() {
             @Override
@@ -104,34 +128,10 @@ public class ChooseVersion extends JFrame implements State {
         });
     }
 
-    public void stylishButton(JButton button, String text, boolean isLittle){
-        button.setText(text);
-        if(isLittle){
-            button.setFont(Style.littleButtonFont);
-            button.setPreferredSize(Style.littleButtonDimension);
-        }
-        else{
-            button.setFont(Style.buttonFont);
-            button.setPreferredSize(Style.buttonDimension);
-        }
-        Style.stylishButton(button);
-    }
-
-    public void quitState(){
-    }
-
-    public boolean isFirstTime(){
-        return isFirstTime;
-    }
-
-    public void notFirstTime(){
-        if(isFirstTime()) isFirstTime = false;
-    }
-
+    //Méthodes nécessaire pour l'accessibilité externe de la classe :
     public static ChooseVersion getInstance(){
         return instance;
     }
-
     public JPanel getView(){
         return chooseVersionPanel;
     }

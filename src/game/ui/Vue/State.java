@@ -14,6 +14,9 @@ public interface State {
     public void quitState();
     public JPanel getView();
 
+    /**
+     * Méthode permettant d'avoir un affichage correcte du Panel dans la fenêtre de l'utilisateur
+     * */
     public void refresh();
 
     public boolean isFirstTime();
