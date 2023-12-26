@@ -15,6 +15,7 @@ public class Model {
     private int difficulty;
     private int mapType;
     private int mode;
+    private int time;
 
     public Model() {
         if (instance != null) {
@@ -47,6 +48,7 @@ public class Model {
     public void setDifficulty(int difficulty){
         this.difficulty = difficulty;
         print();
+        time = 0;
     }
 
     public void setMapType(int mapType){
@@ -73,5 +75,42 @@ public class Model {
         System.out.println("mode: " + mode);
         System.out.println("mapType: " + mapType);
     }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public int getWave() {
+        return wave;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public int getMapType() {
+        return mapType;
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void incrementMoney(int money) {
+        this.money += money;
+    }
+    
 
 }
