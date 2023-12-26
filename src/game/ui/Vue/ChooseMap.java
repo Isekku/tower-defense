@@ -31,7 +31,6 @@ public class ChooseMap extends JFrame implements State {
         chooseMapPanel = new JPanel(new GridLayout(2, 1));
 
         try{
-            System.out.println(getClass().getResource("../../../resources/buttons/plaine_des_vertus.jpeg"));
             plainImage = new ImageIcon(ImageIO.read(getClass().getResource("../../../resources/buttons/plaine_des_vertus.jpeg")));
             plainImage = new ImageIcon(plainImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
