@@ -16,6 +16,14 @@ public class Style {
     public static Dimension littleButtonDimension = new Dimension(200, 50);
     public static Border line = new LineBorder(Color.BLACK,5, true);
     public static Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
+    public static String stringGras = "\u001B[1m";
+    public static String stringBase = "\u001B[0m";
+    public static String stringCouleurCyan = "\u001B[36m";
+    public static String stringCouleurRouge = "\u001B[31m";
+    public static String stringCouleurPourpre = "\u001B[35m";
+    public static String stringCouleurVert = "\u001B[32m";
+    public static String stringCouleurJaune= "\u001B[33m";
+
 
     public static void buttonIsHovered(JButton button){
         button.setForeground(Color.GRAY);

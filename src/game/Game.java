@@ -8,28 +8,21 @@ public class Game {
     public static Model model;
     public static GameFrame screen;
     public static void main(String[] args) {
-        // Map map = new Map(10, 11);
-        // System.out.println(map.setSell(5, 5, new Tower(5, 5, 0, 0, 0, 0, 0)));
-        // System.out.println(map.setSell(6, 6, new Entity(6, 6, 0, 0, 0)));
-        // Model model = new Model();
-
-
-        // if contain "console" then run console
-        // if (args.length > 0 && args[0].equals("console") || args[0].equals("-terminal") || args[0].equals("--terminal")) {
-            //Game.runTerminal(controller);
-        // }
-        Game.runGraphic();
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                model = Model.getInstance();
-                screen = new GameFrame();
-                screen.setCurrentPanel(game_state.getState().getView());
-                model.print();
-            }
-        });
-
-
+        if(args.length != 0 && (args[0].equals("-terminal") || args[0].equals("--terminal"))){
+            runTerminal();
+        }
+        else{
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("c moua");
+                    model = Model.getInstance();
+                    screen = new GameFrame();
+                    screen.setCurrentPanel(game_state.getState().getView());
+                    model.print();
+                }
+            });
+        }
     }
 
     public static void runTerminal() {
