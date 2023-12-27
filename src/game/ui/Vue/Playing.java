@@ -78,15 +78,13 @@ public class Playing extends JFrame implements State{
                 mapGridPanel.setLayout(new GridLayout(hauteur, largeur));
                     for(int i = 0; i < hauteur; i++){
                         for(int j = 0; j < largeur; j++){
-                            mapGrid[i][j] = new JPanel();
-                            mapGrid[i][j].setLayout(new GridLayout(1,1));
-                            if(i%2 == 0){
-                                mapGrid[i][j].add(new JLabel(herbeImage));
-                                mapGrid[i][j].setBorder(Style.line);
-                            }
-                            else mapGrid[i][j].add(new JLabel("Sable"));
+                            mapGrid[i][j] = new JPanel() {
+                                protected void paintComponent(Graphics g){
+                                    super.paintComponent(g);
+                                    g.drawImage(terreImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+                                }
+                            };
                             mapGridPanel.add(mapGrid[i][j]);
-
                         }
 
                     }
