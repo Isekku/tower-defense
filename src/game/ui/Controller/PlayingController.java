@@ -60,7 +60,7 @@ public class PlayingController extends Controller{
                     for (int j = 0; j < map.getLargeur(); j++){
                         if(map.getCell(i, j) != null){
                             // pas encore implémenté
-
+                        }
                     }
                 }
             }
