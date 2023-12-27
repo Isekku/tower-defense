@@ -40,7 +40,7 @@ public class Terminal implements View{
                 valid = false;
             }
             if(valid) this.chooseMode = Integer.valueOf(chooseMode) - 1;
-            else System.out.println(stringGras + stringCouleurRouge + "La valeur entré est incorrect !");
+            else System.out.println(stringGras + stringCouleurRouge + "La valeur entré est incorrecte !");
         }
 
         //Demande du choix de la map :
@@ -52,7 +52,7 @@ public class Terminal implements View{
                 valid = false;
             }
             if(valid) this.chooseMap = Integer.valueOf(chooseMap) - 1;
-            else System.out.println(stringGras + stringCouleurRouge + "La valeur entré est incorrect !" + stringCouleurRouge);
+            else System.out.println(stringGras + stringCouleurRouge + "La valeur entré est incorrecte !" + stringCouleurRouge);
         }
     }
 
