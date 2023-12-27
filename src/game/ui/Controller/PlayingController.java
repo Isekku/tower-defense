@@ -25,7 +25,7 @@ public class PlayingController extends Controller{
             System.out.println("combat en cours");
             return;
         } 
-        System.out.println("Début de la vague: " + model.getWave());
+        System.out.println("Début de la vague: " + (model.getWave() + 1));
         new Thread(){
             public void run(){
                 try {
