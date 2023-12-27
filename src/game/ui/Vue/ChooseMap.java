@@ -1,5 +1,6 @@
 package game.ui.Vue;
 
+import game.Game;
 import game.ui.Controller.ChooseMapController;
 import game.ui.Style;
 
@@ -11,11 +12,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Hashtable;
-import java.util.concurrent.Flow;
 
 public class ChooseMap extends JFrame implements State {
 
@@ -29,18 +28,19 @@ public class ChooseMap extends JFrame implements State {
     public ChooseMap() {
         controller = new ChooseMapController(this);
         chooseMapPanel = new JPanel(new GridLayout(2, 1));
+        String imagePath = "/resources/buttons/";
 
         try{
-            plainImage = new ImageIcon(ImageIO.read(getClass().getResource("../../../resources/buttons/plaine_des_vertus.jpeg")));
+            plainImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(imagePath+"plaine_des_vertus.jpeg")));
             plainImage = new ImageIcon(plainImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
-            plainGrayImage = new ImageIcon(ImageIO.read(getClass().getResource("../../../resources/buttons/plaine_des_vertus_gris.jpg")));
+            plainGrayImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(imagePath+"plaine_des_vertus_gris.jpg")));
             plainGrayImage = new ImageIcon(plainGrayImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
-            desertImage = new ImageIcon(ImageIO.read(getClass().getResource("../../../resources/buttons/voie_royale.jpeg")));
+            desertImage = new ImageIcon(ImageIO.read(getClass().getResource(imagePath+"voie_royale.jpeg")));
             desertImage = new ImageIcon(desertImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
-            desertGrayImage = new ImageIcon(ImageIO.read(getClass().getResource("../../../resources/buttons/voie_royale_gris.jpg")));
+            desertGrayImage = new ImageIcon(ImageIO.read(getClass().getResource(imagePath+"voie_royale_gris.jpg")));
             desertGrayImage = new ImageIcon(desertGrayImage.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
         }
         catch (IOException e){

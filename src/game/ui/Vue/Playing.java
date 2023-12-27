@@ -1,15 +1,14 @@
 package game.ui.Vue;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.tools.Tool;
 
 import game.ui.Controller.PlayingController;
+import game.ui.Style;
 
 public class Playing extends JFrame implements State{
     //Tout attributs permettant d'instancier la classe :
@@ -18,7 +17,26 @@ public class Playing extends JFrame implements State{
     private PlayingController controller;
     private final int hauteur = 10;
     private final int largeur = 11;
+    private final String assetPath = "/resources/assets/";
 
+    //Constructeur unique :
+    public Playing(){
+        controller = new PlayingController(this);
+        playingPanel = new JPanel();
+
+        try{
+            terreImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(assetPath+"terrain/Tiles/FieldsTile_01.png")));
+            herbeImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(assetPath+"terrain/Tiles/FieldsTile_38.png")));
+        }
+        catch(IOException e){
+            System.out.println("L'asset donné n'est pas la bonne");
+        }
+        catch(IllegalArgumentException e){
+            System.out.println("L'URL donné n'est pas le bon");
+        }
+    }
+
+    //Les Panels et les Components besoins pour l'affichage :
     protected JPanel playingPanel = new JPanel();
         protected JPanel mapPanel = new JPanel();
             protected JPanel mapGridPanel = new JPanel();
@@ -32,20 +50,9 @@ public class Playing extends JFrame implements State{
             protected JLabel timeLabel = new JLabel("Time : ");
 
 
-    private ImageIcon terreImage = new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_01.png"));
+    private ImageIcon terreImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources/assets/terrain/Tiles/FieldsTile_01.png"));
 
-    private ImageIcon herbeImage = new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
-    
-                       
-    //Constructeur unique :
-    public Playing(){
-        controller = new PlayingController(this);
-        playingPanel = new JPanel();
-        System.out.println(terreImage.getIconWidth());
-    }
-
-    //Les Panels et les Components besoins pour l'affichage :
-
+    private ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
 
 
 
@@ -72,8 +79,12 @@ public class Playing extends JFrame implements State{
                     for(int i = 0; i < hauteur; i++){
                         for(int j = 0; j < largeur; j++){
                             mapGrid[i][j] = new JPanel();
-                            mapGrid[i][j].setLayout(new BorderLayout());
-                            mapGrid[i][j].add(new JLabel(terreImage), BorderLayout.CENTER);
+                            mapGrid[i][j].setLayout(new GridLayout(1,1));
+                            if(i%2 == 0){
+                                mapGrid[i][j].add(new JLabel(herbeImage));
+                                mapGrid[i][j].setBorder(Style.line);
+                            }
+                            else mapGrid[i][j].add(new JLabel("Sable"));
                             mapGridPanel.add(mapGrid[i][j]);
 
                         }
