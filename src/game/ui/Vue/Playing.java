@@ -148,7 +148,6 @@ public class Playing extends JFrame implements State{
         Thread moneyThread = new Thread(() -> {
             while (true) {
                 controller.incrementMoney(1);
-                refresh();
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {

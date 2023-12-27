@@ -1,6 +1,7 @@
 package game.ui.Controller;
 
 import game.ui.Vue.Playing;
+import javax.swing.SwingUtilities;
 
 public class PlayingController extends Controller{
     private Playing view;
@@ -10,7 +11,12 @@ public class PlayingController extends Controller{
     }
 
     public void refresh(){
-        infoUpdate();
+        SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+                infoUpdate();
+            }
+        });
+        
     }
 
     public void infoUpdate(){
@@ -43,6 +49,7 @@ public class PlayingController extends Controller{
 
     public void incrementMoney(int money){
         model.incrementMoney(money);
+        refresh();
     }
 
 
