@@ -16,6 +16,8 @@ public class Model {
     private int mapType;
     private int mode;
     private int time;
+    private int waveTime;
+    private boolean waveRunning;
 
     public Model() {
         if (instance != null) {
@@ -112,5 +114,20 @@ public class Model {
         this.money += money;
     }
     
+    public boolean isWaveRunning(){
+        return waveRunning;
+    }
+
+    public void startWave() throws InterruptedException {
+        waveRunning = true;
+        wave++;
+        waveTime = 0;
+        while (waveTime < 10) { // faudra changer ça par un truc qui vérifie si tous les mobs sont morts ou pas et changer les 10s
+            System.out.println("waveTime: " + waveTime);
+            Thread.sleep(1000);
+            waveTime++;
+        }
+        waveRunning = false;
+    }
 
 }

@@ -2,6 +2,7 @@ package game.ui.Vue;
 
 import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -48,12 +49,28 @@ public class Playing extends JFrame implements State{
             protected JLabel lifeLabel = new JLabel("Life : ");
             protected JLabel waveLabel = new JLabel("Wave : ");
             protected JLabel timeLabel = new JLabel("Time : ");
+        
+        protected JPanel startPanel = new JPanel();
+            protected JButton startButton = new JButton("Commencer le tour");
+            protected JButton pauseButton = new JButton("Pause");
 
 
     private ImageIcon terreImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources/assets/terrain/Tiles/FieldsTile_01.png"));
 
     private ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
 
+    private int[][] mapDesign = {
+            {0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,1,0,0,0,0},
+            {0,0,0,0,0,0,1,0,0,0,0},
+            {0,0,0,0,0,0,1,0,0,0,0},
+            {0,0,0,0,0,0,1,1,1,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,1,1,1,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0}
+    };
 
 
 
@@ -63,27 +80,39 @@ public class Playing extends JFrame implements State{
 
 
 
-    //Méthodes permettant d'attribuer les méthodes en fonctino d'action produit sur le bouton :
+    //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
 
+    public void startWave(){
+        controller.startWave();
+    }
 
 
 
     //Méthodes nécessaires pour la construction de la vue :
     public void enterState() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        controller.refresh();
 
         playingPanel.setLayout(new BorderLayout());
             mapPanel.setLayout(new BorderLayout());
                 mapGridPanel.setLayout(new GridLayout(hauteur, largeur));
                     for(int i = 0; i < hauteur; i++){
                         for(int j = 0; j < largeur; j++){
+                            if(mapDesign[i][j] == 0){
+                                mapGrid[i][j] = new JPanel() {
+                                    protected void paintComponent(Graphics g){
+                                        super.paintComponent(g);
+                                        g.drawImage(herbeImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+                                    }
+                                };
+                            }
+                            else{
                             mapGrid[i][j] = new JPanel() {
                                 protected void paintComponent(Graphics g){
                                     super.paintComponent(g);
                                     g.drawImage(terreImage.getImage(), 0, 0, getWidth(), getHeight(), this);
                                 }
-                            };
+                            };}
                             mapGridPanel.add(mapGrid[i][j]);
                         }
 
@@ -99,20 +128,44 @@ public class Playing extends JFrame implements State{
                 infoPanel.add(timeLabel);
             playingPanel.add(infoPanel, BorderLayout.SOUTH);
 
+            startPanel.setLayout(new GridLayout(1, 3));
+                startPanel.add(startButton);
+                startButton.addActionListener(e -> {
+                    startWave();
+                });
+                startPanel.add(pauseButton);
+
+            playingPanel.add(startPanel, BorderLayout.NORTH);
+
+        infiniteMoney();
 
 
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
     }
 
+    public void infiniteMoney() {
+        Thread moneyThread = new Thread(() -> {
+            while (true) {
+                controller.incrementMoney(1);
+                refresh();
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        moneyThread.start();
+    }
+
     public void refresh(){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                controller.refresh();
                 playingPanel.revalidate();
                 playingPanel.repaint();
-
-                controller.refresh();
 
             }
         });

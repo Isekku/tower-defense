@@ -20,6 +20,27 @@ public class PlayingController extends Controller{
         view.getTimeLabel().setText("Time: " + model.getTime());
     }
 
+    public void startWave(){
+        if (model.isWaveRunning()){
+            System.out.println("combat en cours");
+            return;
+        } 
+        System.out.println("Début de la vague: " + model.getWave());
+        new Thread(){
+            public void run(){
+                try {
+                    model.startWave();
+                    while(model.isWaveRunning()){
+                        refresh();
+                        Thread.sleep(1000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
     public void incrementMoney(int money){
         model.incrementMoney(money);
     }
