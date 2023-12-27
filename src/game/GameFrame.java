@@ -14,6 +14,7 @@ public class GameFrame extends JFrame {
         setLayout(new BorderLayout());
         setCurrentPanel(Game.game_state.getState().getView());
         setVisible(true);
+        setResizable(false);
     }
 
     public void setCurrentPanel(JPanel panel){
