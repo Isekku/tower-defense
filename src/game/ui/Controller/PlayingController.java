@@ -1,5 +1,6 @@
 package game.ui.Controller;
 
+import game.map.Map;
 import game.ui.Vue.Playing;
 import javax.swing.SwingUtilities;
 
@@ -20,10 +21,14 @@ public class PlayingController extends Controller{
     }
 
     public void infoUpdate(){
-        view.getMoneyLabel().setText("Money: " + model.getMoney());
-        view.getLifeLabel().setText("Life: " + model.getLife());
-        view.getWaveLabel().setText("Wave: " + model.getWave());
-        view.getTimeLabel().setText("Time: " + model.getTime());
+        SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+                view.getMoneyLabel().setText("Money: " + model.getMoney());
+                view.getLifeLabel().setText("Life: " + model.getLife());
+                view.getWaveLabel().setText("Wave: " + model.getWave());
+                view.getTimeLabel().setText("Time: " + model.getTime());
+            }
+        });
     }
 
     public void startWave(){
@@ -47,9 +52,24 @@ public class PlayingController extends Controller{
         }.start();
     }
 
+    public void updateMap(){
+        SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+                Map map = model.getMap();
+                for (int i = 0; i < map.getHauteur(); i++){
+                    for (int j = 0; j < map.getLargeur(); j++){
+                        if(map.getCell(i, j) != null){
+                            // pas encore implémenté
+
+                    }
+                }
+            }
+        });
+    }
+
     public void incrementMoney(int money){
         model.incrementMoney(money);
-        refresh();
+        infoUpdate();
     }
 
 

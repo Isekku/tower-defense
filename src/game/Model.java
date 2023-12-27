@@ -122,11 +122,12 @@ public class Model {
         waveRunning = true;
         wave++;
         waveTime = 0;
-        while (waveTime < 10) { // faudra changer ça par un truc qui vérifie si tous les mobs sont morts ou pas et changer les 10s
+        while (waveTime <= 10) { // faudra changer ça par un truc qui vérifie si tous les mobs sont morts ou pas et changer les 10s par le temps de la vague
             System.out.println("waveTime: " + waveTime);
             Thread.sleep(1000);
             waveTime++;
         }
+        System.out.println("Fin de la vague: " + wave);
         waveRunning = false;
     }
 

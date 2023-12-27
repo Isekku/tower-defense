@@ -149,7 +149,7 @@ public class Playing extends JFrame implements State{
             while (true) {
                 controller.incrementMoney(1);
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

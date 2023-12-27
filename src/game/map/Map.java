@@ -116,4 +116,12 @@ public class Map {
     public static Map getInstance() {
         return instance;
     }
+
+    public int getHauteur() {
+        return height;
+    }
+
+    public int getLargeur() {
+        return width;
+    }
 }

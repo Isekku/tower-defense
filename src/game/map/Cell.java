@@ -4,7 +4,7 @@ import game.mobs.Mobs;
 import game.mobs.entities.Entity;
 import game.mobs.towers.Tower;
 
-class Cell {
+public class Cell {
     private Mobs mob;
 
     //Création d'une cellule vide;
