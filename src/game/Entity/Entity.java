@@ -1,8 +1,8 @@
-package game.mobs;
+package game.Entity;
 
 import game.geometry.Coordinates;
 
-public abstract class Mobs {
+public abstract class Entity {
 
     private Coordinates coordinates;
     private int damage;
@@ -12,7 +12,7 @@ public abstract class Mobs {
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
      * */
-    public Mobs(int posX, int posY, int damage, int pv, int pvMax){
+    public Entity(int posX, int posY, int damage, int pv, int pvMax){
         this.coordinates = new Coordinates(posX, posY);
         this.damage = damage;
         this.pv = pv;
@@ -21,7 +21,7 @@ public abstract class Mobs {
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
      * */
-    public Mobs(Coordinates c, int damage, int pv, int pvMax){
+    public Entity(Coordinates c, int damage, int pv, int pvMax){
         this.coordinates = c;
         this.damage = damage;
         this.pv = pv;
@@ -48,7 +48,7 @@ public abstract class Mobs {
     /**
      * Méthode permettant d'infligé des dégats au mob donné en argument
      * */
-    public void makeDamage(Mobs mobs){
+    public void makeDamage(Entity mobs){
         mobs.takeDamage(this.damage);
     }
 

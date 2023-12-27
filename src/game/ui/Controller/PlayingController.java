@@ -41,10 +41,6 @@ public class PlayingController extends Controller{
             public void run(){
                 try {
                     model.startWave();
-                    while(model.isWaveRunning()){
-                        refresh();
-                        Thread.sleep(1000);
-                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -59,7 +55,7 @@ public class PlayingController extends Controller{
                 for (int i = 0; i < map.getHauteur(); i++){
                     for (int j = 0; j < map.getLargeur(); j++){
                         if(map.getCell(i, j) != null){
-                            // pas encore implémenté
+                            
                         }
                     }
                 }
@@ -69,6 +65,11 @@ public class PlayingController extends Controller{
 
     public void incrementMoney(int money){
         model.incrementMoney(money);
+        infoUpdate();
+    }
+
+    public void incrementTime(){
+        model.incrementTime();
         infoUpdate();
     }
 

@@ -1,8 +1,8 @@
-package game.mobs.towers;
+package game.Entity.towers;
 
-import game.mobs.Mobs;
+import game.Entity.Entity;
 
-public class Tower extends Mobs{
+public class Tower extends Entity{
     private int range;
     private int cost;
 

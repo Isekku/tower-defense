@@ -1,8 +1,8 @@
 package game;
 
+import game.Entity.Mobs.Mob;
+import game.Entity.towers.Tower;
 import game.map.Map;
-import game.mobs.entities.Entity;
-import game.mobs.towers.Tower;
 
 
 public class Model {
@@ -17,6 +17,7 @@ public class Model {
     private int mode;
     private int time;
     private int waveTime;
+    private int timeOfWave;
     private boolean waveRunning;
 
     public Model() {
@@ -33,9 +34,10 @@ public class Model {
         this.life = 10;
         this.wave = 0;
         this.difficulty = 0;
+        this.timeOfWave = 10;
 
         map.setSell(5, 5, new Tower(5, 5, 0, 0, 0, 0, 0));
-        map.setSell(6, 6, new Entity(6, 6, 0, 0, 0));
+        map.setSell(6, 6, new Mob(6, 6, 0, 0, 0));
 
     }
 
@@ -113,6 +115,10 @@ public class Model {
     public void incrementMoney(int money) {
         this.money += money;
     }
+
+    public void incrementTime(){
+        time++;
+    }
     
     public boolean isWaveRunning(){
         return waveRunning;
@@ -122,13 +128,16 @@ public class Model {
         waveRunning = true;
         wave++;
         waveTime = 0;
-        while (waveTime <= 10) { // faudra changer ça par un truc qui vérifie si tous les mobs sont morts ou pas et changer les 10s par le temps de la vague
+        System.out.println("La vague va durer: " + timeOfWave + "s");
+        while (waveTime <= timeOfWave) { // faudra changer ça par un truc qui vérifie si tous les mobs sont morts ou pas et changer les 10s par le temps de la vague
             System.out.println("waveTime: " + waveTime);
             Thread.sleep(1000);
             waveTime++;
+            time++;
         }
         System.out.println("Fin de la vague: " + wave);
         waveRunning = false;
+        timeOfWave += 5;
     }
 
 }

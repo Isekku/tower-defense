@@ -1,11 +1,10 @@
 package game.map;
 
-import game.mobs.Mobs;
-import game.mobs.entities.Entity;
-import game.mobs.towers.Tower;
+import game.Entity.Entity;
+import game.Entity.towers.Tower;
 
 public class Cell {
-    private Mobs mob;
+    private Entity mob;
 
     //Création d'une cellule vide;
     public Cell() {
@@ -13,15 +12,15 @@ public class Cell {
     }
 
     //Création d'une cellule ayant un mob (une entité ou une tour)
-    public Cell(Mobs entity) {
+    public Cell(Entity entity) {
         this.mob = entity;
     }
 
-    public void setMob(Mobs mob) {
+    public void setMob(Entity mob) {
         this.mob = mob;
     }
 
-    public Mobs getMob() {
+    public Entity getMob() {
         return this.mob;
     }
 
