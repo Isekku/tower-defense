@@ -51,7 +51,7 @@ public class Map {
     /**
      * Méthode permettant de placer un mob (Entité ou Tour) dans la map. Elle renvoie true si cela s'est bien passé et false sinon.
      * */
-    public boolean setSell(int x, int y, Entity mob){
+    public boolean setCell(int x, int y, Entity mob){
         try{
             map[x-1][y-1].setMob(mob);
         }
@@ -64,8 +64,8 @@ public class Map {
     /**
      * Méthode permettant de placer un mob (Entité ou Tour) dans la map. Elle renvoie true si cela s'est bien passé et false sinon.
      * */
-    public boolean setSell(Coordinates c, Entity mob){
-        return setSell(c.getX(), c.getY(), mob);
+    public boolean setCell(Coordinates c, Entity mob){
+        return setCell(c.getX(), c.getY(), mob);
     }
 
     /**
