@@ -16,7 +16,8 @@ public class Terminal implements View{
     public boolean win = false;
     public boolean lose = false;
     public final int longueur = 9;
-    public final int largeur = 5;
+    public final int hauteur = 5;
+    private final Map map = new Map(longueur, hauteur);
     private final Scanner scanner = new Scanner(System.in);
     public Terminal(){
 
@@ -66,6 +67,8 @@ public class Terminal implements View{
     private void playNormalMode(){
         System.out.println("Vous êtes en mode Normal :");
         while(!win && !lose){
+
+            update();
             int choix = choixNormalAction();
 
             //Le joueur veut placer une tour
@@ -99,10 +102,9 @@ public class Terminal implements View{
     }
 
     private void quitOrRestart(){
-        Scanner scanner = new Scanner(System.in);
         int valid = -1;
         while(valid == -1){
-            System.out.print(stringBase + "Voulez vous arreter le jeu ? " + stringCouleurVert + "(1) Oui " + stringBase + " | " + stringCouleurRouge + "(2) Non : ");
+            System.out.print(stringBase + "Voulez vous arreter le jeu ? " + stringCouleurRouge + "(1) Oui " + stringBase + " | " + stringCouleurVert + "(2) Non : ");
             String value = scanner.nextLine();
             if(!value.equals("1") && !value.equals("2")) System.out.println(stringErrorMessage);
             else valid = Integer.valueOf(value);
@@ -113,6 +115,7 @@ public class Terminal implements View{
         else System.exit(0);
     }
 
+    //Méthode regroupant les choix possible dans les 2 modes :
     private int choixNormalAction(){
         int choix = -1;
         while(choix == -1){
@@ -124,12 +127,21 @@ public class Terminal implements View{
         return choix;
     }
 
-    public void update(Map map){
+    private int choixMarathonMode(){
+        return -1;
+    }
+
+    //Méthode permettant de placer les tours :
+    private void placerTour(){
+
+    }
+
+    public void update(){
         // clear screen
-        System.out.print("\033[H\033[2J"); 
+        System.out.println("\033[H\033[2J");
         System.out.flush(); 
         // print map
-        System.out.println(map);
+        System.out.println(stringBase + map + '\n');
     }
     
 

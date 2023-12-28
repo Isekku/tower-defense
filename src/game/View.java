@@ -4,6 +4,6 @@ import game.map.Map;
 
 public interface View {
 
-    public void update(Map map);
+    public void update();
 
 }
