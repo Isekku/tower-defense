@@ -23,6 +23,7 @@ public class Style {
     public static String stringCouleurPourpre = "\u001B[35m";
     public static String stringCouleurVert = "\u001B[32m";
     public static String stringCouleurJaune= "\u001B[33m";
+    public static String stringErrorMessage = stringGras + stringCouleurRouge + "La valeur entré est incorrecte !";
 
 
     public static void buttonIsHovered(JButton button){

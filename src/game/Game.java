@@ -28,6 +28,7 @@ public class Game {
     public static void runTerminal() {
         // use Terminal class
         Terminal terminal = new Terminal();
+        terminal.play();
     }
 
     public static void runGraphic() {

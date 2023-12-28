@@ -13,10 +13,12 @@ public class Terminal implements View{
     public String nom;
     public int chooseMode = -1;
     public int chooseMap = -1;
+    public boolean win = false;
+    public boolean lose = false;
     public final int longueur = 9;
     public final int largeur = 5;
+    private final Scanner scanner = new Scanner(System.in);
     public Terminal(){
-        Scanner scanner = new Scanner(System.in);
 
         //Demande du nom :
         while(this.nom == null){
@@ -28,7 +30,7 @@ public class Terminal implements View{
                 if(!(nom.charAt(i) >= 'A' && nom.charAt(i) <= 'Z')) valid = false;
             }
             if(valid) this.nom = nom;
-            else System.out.println(stringGras + stringCouleurRouge + "Le nom entré n'est pas correct !");
+            else System.out.println(stringErrorMessage);
         }
 
         //Demande du mode choisi :
@@ -40,7 +42,7 @@ public class Terminal implements View{
                 valid = false;
             }
             if(valid) this.chooseMode = Integer.valueOf(chooseMode) - 1;
-            else System.out.println(stringGras + stringCouleurRouge + "La valeur entré est incorrecte !");
+            else System.out.println(stringErrorMessage);
         }
 
         //Demande du choix de la map :
@@ -52,8 +54,74 @@ public class Terminal implements View{
                 valid = false;
             }
             if(valid) this.chooseMap = Integer.valueOf(chooseMap) - 1;
-            else System.out.println(stringGras + stringCouleurRouge + "La valeur entré est incorrecte !" + stringCouleurRouge);
+            else System.out.println(stringErrorMessage);
         }
+    }
+
+    public void play(){
+        if(chooseMode == 0) playNormalMode();
+        else playMarathonMode();
+    }
+
+    private void playNormalMode(){
+        System.out.println("Vous êtes en mode Normal :");
+        while(!win && !lose){
+            int choix = choixNormalAction();
+
+            //Le joueur veut placer une tour
+            if(choix == 1){
+
+            }
+
+            //Le joueur veut commencer la vague
+            if(choix == 2){
+
+            }
+
+            //Le joueur veut entrer dans l'état Option
+            if(choix == 3){
+                //Créer une méthode qui met pause au jeu
+                quitOrRestart();
+            }
+        }
+        if(win) System.out.println("Vous avez gagné. Félicitation !");
+        if(lose) System.out.println("Vous avez perdu :(");
+        System.exit(0);
+    }
+
+    private void playMarathonMode(){
+        System.out.println("Vous êtes en mode marathon");
+        while (!lose){
+            int choix = -1;
+        }
+        if(lose) System.out.println("Vous avez tenu " + "Mettre le nombre de vague ici à prendre dans le model" + " vagues !");
+        System.exit(0);
+    }
+
+    private void quitOrRestart(){
+        Scanner scanner = new Scanner(System.in);
+        int valid = -1;
+        while(valid == -1){
+            System.out.print(stringBase + "Voulez vous arreter le jeu ? " + stringCouleurVert + "(1) Oui " + stringBase + " | " + stringCouleurRouge + "(2) Non : ");
+            String value = scanner.nextLine();
+            if(!value.equals("1") && !value.equals("2")) System.out.println(stringErrorMessage);
+            else valid = Integer.valueOf(value);
+        }
+        if(valid == 2){
+            //Créer une méthode pour revenir dans le le jeu.
+        }
+        else System.exit(0);
+    }
+
+    private int choixNormalAction(){
+        int choix = -1;
+        while(choix == -1){
+            System.out.print(stringBase + "Quel action souhaité vous réaliser ? : " + stringCouleurJaune + "(1) Placer une tour" + stringBase + " | " + stringCouleurRouge + "(2) Commencer le tour" + stringBase + " | " + stringCouleurJaune + "(3) Pause" + stringBase + ": " );
+            String value = scanner.nextLine();
+            if(!value.equals("1") && !value.equals("2") && !value.equals("3")) System.out.println(stringErrorMessage);
+            else choix = Integer.valueOf(value);
+        }
+        return choix;
     }
 
     public void update(Map map){
