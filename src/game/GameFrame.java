@@ -13,7 +13,7 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setCurrentPanel(Game.game_state.getState().getView());
-        //setVisible(true);
+        setVisible(true);
         setResizable(false);
     }
 

@@ -1,8 +1,12 @@
 package game;
 
 import game.Entity.Mobs.Mob;
-import game.Entity.towers.Tower;
+import game.Entity.towers.*;
+import game.geometry.Coordinates;
 import game.map.Map;
+
+import java.util.ArrayList;
+
 import static game.ui.Style.*;
 
 
@@ -21,6 +25,9 @@ public class Model {
     private int timeOfWave;
     private boolean waveRunning;
 
+    //Ajout des tours jouable :
+    public ArrayList<Tower> towerExample = new ArrayList<>();
+
     public Model() {
         if (instance != null) {
             System.out.println(getClass().getName() + " already instantiated");
@@ -35,10 +42,15 @@ public class Model {
         this.life = 10;
         this.wave = 0;
         this.timeOfWave = 10;
+        //Ajout des tours jouable :
+        towerExample.add(new BasicTower());
+        towerExample.add(new ElectricTower());
+        towerExample.add(new IceTower());
+        towerExample.add(new RoyalTower());
     }
 
     public void printMap(){
-        System.out.println(map);
+        System.out.println(stringBase + map);
     }
 
     public static Model getInstance(){
@@ -56,6 +68,12 @@ public class Model {
 
     public void setMode(int mode){
         this.mode = mode;
+    }
+
+    public boolean setTower(Coordinates value, Tower tower){
+        boolean valid = map.setTower(value, tower);
+        if(valid) money -= tower.getCost();
+        return valid;
     }
 
     public void reset(){

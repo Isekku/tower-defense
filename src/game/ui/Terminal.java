@@ -20,6 +20,7 @@ public class Terminal implements View{
     private final Model model = Model.getInstance();
     private final Scanner scanner = new Scanner(System.in);
     public Terminal(){
+        clearScreen();
 
         //Demande du nom :
         while(this.nom == null){
@@ -84,7 +85,6 @@ public class Terminal implements View{
 
             //Le joueur veut commencer la vague
             if(choix == 2){
-
             }
 
             //Le joueur veut entrer dans l'état Option
@@ -148,48 +148,34 @@ public class Terminal implements View{
         while(choix == -1) {
             model.printWithoutMap();
             //Toutes les tours disponibles avec leur prix :
-            System.out.println(stringBase + "(1) Archer basique : " + stringCouleurVert + "50 dollars");
-            System.out.println(stringCouleurPourpre + "(2) Archer électrique : " + stringCouleurVert + "100 dollars");
-            System.out.println(stringCouleurCyan + "(3) Archer de glace : " + stringCouleurVert + "150 dollars");
-            System.out.println(stringCouleurJaune + "(4) Archer royale : " + stringCouleurVert + "200 dollars");
-            System.out.println('\n' + stringBase + stringGras + "(5) Reprendre le jeu");
+            int val = 1;
+            for(int i = 0; i < model.towerExample.size(); i++){
+                Tower tower = model.towerExample.get(i);
+                System.out.println(stringBase + " (" + (val++) + ") " + tower.couleur + tower.getNom() + ": " + tower.getCost() + " pieces" + stringBase);
+            }
+
+            System.out.println('\n' + "(" + val + ") " + "Revenir au jeu" + '\n');
 
             System.out.print(stringBase + "Quel tour souhaité vous placez ? : ");
             String value = scanner.nextLine();
             //Actions possible :
-            if (!value.equals("1") && !value.equals("2") && !value.equals("3") && !value.equals("4") && !value.equals("5"))
-            {
-                clearScreen();
-                System.out.println(stringErrorMessage);
+            boolean valid = false;
+            for(int i = 1; i <= val; i++){
+                if (value.equals(i + "")) {
+                    valid = true;
+                    break;
+                }
             }
-            else {
+            if(!valid) {
+                clearScreen();
+                System.out.println(stringErrorMessage + ": " + value);
+            }
+            else if(value.equals(val + "")) choix = val;
+            else{
                 int temp = Integer.valueOf(value);
-
-                if (temp == 1) {
-                    if (model.getMoney() < 50) {
-                        clearScreen();
-                        System.out.println(stringNotEnoughMoney + " : " + temp);
-                    }
-                    else choix = temp;
-                }
-
-                else if (temp == 2) {
-                    clearScreen();
-                    if (model.getMoney() < 100) System.out.println(stringNotEnoughMoney + " : " + temp);
-                    else choix = temp;
-                }
-
-                else if (temp == 3) {
-                    clearScreen();
-                    if (model.getMoney() < 150) System.out.println(stringNotEnoughMoney + " : " + temp);
-                    else choix = temp;
-                }
-
-                else if (temp == 4) {
-                    clearScreen();
-                    if (model.getMoney() < 200) System.out.println(stringNotEnoughMoney + " : " + temp);
-                    else choix = temp;
-                }
+                Tower example = model.towerExample.get(temp-1);
+                clearScreen();
+                if(model.getMoney() < example.getCost()) System.out.println(stringNotEnoughMoney);
                 else choix = temp;
             }
         }
@@ -199,13 +185,17 @@ public class Terminal implements View{
 
     private void placerTour(int choix){
         boolean valid = false;
-        model.printMap();
+        Tower tower = model.towerExample.get(choix-1);
         while(!valid){
-            System.out.println(stringBase + stringGras + "Où voulez vous placer les tours ? : ");
+            model.printMap();
+            System.out.print(stringBase + stringGras + "Où voulez vous placer la tours ? : ");
             Coordinates value = Coordinates.coordonateToPoint(scanner.nextLine());
             if(value == null) System.out.println(stringErrorMessage);
-            else valid = model.getMap().setTower(value, new Tower(value, 10, 100, 100, 1, 50));
-            if(!valid) System.out.println(stringErrorMessage);
+            else valid = model.setTower(value, tower);
+            if(!valid){
+                clearScreen();
+                System.out.println(stringTowerAlreadyHere);
+            }
         }
     }
 

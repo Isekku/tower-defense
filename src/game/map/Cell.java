@@ -27,8 +27,8 @@ public class Cell {
 
     public String toString() {
         if (this.mob == null) return ".  ";
-        else if(this.mob instanceof Tower) return "T  ";
-        else return "X  ";
+        //else if(this.mob instanceof Tower) return "T  ";
+        else return this.mob.printTerminal + "  ";
     }
 
 }
