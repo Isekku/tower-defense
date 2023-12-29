@@ -173,19 +173,19 @@ public class Terminal implements View{
                     else choix = temp;
                 }
 
-                if (temp == 2) {
+                else if (temp == 2) {
                     clearScreen();
                     if (model.getMoney() < 100) System.out.println(stringNotEnoughMoney + " : " + temp);
                     else choix = temp;
                 }
 
-                if (temp == 3) {
+                else if (temp == 3) {
                     clearScreen();
                     if (model.getMoney() < 150) System.out.println(stringNotEnoughMoney + " : " + temp);
                     else choix = temp;
                 }
 
-                if (temp == 4) {
+                else if (temp == 4) {
                     clearScreen();
                     if (model.getMoney() < 200) System.out.println(stringNotEnoughMoney + " : " + temp);
                     else choix = temp;
