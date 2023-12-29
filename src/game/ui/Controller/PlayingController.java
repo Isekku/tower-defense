@@ -65,7 +65,7 @@ public class PlayingController extends Controller{
 
     public void incrementMoney(int money){
         model.incrementMoney(money);
-        model.print(); // terminal
+        model.printWithoutMap(); // terminal
         infoUpdate(); // graphic
     }
 
