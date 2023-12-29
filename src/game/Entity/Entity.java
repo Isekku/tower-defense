@@ -1,11 +1,13 @@
 package game.Entity;
 
 import game.geometry.Coordinates;
+import game.ui.Style;
 
 public abstract class Entity {
 
     public String printTerminal;
-    private Coordinates coordinates;
+    public String nom;
+    public String couleur;
     private int damage;
     private int pv;
     private int pvMax;
@@ -13,29 +15,20 @@ public abstract class Entity {
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
      * */
-    public Entity(int posX, int posY, int damage, int pv, int pvMax, String printTerminal){
-        this.printTerminal = "?";
-        this.coordinates = new Coordinates(posX, posY);
-        this.damage = damage;
-        this.pv = pv;
-        this.pvMax = pvMax;
-    }
-    /**
-     * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
-     * */
-    public Entity(Coordinates c, int damage, int pv, int pvMax){
-        this.coordinates = c;
+    public Entity(String nom, String couleur, int damage, int pv, int pvMax, String printTerminal){
+        this.printTerminal = couleur + printTerminal + Style.stringBase;
+        this.nom = nom;
+        this.couleur = couleur;
         this.damage = damage;
         this.pv = pv;
         this.pvMax = pvMax;
     }
 
     //Getter et Setter
-    public int getX(){return coordinates.getX();}
-    public int getY(){return coordinates.getY();}
     public int getDamage(){return this.damage;}
     public int getPv(){return this.pv;}
     public int getPvMax(){return this.pvMax;}
+    public String getNom(){return this.nom;}
 
     /**
      * Méthode permettant d'infligé des dégats au mob courant.
