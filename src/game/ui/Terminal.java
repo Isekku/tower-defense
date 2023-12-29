@@ -3,7 +3,11 @@ package game.ui;
 import java.io.Console;
 import java.util.Scanner;
 
+import game.Entity.towers.Tower;
+import game.Game;
+import game.Model;
 import game.View;
+import game.geometry.Coordinates;
 import game.map.Map;
 import game.ui.Style;
 
@@ -11,13 +15,9 @@ import static game.ui.Style.*;
 
 public class Terminal implements View{
     public String nom;
-    public int chooseMode = -1;
-    public int chooseMap = -1;
     public boolean win = false;
     public boolean lose = false;
-    public final int longueur = 9;
-    public final int hauteur = 5;
-    private final Map map = new Map(longueur, hauteur);
+    private final Model model = Model.getInstance();
     private final Scanner scanner = new Scanner(System.in);
     public Terminal(){
 
@@ -35,32 +35,38 @@ public class Terminal implements View{
         }
 
         //Demande du mode choisi :
-        while(this.chooseMode == -1){
-            System.out.print(stringBase + "Quel mode de jeu souhaité vous ? " + stringGras + stringCouleurCyan + "(1) Normal " + stringBase + " | " + stringGras + stringCouleurRouge + "(2) Marathon " +  stringBase + ": ");
+        while(model.getMode() == -1){
+            System.out.print(stringBase + "Quel mode de jeu souhaitez-vous ? " + stringGras + stringCouleurCyan + "(1) Normal " + stringBase + " | " + stringGras + stringCouleurRouge + "(2) Marathon " +  stringBase + ": ");
             String chooseMode = scanner.nextLine();
             boolean valid = true;
-            if(!chooseMode.equals("1") && !chooseMode.equals("2")){
-                valid = false;
-            }
-            if(valid) this.chooseMode = Integer.valueOf(chooseMode) - 1;
+            if(!chooseMode.equals("1") && !chooseMode.equals("2")) valid = false;
+            if(valid) model.setMode(Integer.valueOf(chooseMode) - 1);
             else System.out.println(stringErrorMessage);
         }
 
         //Demande du choix de la map :
-        while(this.chooseMap == -1){
-            System.out.print(stringBase + "Quel est la map souhaité vous ? " + stringGras +stringCouleurVert + "(1) Plaine des Vertus " + stringBase + " | " + stringGras + stringCouleurJaune + "(2) La Voie Royale " +  stringBase + ": ");
+        while(model.getMapType() == -1){
+            System.out.print(stringBase + "Quel map souhaitez-vous ? " + stringGras +stringCouleurVert + "(1) Plaine des Vertus " + stringBase + " | " + stringGras + stringCouleurJaune + "(2) La Voie Royale " +  stringBase + ": ");
             String chooseMap = scanner.nextLine();
             boolean valid = true;
-            if(!chooseMap.equals("1") && !chooseMap.equals("2")){
-                valid = false;
-            }
-            if(valid) this.chooseMap = Integer.valueOf(chooseMap) - 1;
+            if(!chooseMap.equals("1") && !chooseMap.equals("2")) valid = false;
+            if(valid)  model.setMapType(Integer.valueOf(chooseMap) - 1);
+            else System.out.println(stringErrorMessage);
+        }
+
+        //Demande du choix de la difficulté :
+        while(model.getDifficulty() == -1){
+            System.out.print(stringBase + "Quel est le niveau de difficulté souhaité ? " + stringGras +stringCouleurVert + "(1) Facile " + stringBase + " | " + stringGras + stringCouleurJaune + "(2) Moyen " +  stringBase + " | " + stringGras + stringCouleurRouge + "(3) Difficile "+ stringBase + ": ");
+            String chooseMap = scanner.nextLine();
+            boolean valid = true;
+            if(!chooseMap.equals("1") && !chooseMap.equals("2") && !chooseMap.equals("3")) valid = false;
+            if(valid) model.setDifficulty(Integer.valueOf(chooseMap));
             else System.out.println(stringErrorMessage);
         }
     }
 
     public void play(){
-        if(chooseMode == 0) playNormalMode();
+        if(model.getMode() == 0) playNormalMode();
         else playMarathonMode();
     }
 
@@ -73,7 +79,7 @@ public class Terminal implements View{
 
             //Le joueur veut placer une tour
             if(choix == 1){
-
+                peutPlacerTour();
             }
 
             //Le joueur veut commencer la vague
@@ -112,14 +118,18 @@ public class Terminal implements View{
         if(valid == 2){
             //Créer une méthode pour revenir dans le le jeu.
         }
-        else System.exit(0);
+        else{
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.exit(0);
+        }
     }
 
     //Méthode regroupant les choix possible dans les 2 modes :
     private int choixNormalAction(){
         int choix = -1;
         while(choix == -1){
-            System.out.print(stringBase + "Quel action souhaité vous réaliser ? : " + stringCouleurJaune + "(1) Placer une tour" + stringBase + " | " + stringCouleurRouge + "(2) Commencer le tour" + stringBase + " | " + stringCouleurJaune + "(3) Pause" + stringBase + ": " );
+            System.out.print(stringBase + "Quel action souhaité vous réaliser ? : " + stringCouleurVert + "(1) Placer une tour" + stringBase + " | " + stringCouleurRouge + "(2) Commencer le tour" + stringBase + " | " + stringCouleurJaune + "(3) Pause" + stringBase + ": " );
             String value = scanner.nextLine();
             if(!value.equals("1") && !value.equals("2") && !value.equals("3")) System.out.println(stringErrorMessage);
             else choix = Integer.valueOf(value);
@@ -132,18 +142,86 @@ public class Terminal implements View{
     }
 
     //Méthode permettant de placer les tours :
-    private void placerTour(){
+    private void peutPlacerTour(){
+        int choix = -1;
+        clearScreen();
+        while(choix == -1) {
+            model.printWithoutMap();
+            //Toutes les tours disponibles avec leur prix :
+            System.out.println(stringBase + "(1) Archer basique : " + stringCouleurVert + "50 dollars");
+            System.out.println(stringCouleurPourpre + "(2) Archer électrique : " + stringCouleurVert + "100 dollars");
+            System.out.println(stringCouleurCyan + "(3) Archer de glace : " + stringCouleurVert + "150 dollars");
+            System.out.println(stringCouleurJaune + "(4) Archer royale : " + stringCouleurVert + "200 dollars");
+            System.out.println('\n' + stringBase + stringGras + "(5) Reprendre le jeu");
 
+            System.out.print(stringBase + "Quel tour souhaité vous placez ? : ");
+            String value = scanner.nextLine();
+            //Actions possible :
+            if (!value.equals("1") && !value.equals("2") && !value.equals("3") && !value.equals("4") && !value.equals("5"))
+            {
+                clearScreen();
+                System.out.println(stringErrorMessage);
+            }
+            else {
+                int temp = Integer.valueOf(value);
+
+                if (temp == 1) {
+                    if (model.getMoney() < 50) {
+                        clearScreen();
+                        System.out.println(stringNotEnoughMoney + " : " + temp);
+                    }
+                    else choix = temp;
+                }
+
+                if (temp == 2) {
+                    clearScreen();
+                    if (model.getMoney() < 100) System.out.println(stringNotEnoughMoney + " : " + temp);
+                    else choix = temp;
+                }
+
+                if (temp == 3) {
+                    clearScreen();
+                    if (model.getMoney() < 150) System.out.println(stringNotEnoughMoney + " : " + temp);
+                    else choix = temp;
+                }
+
+                if (temp == 4) {
+                    clearScreen();
+                    if (model.getMoney() < 200) System.out.println(stringNotEnoughMoney + " : " + temp);
+                    else choix = temp;
+                }
+                else choix = temp;
+            }
+        }
+        if(choix == 5){}
+        else placerTour(choix);
+    }
+
+    private void placerTour(int choix){
+        boolean valid = false;
+        model.printMap();
+        while(!valid){
+            System.out.println(stringBase + stringGras + "Où voulez vous placer les tours ? : ");
+            Coordinates value = Coordinates.coordonateToPoint(scanner.nextLine());
+            if(value == null) System.out.println(stringErrorMessage);
+            else valid = model.getMap().setTower(value, new Tower(value, 10, 100, 100, 1, 50));
+            if(!valid) System.out.println(stringErrorMessage);
+        }
     }
 
     public void update(){
-        // clear screen
-        System.out.println("\033[H\033[2J");
-        System.out.flush(); 
-        // print map
-        System.out.println(stringBase + map + '\n');
+        clearScreen();
+
+        //Affichage d'information utile :
+        System.out.print(stringBase + "Joueur " + stringGras + stringCouleurPourpre + nom + stringBase + " : ");
+        model.print();
+        System.out.println(stringBase + '\n');
     }
-    
+
+    public void clearScreen(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
 
 

@@ -7,6 +7,7 @@ public class Coordinates {
     public Coordinates(int x, int y){
         this.x = x;
         this.y = y;
+        System.out.println(this);
     }
 
     public int getX() {
@@ -18,8 +19,8 @@ public class Coordinates {
 
     public static Coordinates coordonateToPoint(String c){
         if(c.length() != 2) return null;
-        int x = (c.charAt(0) - 'A' + 1);
-        int y = Integer.valueOf(c.charAt(1) + "");
+        int x = (c.charAt(0) - 'A');
+        int y = Integer.valueOf(c.charAt(1) + "") - 1;
         return new Coordinates(x, y);
     }
 

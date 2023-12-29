@@ -1,8 +1,7 @@
 package game.map;
 
-import game.mobs.Mobs;
-import game.mobs.entities.Entity;
-import game.mobs.towers.Tower;
+import game.Entity.Entity;
+import game.Entity.towers.Tower;
 import game.geometry.Coordinates;
 
 import java.awt.*;
@@ -32,29 +31,48 @@ public class Map {
      * Permet d'obtenir une cellule à partir de la map. Elle renvoie null si les valeurs indiqués ne sont pas incluses dans la map.
      * */
     public Cell getCell(int x, int y) {
-        if(isValid(x, y)) return map[x][y];
-        else return null;
+        Cell cell = null;
+        try{
+            cell = map[x][y];
+        }
+        catch (IndexOutOfBoundsException e){
+            return null;
+        }
+        return cell;
     }
 
     /**
      * Permet d'obtenir une cellule à partir de la map. Elle renvoie null si les valeurs indiqués ne sont pas incluse dans la map.
      * */
     public Cell getCell(Coordinates c){
-        if(isValid(c)) return map[c.getX()][c.getY()];
-        else return null;
+        Cell cell = null;
+        try{
+            cell = map[c.getX()][c.getY()];
+        }
+        catch (IndexOutOfBoundsException e){
+            return null;
+        }
+        return cell;
     }
 
     // si la cellule ne contient pas de mob, elle renvoie true
-    public boolean isNull(int x, int y){
-        return getCell(x, y).getMob() == null;
+    public boolean isEmpty(int x, int y){
+        boolean cell = false;
+        try{
+            cell = getCell(x, y).getMob() == null;
+        }
+        catch(NullPointerException e){
+            return false;
+        }
+        return true;
     }
 
     /**
      * Méthode permettant de placer un mob (Entité ou Tour) dans la map. Elle renvoie true si cela s'est bien passé et false sinon.
      * */
-    public boolean setSell(int x, int y, Mobs mob){
+    public boolean setCell(int x, int y, Entity mob){
         try{
-            map[x-1][y-1].setMob(mob);
+            map[x][y].setMob(mob);
         }
         catch(IndexOutOfBoundsException e){
             return false;
@@ -65,8 +83,8 @@ public class Map {
     /**
      * Méthode permettant de placer un mob (Entité ou Tour) dans la map. Elle renvoie true si cela s'est bien passé et false sinon.
      * */
-    public boolean setSell(Coordinates c, Mobs mob){
-        return setSell(c.getX(), c.getY(), mob);
+    public boolean setCell(Coordinates c, Entity mob){
+        return setCell(c.getX(), c.getY(), mob);
     }
 
     /**
@@ -80,10 +98,29 @@ public class Map {
     }
 
     /**
+     *  Permet de placer une tour si cela est possible :
+     */
+    public boolean setTower(int x, int y, Tower tower){
+        if(isValid(x,y)){
+            if(isEmpty(x, y)){
+                return setCell(x, y, tower);
+            }
+            else{
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean setTower(Coordinates c, Tower tower){
+        return setTower(c.getX(), c.getY(), tower);
+    }
+
+    /**
      * Permet de vérifier si 2 points est bien compris dans la map.
      */
     public boolean isValid(int x, int y) {
-        return (x > 0 && y > 0) && (x <= width && y <= height);
+        return (x >= 0 && y >= 0) && (x < height && y < width);
     }
 
     /**
