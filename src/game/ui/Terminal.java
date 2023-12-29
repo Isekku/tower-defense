@@ -201,11 +201,11 @@ public class Terminal implements View{
         boolean valid = false;
         model.printMap();
         while(!valid){
-            System.out.println(stringBase + stringGras + "Où voulez vous placer les tours ? : ");
+            System.out.print(stringBase + stringGras + "Où voulez vous placer la tours ? : ");
             Coordinates value = Coordinates.coordonateToPoint(scanner.nextLine());
             if(value == null) System.out.println(stringErrorMessage);
             else valid = model.getMap().setTower(value, new Tower(value, 10, 100, 100, 1, 50));
-            if(!valid) System.out.println(stringErrorMessage);
+            if(!valid) System.out.println(stringTowerAlreadyHere);
         }
     }
 

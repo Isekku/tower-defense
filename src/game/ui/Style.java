@@ -1,5 +1,7 @@
 package game.ui;
 
+import game.geometry.Coordinates;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -25,6 +27,7 @@ public class Style {
     public static String stringCouleurJaune= "\u001B[33m";
     public static final String stringErrorMessage = stringGras + stringCouleurRouge + "La valeur entré est incorrecte !";
     public static final String stringNotEnoughMoney = stringGras + stringCouleurRouge + "Vous n'avez pas assez de monnaie !";
+    public static final String stringTowerAlreadyHere = stringGras + stringCouleurRouge + "Une tour est déjà placé ici !";
 
 
     public static void buttonIsHovered(JButton button){
