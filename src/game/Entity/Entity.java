@@ -4,6 +4,7 @@ import game.geometry.Coordinates;
 
 public abstract class Entity {
 
+    public String printTerminal;
     private Coordinates coordinates;
     private int damage;
     private int pv;
@@ -12,7 +13,8 @@ public abstract class Entity {
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
      * */
-    public Entity(int posX, int posY, int damage, int pv, int pvMax){
+    public Entity(int posX, int posY, int damage, int pv, int pvMax, String printTerminal){
+        this.printTerminal = "?";
         this.coordinates = new Coordinates(posX, posY);
         this.damage = damage;
         this.pv = pv;
