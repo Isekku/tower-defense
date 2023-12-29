@@ -64,7 +64,7 @@ public class Map {
         catch(NullPointerException e){
             return false;
         }
-        return true;
+        return cell;
     }
 
     /**
