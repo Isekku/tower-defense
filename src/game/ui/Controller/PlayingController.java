@@ -65,7 +65,8 @@ public class PlayingController extends Controller{
 
     public void incrementMoney(int money){
         model.incrementMoney(money);
-        infoUpdate();
+        model.print(); // terminal
+        infoUpdate(); // graphic
     }
 
     public void incrementTime(){
