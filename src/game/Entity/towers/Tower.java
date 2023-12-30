@@ -20,6 +20,6 @@ public class Tower extends Entity implements Cloneable{
     }
     
     public Tower clone(){
-        return null;
+        return new Tower(this.nom, this.couleur, this.getDamage(), this.getPv(), this.getPvMax(), this.printTerminal, this.cost);
     }
 }

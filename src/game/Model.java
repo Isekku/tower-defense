@@ -198,7 +198,7 @@ public class Model {
                 }
             }
             printMap();
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         }
         System.out.println("Vous avez perdu :( (cheh) ! ");
         System.exit(0);
