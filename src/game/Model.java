@@ -242,7 +242,10 @@ public class Model {
                 else if(map.isEmpty(c.getX(), c.getY()+1)){
                     moveAsProjectile(c);
                 }
-                else projectile.moveRight(c);
+                else{
+                    if(map.getEntity(c) == projectile) map.makeEmpty(c);
+                    projectile.moveRight(c);
+                }
             }
             projectileEmplacement.removeAll(deadProjectile);
 
