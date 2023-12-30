@@ -56,13 +56,13 @@ public class PlayingController extends Controller{
         model.incrementWave();
         model.setWaveTime(0);
         System.out.println("La vague va durer: " + model.getTimeOfWave() + "s");
+        infoUpdate();
         while (model.getWaveTime() <= model.getTimeOfWave()) { // faudra changer ça par un truc qui vérifie si tous les mobs sont morts ou pas et changer les 10s par le temps de la vague
             System.out.println("waveTime: " + model.getWaveTime());
             Thread.sleep(1000);
-            infoUpdate();
             model.incrementWaveTime();
             model.incrementTime();
-
+            infoUpdate();
         }
         System.out.println("Fin de la vague: " + model.getWave());
         model.setWaveRunning(false);
