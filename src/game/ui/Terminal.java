@@ -3,6 +3,7 @@ package game.ui;
 import java.io.Console;
 import java.util.Scanner;
 
+import game.Entity.Mobs.Mob;
 import game.Entity.towers.Tower;
 import game.Game;
 import game.Model;
@@ -85,6 +86,7 @@ public class Terminal implements View{
 
             //Le joueur veut commencer la vague
             if(choix == 2){
+                cheat();
             }
 
             //Le joueur veut entrer dans l'état Option
@@ -116,7 +118,7 @@ public class Terminal implements View{
             else valid = Integer.valueOf(value);
         }
         if(valid == 2){
-            //Créer une méthode pour revenir dans le le jeu.
+            //Créer une méthode pour revenir dans le le jeu. Pas besoin finalement
         }
         else{
             System.out.print("\033[H\033[2J");
@@ -211,6 +213,52 @@ public class Terminal implements View{
     public void clearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public void cheat(){
+        clearScreen();
+        boolean valid = false;
+        while(!valid){
+            System.out.print("Bonjour mon " + stringCouleurJaune + "roi. " +stringBase + stringGras + "Que voulez-vous faire ? : ");
+            String value = scanner.nextLine();
+            if(value.equals("add mob")){
+                boolean temp = false;
+                model.printMap();
+                System.out.print("Dans quel hauteur souhaité vous ? : ");
+                Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
+                temp = model.setMob(c, new Mob("Méchant gobelin", stringCouleurVert, 50, 300, 300));
+                if(!temp){
+                    clearScreen();
+                    System.out.println(stringCouleurRouge + "Mon roi, je n'aime pas vous dérangez pour ça mais je penses que vous avez fait une erreur sur les coordonnées" + stringBase);
+                }
+                else model.printMap();
+            }
+
+            if(value.equals("mob on way")){
+                model.printMap();
+                System.out.print("Quel sont les coordonnées à vérifier ? : ");
+                Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
+                System.out.println(model.mobOnWay(c));
+            }
+
+            if(value.equals("tower in front")){
+                model.printMap();
+                System.out.print("Quel sont les coordonnées à vérifier ? : ");
+                Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
+                System.out.println(model.towerInFront(c));
+            }
+
+            if(value.equals("start")){
+                try{
+                    model.startWaveTemp();
+                }
+                catch(InterruptedException e){
+                    System.out.println("Impossible de lancer la wave");
+                }
+            }
+
+            if(value.equals("valid")) valid = true;
+        }
     }
 
 

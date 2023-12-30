@@ -33,18 +33,19 @@ public abstract class Entity {
     /**
      * Méthode permettant d'infligé des dégats au mob courant.
      * */
-    public void takeDamage(int damage) {
+    public boolean takeDamage(int damage) {
         this.pv -= damage;
         if (this.pv < 0){
-            destroy();
+            return true;
         }
+        return false;
     }
 
     /**
      * Méthode permettant d'infligé des dégats au mob donné en argument
      * */
-    public void makeDamage(Entity mobs){
-        mobs.takeDamage(this.damage);
+    public boolean makeDamage(Entity mobs){
+        return mobs.takeDamage(this.damage);
     }
 
     /**

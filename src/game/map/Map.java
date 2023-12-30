@@ -1,6 +1,7 @@
 package game.map;
 
 import game.Entity.Entity;
+import game.Entity.Mobs.Mob;
 import game.Entity.towers.Tower;
 import game.geometry.Coordinates;
 
@@ -55,11 +56,17 @@ public class Map {
         return cell;
     }
 
+    public Entity getEntity(Coordinates c){
+        Cell cell = getCell(c);
+        if(cell == null) return null;
+        else return cell.getEntity();
+    }
+
     // si la cellule ne contient pas de mob, elle renvoie true
     public boolean isEmpty(int x, int y){
         boolean cell = false;
         try{
-            cell = getCell(x, y).getMob() == null;
+            cell = getCell(x, y).getEntity() == null;
         }
         catch(NullPointerException e){
             return false;
@@ -67,12 +74,21 @@ public class Map {
         return cell;
     }
 
+    public void makeEmpty(Coordinates c) {
+        Cell cell = null;
+        try {
+            cell = getCell(c);
+        } catch (IndexOutOfBoundsException e) {
+        }
+        if (cell != null) cell.setEntity(null);
+    }
+
     /**
      * Méthode permettant de placer un mob (Entité ou Tour) dans la map. Elle renvoie true si cela s'est bien passé et false sinon.
      * */
     public boolean setCell(int x, int y, Entity mob){
         try{
-            map[x][y].setMob(mob);
+            map[x][y].setEntity(mob);
         }
         catch(IndexOutOfBoundsException e){
             return false;
@@ -100,7 +116,7 @@ public class Map {
     /**
      *  Permet de placer une tour si cela est possible :
      */
-    public boolean setTower(int x, int y, Tower tower){
+    public boolean setEntity(int x, int y, Entity tower){
         if(isValid(x,y)){
             if(isEmpty(x, y)){
                 return setCell(x, y, tower);
@@ -112,8 +128,8 @@ public class Map {
         return false;
     }
 
-    public boolean setTower(Coordinates c, Tower tower){
-        return setTower(c.getX(), c.getY(), tower);
+    public boolean setEntity(Coordinates c, Entity tower){
+        return setEntity(c.getX(), c.getY(), tower);
     }
 
     /**
@@ -160,5 +176,24 @@ public class Map {
 
     public int getLargeur() {
         return width;
+    }
+
+    public int mobOnWay(Coordinates c){
+        for(int i = c.getY() + 1; i < width; i++){
+            Cell cell = map[c.getX()][i];
+            if(cell != null && cell.getEntity() != null && cell.getEntity() instanceof Mob) return i;
+        }
+        return -1;
+    }
+
+    public boolean towerInFront(Coordinates c){
+        Cell cell = null;
+        try{
+            cell = map[c.getX()][c.getY()-1];
+        }
+        catch (IndexOutOfBoundsException e){
+            return false;
+        }
+        return (cell != null && cell.getEntity() != null && cell.getEntity() instanceof Tower);
     }
 }

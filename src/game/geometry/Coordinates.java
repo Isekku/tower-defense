@@ -17,6 +17,14 @@ public class Coordinates {
         return y;
     }
 
+    public void moveLeft(){
+        y -= 1;
+    }
+
+    public void moveRight(){
+        y += 1;
+    }
+
     public static Coordinates coordonateToPoint(String c){
         if(c.length() != 2) return null;
         int x = (c.charAt(0) - 'A');

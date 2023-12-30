@@ -4,31 +4,31 @@ import game.Entity.Entity;
 import game.Entity.towers.Tower;
 
 public class Cell {
-    private Entity mob;
+    private Entity entity;
 
     //Création d'une cellule vide;
     public Cell() {
-        this.mob = null;
+        this.entity = null;
     }
 
     //Création d'une cellule ayant un mob (une entité ou une tour)
     public Cell(Entity entity) {
-        this.mob = entity;
+        this.entity = entity;
     }
 
-    public void setMob(Entity mob) {
-        this.mob = mob;
+    public void setEntity(Entity mob) {
+        this.entity = mob;
     }
 
-    public Entity getMob() {
-        return this.mob;
+    public Entity getEntity() {
+        return this.entity;
     }
 
 
     public String toString() {
-        if (this.mob == null) return ".  ";
+        if (this.entity == null) return "   ";
         //else if(this.mob instanceof Tower) return "T  ";
-        else return this.mob.printTerminal + "  ";
+        else return this.entity.printTerminal + "  ";
     }
 
 }

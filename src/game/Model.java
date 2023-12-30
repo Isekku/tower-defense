@@ -1,5 +1,6 @@
 package game;
 
+import game.Entity.Entity;
 import game.Entity.Mobs.Mob;
 import game.Entity.towers.*;
 import game.geometry.Coordinates;
@@ -25,8 +26,10 @@ public class Model {
     private int timeOfWave;
     private boolean waveRunning;
 
-    //Ajout des tours jouable :
+    //Ajout des tours jouable, leur emplacements et l'emplacement des mobs :
     public ArrayList<Tower> towerExample = new ArrayList<>();
+    public ArrayList<Coordinates> towerEmplacement = new ArrayList<>();
+    public ArrayList<Coordinates> mobEmplacement = new ArrayList<>();
 
     public Model() {
         if (instance != null) {
@@ -71,9 +74,18 @@ public class Model {
     }
 
     public boolean setTower(Coordinates value, Tower tower){
-        boolean valid = map.setTower(value, tower);
-        if(valid) money -= tower.getCost();
+        boolean valid = map.setEntity(value, tower);
+        if(valid){
+            money -= tower.getCost();
+            towerEmplacement.add(value);
+        }
         return valid;
+    }
+
+    public boolean setMob(Coordinates value, Mob mob){
+        boolean valid = map.setEntity(value, mob);
+        if(valid) mobEmplacement.add(value);
+        return true;
     }
 
     public void reset(){
@@ -132,6 +144,13 @@ public class Model {
     public int getTime() {
         return time;
     }
+    public int getTowerNumber(){
+        return towerEmplacement.size();
+    }
+
+    public int getMobNumber(){
+        return mobEmplacement.size();
+    }
 
     public void incrementMoney(int money) {
         this.money += money;
@@ -161,4 +180,53 @@ public class Model {
         timeOfWave += 5;
     }
 
+    public void startWaveTemp() throws InterruptedException{
+        while(!lose()){
+            for(Coordinates c : mobEmplacement){
+                if(towerInFront(c)){
+                    Mob mob = (Mob) map.getEntity(c);
+                    Coordinates t = new Coordinates(c.getX(), c.getY()-1);
+                    Tower tower = (Tower) map.getEntity(t);
+                    boolean dead = mob.makeDamage(tower);
+                    if(dead){
+                        map.makeEmpty(t);
+                        towerEmplacement.remove(t);
+                    }
+                }
+                else{
+                    moveAsMob(c);
+                }
+            }
+            printMap();
+            Thread.sleep(3000);
+        }
+        System.out.println("Vous avez perdu :( (cheh) ! ");
+        System.exit(0);
+    }
+
+    public int mobOnWay(Coordinates c){
+        return map.mobOnWay(c);
+    }
+
+    public boolean towerInFront(Coordinates c){
+        return map.towerInFront(c);
+    }
+
+    private void moveAsMob(Coordinates c){
+        Mob mob = (Mob) map.getEntity(c);
+
+        map.makeEmpty(c);
+
+        c.moveLeft();
+        map.setEntity(c, mob);
+    }
+
+    public boolean lose(){
+        for(Coordinates c : mobEmplacement){
+            if(c.getY() < 0){
+                return true;
+            }
+        }
+        return false;
+    }
 }
