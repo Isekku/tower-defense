@@ -40,7 +40,7 @@ public class Model {
             System.out.println("Model created");
         }
         //this.state = GameState.MENU;
-        this.map = new Map(9, 11);
+        this.map = new Map(11, 10);
         this.money = 100;
         this.life = 10;
         this.wave = 0;
@@ -159,25 +159,37 @@ public class Model {
     public void incrementTime(){
         time++;
     }
+
+    public void incrementWaveTime(){
+        waveTime++;
+    }
     
     public boolean isWaveRunning(){
         return waveRunning;
     }
 
-    public void startWave() throws InterruptedException {
-        waveRunning = true;
+    public void incrementWave(){
         wave++;
-        waveTime = 0;
-        System.out.println("La vague va durer: " + timeOfWave + "s");
-        while (waveTime <= timeOfWave) { // faudra changer ça par un truc qui vérifie si tous les mobs sont morts ou pas et changer les 10s par le temps de la vague
-            System.out.println("waveTime: " + waveTime);
-            Thread.sleep(1000);
-            waveTime++;
-            time++;
-        }
-        System.out.println("Fin de la vague: " + wave);
-        waveRunning = false;
-        timeOfWave += 5;
+    }
+
+    public void incrementTimeOfWave(int i){
+        timeOfWave += i;
+    }
+
+    public void setWaveRunning(boolean waveRunning){
+        this.waveRunning = waveRunning;
+    }
+
+    public void setWaveTime(int waveTime){
+        this.waveTime = waveTime;
+    }
+
+    public int getTimeOfWave(){
+        return timeOfWave;
+    }
+
+    public int getWaveTime(){
+        return waveTime;
     }
 
     public void startWaveTemp() throws InterruptedException{

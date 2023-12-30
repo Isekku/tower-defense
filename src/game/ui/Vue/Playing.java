@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.tools.Tool;
 
 import game.ui.Controller.PlayingController;
+import game.map.Cell;
 import game.ui.Style;
 
 public class Playing extends JFrame implements State{
@@ -77,7 +78,9 @@ public class Playing extends JFrame implements State{
     //Méthodes propre à la construction de Component plus spécifique :
 
 
-
+    public JPanel getMapGridPanel(int hauteur, int largeur){
+        return mapGrid[hauteur][largeur];
+    }
 
 
     //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
@@ -137,9 +140,10 @@ public class Playing extends JFrame implements State{
 
             playingPanel.add(startPanel, BorderLayout.NORTH);
 
-        infiniteMoney();
+        // infiniteMoney();
+        System.out.println("Hauteur/Longueur du gridJpanel : " + mapDesign.length + " " + mapDesign[0].length);
 
-
+        // controller.updateMap();
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
     }
