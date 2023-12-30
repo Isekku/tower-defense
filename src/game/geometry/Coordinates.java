@@ -1,6 +1,6 @@
 package game.geometry;
 
-public class Coordinates {
+public class Coordinates implements Cloneable{
     private int x;
     private int y;
 
@@ -34,5 +34,9 @@ public class Coordinates {
 
     public String toString(){
         return "(" + getX() + "," + getY() + ")";
+    }
+
+    public Coordinates clone(){
+        return new Coordinates(x, y);
     }
 }

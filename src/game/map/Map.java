@@ -178,12 +178,12 @@ public class Map {
         return width;
     }
 
-    public int mobOnWay(Coordinates c){
+    public boolean mobOnWay(Coordinates c){
         for(int i = c.getY() + 1; i < width; i++){
             Cell cell = map[c.getX()][i];
-            if(cell != null && cell.getEntity() != null && cell.getEntity() instanceof Mob) return i;
+            if(cell != null && cell.getEntity() != null && cell.getEntity() instanceof Mob) return true;
         }
-        return -1;
+        return false;
     }
 
     public boolean towerInFront(Coordinates c){
@@ -195,5 +195,16 @@ public class Map {
             return false;
         }
         return (cell != null && cell.getEntity() != null && cell.getEntity() instanceof Tower);
+    }
+
+    public boolean mobInFront(Coordinates c){
+        Cell cell = null;
+        try{
+            cell = map[c.getX()][c.getY()+1];
+        }
+        catch (IndexOutOfBoundsException e){
+            return false;
+        }
+        return (cell != null && cell.getEntity() != null && cell.getEntity() instanceof Mob);
     }
 }
