@@ -193,7 +193,7 @@ public class Terminal implements View{
             System.out.print(stringBase + stringGras + "Où voulez vous placer la tours ? : ");
             Coordinates value = Coordinates.coordonateToPoint(scanner.nextLine());
             if(value == null) System.out.println(stringErrorMessage);
-            else valid = model.setTower(value, tower);
+            else valid = model.setTower(value, tower.clone());
             if(!valid){
                 clearScreen();
                 System.out.println(stringTowerAlreadyHere);
