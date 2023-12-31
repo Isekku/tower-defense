@@ -5,6 +5,7 @@ import game.ui.Style;
 
 public abstract class Entity {
 
+    public Coordinates coordinates;
     public String printTerminal;
     public String nom;
     public String couleur;
@@ -15,13 +16,14 @@ public abstract class Entity {
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
      * */
-    public Entity(String nom, String couleur, int damage, int pv, int pvMax, String printTerminal){
+    public Entity(String nom, String couleur, int damage, int pv, int pvMax, String printTerminal, Coordinates coordinates){
         this.printTerminal = couleur + printTerminal + Style.stringBase;
         this.nom = nom;
         this.couleur = couleur;
         this.damage = damage;
         this.pv = pv;
         this.pvMax = pvMax;
+        this.coordinates = coordinates;
     }
 
     //Getter et Setter
@@ -61,5 +63,5 @@ public abstract class Entity {
      * */
     public abstract void destroy();
 
-
+    public abstract Entity clone(Coordinates coordinates);
 }

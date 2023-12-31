@@ -8,7 +8,7 @@ public class Game {
     public static Model model;
     public static GameFrame screen;
     public static void main(String[] args) {
-        if(args.length != 0 && (args[0].equals("-terminal") || args[0].equals("--terminal"))){
+        if(true || args.length != 0 && (args[0].equals("-terminal") || args[0].equals("--terminal"))){
             runTerminal();
         }
         else{
