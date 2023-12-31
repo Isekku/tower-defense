@@ -37,6 +37,7 @@ public class PlayingController extends Controller{
             return;
         } 
         System.out.println("Début de la vague: " + (model.getWave() + 1));
+        /*
         new Thread(){
             public void run(){
                 try {
@@ -46,6 +47,7 @@ public class PlayingController extends Controller{
                 }
             }
         }.start();
+         */
     }
 
     public void updateMap(){
