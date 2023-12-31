@@ -116,10 +116,10 @@ public class Map {
     /**
      *  Permet de placer une tour si cela est possible :
      */
-    public boolean setEntity(int x, int y, Entity tower){
+    public boolean setEntity(int x, int y, Entity entity){
         if(isValid(x,y)){
             if(isEmpty(x, y)){
-                return setCell(x, y, tower);
+                return setCell(x, y, entity);
             }
             else{
                 return false;
@@ -128,8 +128,8 @@ public class Map {
         return false;
     }
 
-    public boolean setEntity(Coordinates c, Entity tower){
-        return setEntity(c.getX(), c.getY(), tower);
+    public boolean setEntity(Coordinates c, Entity entity){
+        return setEntity(c.getX(), c.getY(), entity);
     }
 
     /**
@@ -170,11 +170,11 @@ public class Map {
         return instance;
     }
 
-    public int getHauteur() {
+    public int getHeight() {
         return height;
     }
 
-    public int getLargeur() {
+    public int getWidth() {
         return width;
     }
 
@@ -186,25 +186,29 @@ public class Map {
         return false;
     }
 
-    public boolean towerInFront(Coordinates c){
+    public Tower towerInFront(Coordinates c){
         Cell cell = null;
         try{
             cell = map[c.getX()][c.getY()-1];
         }
         catch (IndexOutOfBoundsException e){
-            return false;
+            return null;
         }
-        return (cell != null && cell.getEntity() != null && cell.getEntity() instanceof Tower);
+        if(cell != null && cell.getEntity() != null && cell.getEntity() instanceof Tower){
+            return (Tower) cell.getEntity();
+        }
+        return null;
     }
 
-    public boolean mobInFront(Coordinates c){
+    public Mob mobInFront(Coordinates c){
         Cell cell = null;
         try{
             cell = map[c.getX()][c.getY()+1];
         }
         catch (IndexOutOfBoundsException e){
-            return false;
+            return null;
         }
-        return (cell != null && cell.getEntity() != null && cell.getEntity() instanceof Mob);
+        if(cell != null && cell.getEntity() != null && cell.getEntity() instanceof Mob) return (Mob) cell.getEntity();
+        else return null;
     }
 }

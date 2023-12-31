@@ -52,8 +52,8 @@ public class PlayingController extends Controller{
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
                 Map map = model.getMap();
-                for (int i = 0; i < map.getHauteur(); i++){
-                    for (int j = 0; j < map.getLargeur(); j++){
+                for (int i = 0; i < map.getHeight(); i++){
+                    for (int j = 0; j < map.getWidth(); j++){
                         if(map.getCell(i, j) != null){
                             
                         }

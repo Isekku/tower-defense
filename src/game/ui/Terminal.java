@@ -193,7 +193,7 @@ public class Terminal implements View{
             System.out.print(stringBase + stringGras + "Où voulez vous placer la tours ? : ");
             Coordinates value = Coordinates.coordonateToPoint(scanner.nextLine());
             if(value == null) System.out.println(stringErrorMessage);
-            else valid = model.setTower(value, tower.clone());
+            else valid = model.setTower(value, tower.clone(value));
             if(!valid){
                 clearScreen();
                 System.out.println(stringTowerAlreadyHere);
@@ -226,7 +226,7 @@ public class Terminal implements View{
                 model.printMap();
                 System.out.print("Dans quel hauteur souhaité vous ? : ");
                 Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
-                temp = model.setMob(c, new Mob("Méchant gobelin", stringCouleurVert, 50, 300, 300));
+                temp = model.setMob(c, new Mob("Méchant gobelin", stringCouleurVert, 50, 100, 300, c));
                 if(!temp){
                     clearScreen();
                     System.out.println(stringCouleurRouge + "Mon roi, je n'aime pas vous dérangez pour ça mais je penses que vous avez fait une erreur sur les coordonnées" + stringBase);
