@@ -5,8 +5,10 @@ import game.geometry.Coordinates;
 
 public class Mob extends Entity{
 
-    public Mob(String nom, String couleur, int damage, int pv, int pvMax, Coordinates coordinates){
+    public int value;
+    public Mob(String nom, String couleur, int damage, int pv, int pvMax, Coordinates coordinates, int value){
         super(nom, couleur, damage, pv, pvMax, "X", coordinates);
+        this.value = value;
     }
 
     public void destroy(){

@@ -226,7 +226,7 @@ public class Terminal implements View{
                 model.printMap();
                 System.out.print("Dans quel hauteur souhaité vous ? : ");
                 Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
-                temp = model.setMob(c, new Mob("Méchant gobelin", stringCouleurVert, 50, 100, 100, c));
+                temp = model.setMob(c, new Mob("Méchant gobelin", stringCouleurVert, 50, 100, 100, c, 150));
                 if(!temp){
                     clearScreen();
                     System.out.println(stringCouleurRouge + "Mon roi, je n'aime pas vous dérangez pour ça mais je penses que vous avez fait une erreur sur les coordonnées" + stringBase);
@@ -249,12 +249,29 @@ public class Terminal implements View{
             }
 
             if(value.equals("start")){
-                try{
-                    model.startWaveTemp();
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            model.startWaveTemp();
+                        }
+                        catch (InterruptedException e){
+                            System.out.println("La vague est interrompu !");
+                        }
+                    }
+                };
+                Thread playThread = new Thread(runnable);
+                playThread.start();
+
+                while(!model.winWave()){
+                    String answer = scanner.nextLine();
+                    if(answer.equals("1")){
+                        model.makeBreak();
+                        peutPlacerTour();
+                        model.restartWave();
+                    }
                 }
-                catch(InterruptedException e){
-                    System.out.println("Impossible de lancer la wave");
-                }
+                valid = true;
             }
 
             if(value.equals("valid")) valid = true;
