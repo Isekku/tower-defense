@@ -211,4 +211,8 @@ public class Map {
         if(cell != null && cell.getEntity() != null && cell.getEntity() instanceof Mob) return (Mob) cell.getEntity();
         else return null;
     }
+
+    public Entity entityInFront(Coordinates c){
+        return getEntity(new Coordinates(c.getX(), c.getY()+1));
+    }
 }
