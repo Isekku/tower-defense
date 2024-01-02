@@ -48,7 +48,7 @@ public class Model {
         }
         //this.state = GameState.MENU;
         this.map = new Map(9, 11);
-        this.money = 100;
+        this.money = 1000;
         this.wave = 0;
         this.timeOfWave = 10;
 
@@ -264,13 +264,16 @@ public class Model {
                             incrementMoney(m.value);
                         }
                         p.towerParent.canShoot = true;
-                        map.makeEmpty(p.coordinates);
+                        if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
                         deadProjectile.add(p);
                     }
                 }
                 projectileEmplacement.removeAll(deadProjectile);
 
                 for(Mob m : mobEmplacement){
+
+                    if(map.getEntity(m.coordinates) == null) map.setEntity(m.coordinates, m);
+
                     Tower t = towerInFront(m.coordinates);
                     if(t != null){
                         boolean dead = m.makeDamage(t);

@@ -37,10 +37,7 @@ public abstract class Entity {
      * */
     public boolean takeDamage(int damage) {
         this.pv -= damage;
-        if (this.pv < 0){
-            return true;
-        }
-        return false;
+        return this.pv <= 0;
     }
 
     /**
