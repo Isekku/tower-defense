@@ -215,52 +215,67 @@ public class Model {
     public void startWaveTemp() throws InterruptedException{
         while(!lose() && !winWave()){
             if(waveRunning) {
-
-                //Le tour des Towers
+                //Tour des towers
                 for(Tower t : towerEmplacement){
-                    if(mobOnWay(t.coordinates)){
+                    if(mobOnWay(t.coordinates) && t.canShoot){
+                        t.canShoot = false;
                         Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
                         projectileEmplacement.add(p);
-                        t.canShoot = false;
                     }
                 }
 
-                //Le tour des Mobs
-                for(Mob m : mobEmplacement){
-                    Tower t = towerInFront(m.coordinates);
+                ArrayList<Projectile> deadProjectile = new ArrayList<>();
+                for(Projectile p : projectileEmplacement){
+                    moveAsProjectile(p);
 
-                    if(t != null){
-                        System.out.println("Mob à attaqué Tower : " + t.getNom());
-                        boolean dead = m.makeDamage(t);
-                        if(dead) towerEmplacement.remove(t);
+                    Mob m = mobInFront(p.coordinates);
+                    System.out.println(m);
+                    Entity e2 = map.getEntity(p.coordinates);
+
+                    if(!map.isValid(p.coordinates)){
+                        p.towerParent.canShoot = true;
+                        deadProjectile.add(p);
                     }
-
-                    else moveAsMob(m);
-                }
-
-
-                 ArrayList<Projectile> deadProjectile = new ArrayList<>();
-                 for(Projectile p : projectileEmplacement){
-                    Entity e = map.getEntity(p.coordinates);
-
-                    if(e instanceof Mob){
-                        Mob m = (Mob) e;
-                        boolean dead = p.makeDamage(e);
-                        System.out.println("Projectile à touché Mob : " + p.towerParent.nom);
+                    else if(e2 instanceof Mob){
+                        Mob m2 = (Mob) e2;
+                        System.out.println("Cas numero 1");
+                        boolean dead = p.makeDamage(m2);
                         if(dead){
-                            mobEmplacement.remove(m);
-                            incrementMoney(m.value);
-                            p.towerParent.canShoot = true;
+                            mobEmplacement.remove(m2);
+                            map.makeEmpty(m2.coordinates);
                         }
+                        p.towerParent.canShoot = true;
+                        if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
                         deadProjectile.add(p);
                     }
 
-                    else moveAsProjectile(p);
+                    else if(m != null){
+                        System.out.println("Cas numero 2");
+                        boolean dead = p.makeDamage(m);
+                        if(dead){
+                            mobEmplacement.remove(m);
+                            map.makeEmpty(m.coordinates);
+                        }
+                        p.towerParent.canShoot = true;
+                        map.makeEmpty(p.coordinates);
+                        deadProjectile.add(p);
+                    }
                 }
                 projectileEmplacement.removeAll(deadProjectile);
 
+                for(Mob m : mobEmplacement){
+                    Tower t = towerInFront(m.coordinates);
+                    if(t != null){
+                        boolean dead = m.makeDamage(t);
+                        if(dead){
+                            towerEmplacement.remove(t);
+                            map.makeEmpty(t.coordinates);
+                        }
+                    }
+                    else moveAsMob(m);
+                }
+
                 print();
-                System.out.println("Voulez vous placer une tour ? (1) Oui : ");
                 Thread.sleep(1000);
             }
         }
@@ -288,12 +303,13 @@ public class Model {
     }
 
     private void moveAsMob(Mob mob){
-        System.out.println("C'est ici : " + mob.coordinates);
-
         map.makeEmpty(mob.coordinates);
 
         mob.coordinates.moveLeft();
-        map.setEntity(mob.coordinates, mob);
+
+        if(!(map.getEntity(mob.coordinates) instanceof Mob)){
+            map.setEntity(mob.coordinates, mob);
+        }
     }
 
     public void moveAsProjectile(Projectile projectile){
@@ -327,10 +343,10 @@ public class Model {
         waveRunning = true;
     }
 
-    public Coordinates getCoordinate(ArrayList<Coordinates> list, Coordinates comp){
-        for(int i = 0; i < list.size(); i++){
-            Coordinates c = list.get(i);
-            if(c.getX() == comp.getX() && c.getY() == comp.getY()) return c;
+    public Projectile getProjectile(ArrayList<Projectile> list, Coordinates comp){
+        for(Projectile p : list){
+            Coordinates c = p.coordinates;
+            if(c.getX() == comp.getX() && c.getY() == comp.getY()) return p;
         }
         return null;
     }
