@@ -206,9 +206,10 @@ public class Model {
         return waveTime;
     }
 
-    public void startWaveTemp() throws InterruptedException{
+    public void startWave() throws InterruptedException{
         while(!lose() && !winWave()){
             if(waveRunning) {
+                incrementWave();
                 //Tour des towers
                 for(Tower t : towerEmplacement){
                     if(mobOnWay(t.coordinates) && t.canShoot){
@@ -274,13 +275,16 @@ public class Model {
 
                 print();
                 Thread.sleep(1000);
+                incrementTime();
             }
         }
         if(lose()){
             System.out.println("Vous avez perdu :( (cheh) ! ");
             System.exit(0);
         }
-        else System.out.println('\n' + "Appuyez sur entrée pour continuer");
+        else {
+            System.out.println('\n' + "Appuyez sur entrée pour continuer");
+        }
     }
 
     public boolean mobOnWay(Coordinates c){

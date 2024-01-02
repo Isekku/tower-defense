@@ -253,7 +253,7 @@ public class Terminal implements View{
                     @Override
                     public void run() {
                         try{
-                            model.startWaveTemp();
+                            model.startWave();
                         }
                         catch (InterruptedException e){
                             System.out.println("La vague est interrompu !");
