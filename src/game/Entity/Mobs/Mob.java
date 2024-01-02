@@ -16,6 +16,6 @@ public class Mob extends Entity{
     }
 
     public Mob clone(Coordinates coordinates){
-        return null;
+        return new Mob(this.nom, this.couleur, this.getDamage(), this.getPv(), this.getPvMax(), coordinates, this.value);
     }
 }

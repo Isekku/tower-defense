@@ -1,7 +1,7 @@
 package game;
 
 import game.Entity.Entity;
-import game.Entity.Mobs.Mob;
+import game.Entity.Mobs.*;
 import game.Entity.Projectile;
 import game.Entity.towers.*;
 import game.geometry.Coordinates;
@@ -31,6 +31,7 @@ public class Model {
 
     //Ajout des tours jouable et des mobs possible :
     public ArrayList<Tower> towerExample = new ArrayList<>();
+    public ArrayList<Mob> mobExample = new ArrayList<>();
 
     //L'emplacement des tours :
     public ArrayList<Tower> towerEmplacement = new ArrayList<>();
@@ -50,12 +51,20 @@ public class Model {
         this.money = 100;
         this.wave = 0;
         this.timeOfWave = 10;
-        //Ajout des tours jouable :
+
         Coordinates coordinatesNull = new Coordinates(-1, -1);
+
+        //Ajout des tours jouable :
         towerExample.add(new BasicTower(coordinatesNull));
         towerExample.add(new ElectricTower(coordinatesNull));
         towerExample.add(new IceTower(coordinatesNull));
         towerExample.add(new RoyalTower(coordinatesNull));
+
+        //Ajout des mobs possible :
+        mobExample.add(new WeakMob(coordinatesNull));
+        mobExample.add(new NormalMob(coordinatesNull));
+        mobExample.add(new HeavyMob(coordinatesNull));
+        mobExample.add(new StrongerMob(coordinatesNull));
     }
 
     public void printMap(){
@@ -274,6 +283,7 @@ public class Model {
                 }
 
                 print();
+                System.out.print("Voulez-vous placer une tour ? (1) Oui : ");
                 Thread.sleep(1000);
                 incrementTime();
             }
