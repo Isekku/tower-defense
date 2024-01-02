@@ -7,6 +7,7 @@ import game.Entity.towers.*;
 import game.geometry.Coordinates;
 import game.map.Map;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -214,101 +215,67 @@ public class Model {
     public void startWaveTemp() throws InterruptedException{
         while(!lose() && !winWave()){
             if(waveRunning) {
-
-                ArrayList<Mob> deadMob = new ArrayList<>();
-                for(Mob mob : mobEmplacement){
-                    Coordinates mobCoordinate = mob.coordinates;
-                    Tower towerInFront = towerInFront(mobCoordinate);
-
-                    if(map.getEntity(mob.coordinates) == null) map.setEntity(mob.coordinates, mob);
-
-                    if(mob.getPv() <= 0){
-                        deadMob.add(mob);
-                        incrementMoney(mob.value);
-                        if(map.getEntity(mob.coordinates) == mob)map.makeEmpty(mob.coordinates);
-                    }
-
-                    else if(towerInFront != null){
-                        boolean dead = mob.makeDamage(towerInFront);
-                        if(dead){
-                            map.makeEmpty(towerInFront.coordinates);
-                            towerEmplacement.remove(towerInFront);
-                        }
-                    }
-
-                    else{
-                        Coordinates inFront= new Coordinates(mob.coordinates.getX(), mob.coordinates.getY()-1);
-                        if(map.getEntity(inFront) == null || map.getEntity(inFront) instanceof Projectile){
-                            moveAsMob(mob);
-                        }
-                        else if(!(map.getEntity(inFront) instanceof Projectile)){
-                            map.makeEmpty(mob.coordinates);
-                            mob.coordinates.moveLeft();
-                        }
+                //Tour des towers
+                for(Tower t : towerEmplacement){
+                    if(mobOnWay(t.coordinates) && t.canShoot){
+                        t.canShoot = false;
+                        Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
+                        projectileEmplacement.add(p);
                     }
                 }
-                mobEmplacement.removeAll(deadMob);
-
 
                 ArrayList<Projectile> deadProjectile = new ArrayList<>();
-                for(Projectile projectile : projectileEmplacement){
-                    if(!map.isValid(projectile.coordinates)) deadProjectile.add(projectile);
-                    else{
+                for(Projectile p : projectileEmplacement){
+                    moveAsProjectile(p);
 
-                        if(map.getEntity(projectile.coordinates) != null && !(map.getEntity(projectile.coordinates) instanceof Mob)){
-                            if(map.getEntity(projectile.coordinates) == projectile){
-                                if(entityInFront(projectile.coordinates) == null) moveAsProjectile(projectile);
-                                else{
-                                    map.makeEmpty(projectile.coordinates);
-                                    projectile.coordinates.moveRight();
-                                }
-                            }
-                            else if(map.getEntity(projectile.coordinates) instanceof Tower){
-                                if(entityInFront(projectile.coordinates) == null){
-                                    projectile.coordinates.moveRight();
-                                    map.setEntity(projectile.coordinates, projectile);
-                                }
-                                else projectile.coordinates.moveRight();
-                            }
+                    Mob m = mobInFront(p.coordinates);
+                    System.out.println(m);
+                    Entity e2 = map.getEntity(p.coordinates);
+
+                    if(!map.isValid(p.coordinates)){
+                        p.towerParent.canShoot = true;
+                        deadProjectile.add(p);
+                    }
+                    else if(e2 instanceof Mob){
+                        Mob m2 = (Mob) e2;
+                        System.out.println("Cas numero 1");
+                        boolean dead = p.makeDamage(m2);
+                        if(dead){
+                            mobEmplacement.remove(m2);
+                            map.makeEmpty(m2.coordinates);
                         }
+                        p.towerParent.canShoot = true;
+                        if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
+                        deadProjectile.add(p);
+                    }
 
-                        System.out.println(projectile.coordinates);
-
-                        Entity entity = map.getEntity(projectile.coordinates);
-                        Mob mob = null;
-
-                        if(entity instanceof Mob){
-                            mob = (Mob) entity;
+                    else if(m != null){
+                        System.out.println("Cas numero 2");
+                        boolean dead = p.makeDamage(m);
+                        if(dead){
+                            mobEmplacement.remove(m);
+                            map.makeEmpty(m.coordinates);
                         }
-
-                        if(mob != null){
-                            System.out.println(stringCouleurRouge + "J'ai été attaqué ! ");
-                            projectile.makeDamage(entity);
-                            if(map.getEntity(projectile.coordinates) == projectile)map.makeEmpty(projectile.coordinates);
-                            deadProjectile.add(projectile);
-                            projectile.towerParent.canShoot = true;
-                        }
+                        p.towerParent.canShoot = true;
+                        map.makeEmpty(p.coordinates);
+                        deadProjectile.add(p);
                     }
                 }
                 projectileEmplacement.removeAll(deadProjectile);
-                System.out.println("Fini 1");
 
-
-                System.out.println("Fini 2");
-
-                for(Tower tower : towerEmplacement){
-                    if(mobOnWay(tower.coordinates) && tower.canShoot){
-                        tower.canShoot = false;
-                        Projectile towerProjectile = tower.shoot(tower, map.getWidth(), map.getHeight());
-                        if(map.getEntity(towerProjectile.coordinates) == null) map.setEntity(towerProjectile.coordinates, towerProjectile);
-                        projectileEmplacement.add(towerProjectile);
+                for(Mob m : mobEmplacement){
+                    Tower t = towerInFront(m.coordinates);
+                    if(t != null){
+                        boolean dead = m.makeDamage(t);
+                        if(dead){
+                            towerEmplacement.remove(t);
+                            map.makeEmpty(t.coordinates);
+                        }
                     }
-                    if(map.getEntity(tower.coordinates) == null) map.setEntity(tower.coordinates, tower);
+                    else moveAsMob(m);
                 }
-                System.out.println("Fini 3");
 
                 print();
-                System.out.println("Voulez vous placer une tour ? (1) Oui : ");
                 Thread.sleep(1000);
             }
         }
@@ -336,20 +303,21 @@ public class Model {
     }
 
     private void moveAsMob(Mob mob){
-        System.out.println("C'est ici : " + mob.coordinates);
-
         map.makeEmpty(mob.coordinates);
 
         mob.coordinates.moveLeft();
-        map.setEntity(mob.coordinates, mob);
+
+        if(!(map.getEntity(mob.coordinates) instanceof Mob)){
+            map.setEntity(mob.coordinates, mob);
+        }
     }
 
     public void moveAsProjectile(Projectile projectile){
-
         if(map.getEntity(projectile.coordinates) == projectile) map.makeEmpty(projectile.coordinates);
         projectile.projectileMap.makeEmpty(projectile.coordinates);
 
         projectile.coordinates.moveRight();
+
         if(map.getEntity(projectile.coordinates) == null)map.setEntity(projectile.coordinates, projectile);
         projectile.projectileMap.setEntity(projectile.coordinates, projectile);
     }
@@ -375,10 +343,10 @@ public class Model {
         waveRunning = true;
     }
 
-    public Coordinates getCoordinate(ArrayList<Coordinates> list, Coordinates comp){
-        for(int i = 0; i < list.size(); i++){
-            Coordinates c = list.get(i);
-            if(c.getX() == comp.getX() && c.getY() == comp.getY()) return c;
+    public Projectile getProjectile(ArrayList<Projectile> list, Coordinates comp){
+        for(Projectile p : list){
+            Coordinates c = p.coordinates;
+            if(c.getX() == comp.getX() && c.getY() == comp.getY()) return p;
         }
         return null;
     }

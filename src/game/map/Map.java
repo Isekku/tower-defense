@@ -187,16 +187,9 @@ public class Map {
     }
 
     public Tower towerInFront(Coordinates c){
-        Cell cell = null;
-        try{
-            cell = map[c.getX()][c.getY()-1];
-        }
-        catch (IndexOutOfBoundsException e){
-            return null;
-        }
-        if(cell != null && cell.getEntity() != null && cell.getEntity() instanceof Tower){
-            return (Tower) cell.getEntity();
-        }
+        Coordinates tower = new Coordinates(c.getX(), c.getY()-1);
+        Entity entity = getEntity(tower);
+        if(entity instanceof Tower) return (Tower) entity;
         return null;
     }
 
