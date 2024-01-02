@@ -20,7 +20,6 @@ public class Model {
    // private GameState state;
     private Map map;
     private int money;
-    private int life;
     private int wave;
     private int difficulty = -1;
     private int mapType = -1;
@@ -30,8 +29,10 @@ public class Model {
     private int timeOfWave;
     private boolean waveRunning = true;
 
-    //Ajout des tours jouable, leur emplacements et l'emplacement des mobs :
+    //Ajout des tours jouable et des mobs possible :
     public ArrayList<Tower> towerExample = new ArrayList<>();
+
+    //L'emplacement des tours :
     public ArrayList<Tower> towerEmplacement = new ArrayList<>();
     public ArrayList<Mob> mobEmplacement = new ArrayList<>();
     public ArrayList<Projectile> projectileEmplacement = new ArrayList<>();
@@ -46,8 +47,7 @@ public class Model {
         }
         //this.state = GameState.MENU;
         this.map = new Map(9, 11);
-        this.money = 1000;
-        this.life = 10;
+        this.money = 100;
         this.wave = 0;
         this.timeOfWave = 10;
         //Ajout des tours jouable :
@@ -117,7 +117,6 @@ public class Model {
         //System.out.println("map: " + '\n' + map);
 
         System.out.print(stringBase + stringCouleurVert + "Money: " + money + "; ");
-        System.out.print(stringBase + stringCouleurRouge + "Life: " + life + "; ");
         System.out.println(stringBase + stringCouleurCyan + "Wave: " + wave + "; ");
 
         System.out.println(stringBase + map);
@@ -129,16 +128,11 @@ public class Model {
 
     public void printWithoutMap(){
         System.out.print(stringBase + stringCouleurVert + "Money: " + money + "; ");
-        System.out.print(stringBase + stringCouleurRouge + "Life: " + life + "; ");
         System.out.println(stringBase + stringCouleurCyan + "Wave: " + wave + "; " + '\n');
     }
 
     public int getMoney() {
         return money;
-    }
-
-    public int getLife() {
-        return life;
     }
 
     public int getWave() {
@@ -226,6 +220,7 @@ public class Model {
 
                 ArrayList<Projectile> deadProjectile = new ArrayList<>();
                 for(Projectile p : projectileEmplacement){
+                    System.out.println(projectileEmplacement.size());
                     moveAsProjectile(p);
 
                     Mob m = mobInFront(p.coordinates);
@@ -243,6 +238,7 @@ public class Model {
                         if(dead){
                             mobEmplacement.remove(m2);
                             map.makeEmpty(m2.coordinates);
+                            incrementMoney(m2.value);
                         }
                         p.towerParent.canShoot = true;
                         if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
@@ -255,6 +251,7 @@ public class Model {
                         if(dead){
                             mobEmplacement.remove(m);
                             map.makeEmpty(m.coordinates);
+                            incrementMoney(m.value);
                         }
                         p.towerParent.canShoot = true;
                         map.makeEmpty(p.coordinates);

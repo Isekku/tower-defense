@@ -226,7 +226,7 @@ public class Terminal implements View{
                 model.printMap();
                 System.out.print("Dans quel hauteur souhaité vous ? : ");
                 Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
-                temp = model.setMob(c, new Mob("Méchant gobelin", stringCouleurVert, 50, 10, 100, c, 150));
+                temp = model.setMob(c, new Mob("Méchant gobelin", stringCouleurVert, 50, 100, 100, c, 150));
                 if(!temp){
                     clearScreen();
                     System.out.println(stringCouleurRouge + "Mon roi, je n'aime pas vous dérangez pour ça mais je penses que vous avez fait une erreur sur les coordonnées" + stringBase);
