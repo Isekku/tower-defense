@@ -43,7 +43,6 @@ public class PlayingController extends Controller{
             public void run(){
                 try {
                     model.startWave();
-                    System.out.println("<sdfgjpdifojgk");
                     view.getStartButton().setEnabled(true);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
