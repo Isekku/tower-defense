@@ -95,27 +95,7 @@ public class Playing extends JFrame implements State{
         playingPanel.setLayout(new BorderLayout());
             mapPanel.setLayout(new BorderLayout());
                 mapGridPanel.setLayout(new GridLayout(mapDesign.length, mapDesign[0].length));
-                    for(int i = 0; i < mapDesign.length; i++){
-                        for(int j = 0; j < mapDesign[0].length; j++){
-                            if(mapDesign[i][j] == 0){
-                                mapGrid[i][j] = new JPanel() {
-                                    protected void paintComponent(Graphics g){
-                                        super.paintComponent(g);
-                                        g.drawImage(herbeImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-                                    }
-                                };
-                            }
-                            else{
-                            mapGrid[i][j] = new JPanel() {
-                                protected void paintComponent(Graphics g){
-                                    super.paintComponent(g);
-                                    g.drawImage(terreImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-                                }
-                            };}
-                            mapGridPanel.add(mapGrid[i][j]);
-                        }
-
-                    }
+                printMap();
 
                 mapPanel.add(mapGridPanel, BorderLayout.CENTER);
             playingPanel.add(mapPanel, BorderLayout.CENTER);
@@ -142,6 +122,30 @@ public class Playing extends JFrame implements State{
         // controller.updateMap();
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
+    }
+
+    public void printMap(){
+        for(int i = 0; i < mapDesign.length; i++){
+            for(int j = 0; j < mapDesign[0].length; j++){
+                if(mapDesign[i][j] == 0){
+                    mapGrid[i][j] = new JPanel() {
+                        protected void paintComponent(Graphics g){
+                            super.paintComponent(g);
+                            g.drawImage(herbeImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+                        }
+                    };
+                }
+                else{
+                mapGrid[i][j] = new JPanel() {
+                    protected void paintComponent(Graphics g){
+                        super.paintComponent(g);
+                        g.drawImage(terreImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+                    }
+                };}
+                mapGridPanel.add(mapGrid[i][j]);
+            }
+
+        }
     }
 
     public void infiniteMoney() {
@@ -194,6 +198,10 @@ public class Playing extends JFrame implements State{
 
     public JLabel getMoneyLabel() {
         return moneyLabel;
+    }
+
+    public JButton getStartButton() {
+        return startButton;
     }
 
     public JLabel getLifeLabel() {

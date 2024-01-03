@@ -28,6 +28,7 @@ public class Model {
     private int waveTime;
     private int timeOfWave;
     private boolean waveOnBreak = true;
+    private boolean waveRunning = false;
 
     //Ajout des tours jouable et des mobs possible :
     public ArrayList<Tower> towerExample = new ArrayList<>();
@@ -203,6 +204,14 @@ public class Model {
         this.waveOnBreak = waveRunning;
     }
 
+    public void setWaveRunning(boolean waveRunning){
+        this.waveRunning = waveRunning;
+    }
+
+    public boolean isWaveRunning(){
+        return waveRunning;
+    }
+
     public void setWaveTime(int waveTime){
         this.waveTime = waveTime;
     }
@@ -216,9 +225,10 @@ public class Model {
     }
 
     public void startWave() throws InterruptedException{
-        while(!lose() && !winWave()){
+        boolean temp = true;
+        while(temp || (!lose() && !winWave())){
+            temp = false;
             if(waveOnBreak) {
-                incrementWave();
                 //Tour des towers
                 for(Tower t : towerEmplacement){
                     if(mobOnWay(t.coordinates) && t.canShoot){
@@ -291,6 +301,7 @@ public class Model {
                 incrementTime();
             }
         }
+
         if(lose()){
             System.out.println("Vous avez perdu :( (cheh) ! ");
             System.exit(0);

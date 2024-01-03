@@ -31,16 +31,20 @@ public class PlayingController extends Controller{
     }
 
     public void startWave(){
-        if (model.isWaveOnBreak()){
+        if (model.isWaveRunning()){
             System.out.println("combat en cours");
             return;
         } 
         System.out.println("Début de la vague: " + (model.getWave() + 1));
-        
+        // desactiver le bouton start wave
+        view.getStartButton().setEnabled(false);
+        // lancer la vague
         new Thread(){
             public void run(){
                 try {
                     model.startWave();
+                    System.out.println("<sdfgjpdifojgk");
+                    view.getStartButton().setEnabled(true);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -52,14 +56,19 @@ public class PlayingController extends Controller{
     public void updateMap(){
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
+                // on reprint la map
+                view.printMap();
+                
+                // on update les cellules
                 Map map = model.getMap();
                 for (int i = 0; i < map.getHeight(); i++){
                     for (int j = 0; j < map.getWidth(); j++){
                         if(map.getCell(i, j) != null){
-                            
+                            // map.getCell(i, j).update();
                         }
                     }
                 }
+
             }
         });
     }
