@@ -17,8 +17,6 @@ public class Playing extends JFrame implements State{
     public static boolean isFirstTime = true;
     private static final Playing instance = new Playing();
     private PlayingController controller;
-    private final int hauteur = 10;
-    private final int largeur = 11;
     private final String assetPath = "/resources/assets/";
 
     //Constructeur unique :
@@ -37,12 +35,22 @@ public class Playing extends JFrame implements State{
             System.out.println("L'URL donné n'est pas le bon");
         }
     }
+    private int[][] mapDesign = {
+            {0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,1,0,0,0,0},
+            {0,0,0,0,0,0,1,0,0,0,0},
+            {0,0,0,0,0,0,1,1,1,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0}
+    };
 
     //Les Panels et les Components besoins pour l'affichage :
     protected JPanel playingPanel = new JPanel();
         protected JPanel mapPanel = new JPanel();
             protected JPanel mapGridPanel = new JPanel();
-                protected JPanel mapGrid[][] = new JPanel[hauteur][largeur];
+                protected JPanel mapGrid[][] = new JPanel[mapDesign.length][mapDesign[0].length];
 
 
         protected JPanel infoPanel = new JPanel();
@@ -60,18 +68,6 @@ public class Playing extends JFrame implements State{
 
     private ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
 
-    private int[][] mapDesign = {
-            {0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0},
-            {1,1,1,1,1,1,1,0,0,0,0},
-            {0,0,0,0,0,0,1,0,0,0,0},
-            {0,0,0,0,0,0,1,0,0,0,0},
-            {0,0,0,0,0,0,1,1,1,1,1},
-            {0,0,0,0,0,0,0,0,0,0,0},
-            {1,1,1,1,1,1,1,1,1,1,1},
-            {0,0,0,0,0,0,0,0,0,0,0}
-    };
 
 
 
@@ -98,9 +94,9 @@ public class Playing extends JFrame implements State{
 
         playingPanel.setLayout(new BorderLayout());
             mapPanel.setLayout(new BorderLayout());
-                mapGridPanel.setLayout(new GridLayout(hauteur, largeur));
-                    for(int i = 0; i < hauteur; i++){
-                        for(int j = 0; j < largeur; j++){
+                mapGridPanel.setLayout(new GridLayout(mapDesign.length, mapDesign[0].length));
+                    for(int i = 0; i < mapDesign.length; i++){
+                        for(int j = 0; j < mapDesign[0].length; j++){
                             if(mapDesign[i][j] == 0){
                                 mapGrid[i][j] = new JPanel() {
                                     protected void paintComponent(Graphics g){

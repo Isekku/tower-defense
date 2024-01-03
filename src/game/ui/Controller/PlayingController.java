@@ -31,7 +31,7 @@ public class PlayingController extends Controller{
     }
 
     public void startWave(){
-        if (model.isWaveRunning()){
+        if (model.isWaveOnBreak()){
             System.out.println("combat en cours");
             return;
         } 
