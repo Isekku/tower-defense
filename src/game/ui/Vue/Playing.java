@@ -85,6 +85,10 @@ public class Playing extends JFrame implements State{
         controller.startWave();
     }
 
+    public void pauseWave(){
+        controller.pauseWave();
+    }
+
 
 
     //Méthodes nécessaires pour la construction de la vue :
@@ -113,6 +117,9 @@ public class Playing extends JFrame implements State{
                     startWave();
                 });
                 startPanel.add(pauseButton);
+                pauseButton.addActionListener(e -> {
+                    pauseWave();
+                });
 
             playingPanel.add(startPanel, BorderLayout.NORTH);
 
@@ -216,4 +223,7 @@ public class Playing extends JFrame implements State{
         return timeLabel;
     }
 
+    public JButton getPauseButton() {
+        return pauseButton;
+    }
 }

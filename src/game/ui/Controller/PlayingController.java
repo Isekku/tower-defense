@@ -73,6 +73,18 @@ public class PlayingController extends Controller{
         });
     }
 
+    public void pauseWave(){
+        if (model.isWaveRunning()){
+            model.pauseWave();
+            view.getPauseButton().setText("Resume");
+            
+        }
+        else{
+            model.resumeWave();
+            view.getPauseButton().setText("Pause");
+        }
+    }
+
     public void incrementMoney(int money){
         model.incrementMoney(money);
         model.printWithoutMap(); // terminal

@@ -323,6 +323,14 @@ public class Model {
         return map.mobInFront(c);
     }
 
+    public void pauseWave(){
+        waveRunning = false;
+    }
+
+    public void resumeWave(){
+        waveRunning = true;
+    }
+
     public Entity entityInFront(Coordinates c){
         return map.entityInFront(c);
     }
