@@ -76,11 +76,13 @@ public class PlayingController extends Controller{
     public void pauseWave(){
         if (model.isWaveRunning()){
             model.pauseWave();
+            model.setWaveOnBreak(false);
             view.getPauseButton().setText("Resume");
-            
+
         }
         else{
             model.resumeWave();
+            model.setWaveOnBreak(true);
             view.getPauseButton().setText("Pause");
         }
     }
