@@ -10,6 +10,7 @@ import game.map.Map;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 import java.util.function.Predicate;
 
 import static game.ui.Style.*;
@@ -27,17 +28,20 @@ public class Model {
     private int time;
     private int waveTime;
     private int timeOfWave;
-    private boolean waveOnBreak = true;
+    private boolean waveOnBreak = false;
     private boolean waveRunning = false;
 
     //Ajout des tours jouable et des mobs possible :
     public ArrayList<Tower> towerExample = new ArrayList<>();
     public ArrayList<Mob> mobExample = new ArrayList<>();
 
-    //L'emplacement des tours :
+    //L'emplacement des tours, mobs et projectile :
     public ArrayList<Tower> towerEmplacement = new ArrayList<>();
     public ArrayList<Mob> mobEmplacement = new ArrayList<>();
     public ArrayList<Projectile> projectileEmplacement = new ArrayList<>();
+
+    //L'emplacement des mob de la prochaine wave :
+    public ArrayList<Mob> mobInWave = new ArrayList<>();
 
     public Model() {
         if (instance != null) {
@@ -226,9 +230,15 @@ public class Model {
 
     public void startWave() throws InterruptedException{
         boolean temp = true;
+        addMobInWave(wave);
         while(temp || (!lose() && !winWave())){
+            setMobInWave();
             temp = false;
-            if(waveOnBreak) {
+
+            if(!waveOnBreak) {
+                if(!mobInWave.isEmpty()){
+                    setMobInWave();
+                }
                 //Tour des towers
                 for(Tower t : towerEmplacement){
                     if(mobOnWay(t.coordinates) && t.canShoot){
@@ -308,6 +318,7 @@ public class Model {
         }
         else {
             System.out.println('\n' + "Appuyez sur entrée pour continuer");
+            incrementWave();
         }
     }
 
@@ -369,18 +380,37 @@ public class Model {
     }
 
     public void makeBreak(){
-        waveOnBreak = false;
+        waveOnBreak = true;
+        System.out.println(stringCouleurJaune + "Normalement je suis en pause" + stringBase);
     }
 
     public void restartWave(){
-        waveOnBreak = true;
+        waveOnBreak = false;
     }
 
-    public Projectile getProjectile(ArrayList<Projectile> list, Coordinates comp){
-        for(Projectile p : list){
-            Coordinates c = p.coordinates;
-            if(c.getX() == comp.getX() && c.getY() == comp.getY()) return p;
+    public void addMobInWave(int wave){
+        Random r = new Random();
+        for(int i = 0; i < wave+1; i++){
+            if(wave < 2){
+                Mob m = mobExample.getFirst().clone(new Coordinates(0, map.getWidth()-1));
+                mobInWave.add(m);
+            }
+            else{
+                int emplacement = r.nextInt(map.getHeight());
+                Mob m = mobExample.get(r.nextInt(4)).clone(new Coordinates(emplacement, map.getWidth()-1));
+                mobInWave.add(m);
+            }
         }
-        return null;
+    }
+
+    public void setMobInWave(){
+        ArrayList<Mob> mobRemovable = new ArrayList<>();
+        for(Mob m : mobInWave){
+            if(map.getEntity(m.coordinates) == null){
+                setMob(m.coordinates, m);
+                mobRemovable.add(m);
+            }
+        }
+        mobInWave.removeAll(mobRemovable);
     }
 }

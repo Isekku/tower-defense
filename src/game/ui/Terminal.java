@@ -145,6 +145,7 @@ public class Terminal implements View{
 
     //Méthode permettant de placer les tours :
     private void peutPlacerTour(){
+        model.makeBreak();
         int choix = -1;
         clearScreen();
         while(choix == -1) {
@@ -183,6 +184,7 @@ public class Terminal implements View{
         }
         if(choix == 5){}
         else placerTour(choix);
+        model.restartWave();
     }
 
     private void placerTour(int choix){
@@ -219,6 +221,30 @@ public class Terminal implements View{
         clearScreen();
         boolean valid = false;
         while(!valid){
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        model.startWave();
+                    }
+                    catch (InterruptedException e){
+                        System.out.println("La vague est interrompu !");
+                    }
+                }
+            };
+            Thread playThread = new Thread(runnable);
+            playThread.start();
+
+            while(!model.winWave()){
+                String answer = scanner.nextLine();
+                if(answer.equals("1")){
+                    peutPlacerTour();
+                }
+            }
+            valid = true;
+        }
+
+        /*
             System.out.print("Bonjour mon " + stringCouleurJaune + "roi. " +stringBase + stringGras + "Que voulez-vous faire ? : ");
             String value = scanner.nextLine();
             if(value.equals("add mob")){
@@ -249,36 +275,9 @@ public class Terminal implements View{
                 System.out.println(model.towerInFront(c));
             }
 
-            if(value.equals("start")){
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            model.startWave();
-                        }
-                        catch (InterruptedException e){
-                            System.out.println("La vague est interrompu !");
-                        }
-                    }
-                };
-                Thread playThread = new Thread(runnable);
-                playThread.start();
-
-                while(!model.winWave()){
-                    String answer = scanner.nextLine();
-                    if(answer.equals("1")){
-                        model.makeBreak();
-                        peutPlacerTour();
-                        model.restartWave();
-                    }
-                }
-                valid = true;
-            }
-
             if(value.equals("valid")) valid = true;
-        }
+
+         */
     }
-
-
 
 }
