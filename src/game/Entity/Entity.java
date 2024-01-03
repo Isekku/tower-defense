@@ -16,13 +16,13 @@ public abstract class Entity {
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
      * */
-    public Entity(String nom, String couleur, int damage, int pv, int pvMax, String printTerminal, Coordinates coordinates){
+    public Entity(String nom, String couleur, int damage, int pv, String printTerminal, Coordinates coordinates){
         this.printTerminal = couleur + printTerminal + Style.stringBase;
         this.nom = nom;
         this.couleur = couleur;
         this.damage = damage;
         this.pv = pv;
-        this.pvMax = pvMax;
+        this.pvMax = pv;
         this.coordinates = coordinates;
     }
 

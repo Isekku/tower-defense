@@ -8,8 +8,8 @@ public class Tower extends Entity{
     private int cost;
     public boolean canShoot = true;
 
-    public Tower(String nom, String couleur, int damage, int pv, int pvMax, String printTerminal, int cost, Coordinates coordinates) {
-        super(nom, couleur, damage, pv, pvMax, printTerminal, coordinates);
+    public Tower(String nom, String couleur, int damage, int pv, String printTerminal, int cost, Coordinates coordinates) {
+        super(nom, couleur, damage, pv, printTerminal, coordinates);
         this.cost = cost;
     }
 
@@ -26,6 +26,6 @@ public class Tower extends Entity{
     }
     
     public Tower clone(Coordinates coordinates){
-        return new Tower(this.nom, this.couleur, this.getDamage(), this.getPv(), this.getPvMax(), this.printTerminal, this.cost, coordinates);
+        return new Tower(this.nom, this.couleur, this.getDamage(), this.getPv(), this.printTerminal, this.cost, coordinates);
     }
 }

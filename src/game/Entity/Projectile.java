@@ -10,7 +10,7 @@ public class Projectile extends Entity{
     public Map projectileMap;
 
     public Projectile(String couleur, int damage, Tower towerParent, int width, int height){
-        super("Projectile", couleur, damage, 0, 0, ".", towerParent.coordinates.clone());
+        super("Projectile", couleur, damage, 0, ".", towerParent.coordinates.clone());
         projectileMap = new Map(width, height);
         projectileMap.setEntity(this.coordinates, this);
         this.towerParent = towerParent;

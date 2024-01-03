@@ -2,6 +2,7 @@ package game.map;
 
 import game.Entity.Entity;
 import game.Entity.Mobs.Mob;
+import game.Entity.Projectile;
 import game.Entity.towers.Tower;
 import game.geometry.Coordinates;
 
@@ -118,7 +119,7 @@ public class Map {
      */
     public boolean setEntity(int x, int y, Entity entity){
         if(isValid(x,y)){
-            if(isEmpty(x, y)){
+            if(isEmpty(x, y) || map[x][y].getEntity() instanceof Projectile){
                 return setCell(x, y, entity);
             }
             else{

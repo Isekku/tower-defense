@@ -1,6 +1,7 @@
 package game.ui;
 
 import java.io.Console;
+import java.lang.invoke.SwitchPoint;
 import java.util.Scanner;
 
 import game.Entity.Mobs.Mob;
@@ -182,7 +183,7 @@ public class Terminal implements View{
                 else choix = temp;
             }
         }
-        if(choix == 5){}
+        if(choix == model.towerExample.size()+1){}
         else placerTour(choix);
         model.restartWave();
     }
@@ -212,7 +213,7 @@ public class Terminal implements View{
         System.out.println(stringBase + '\n');
     }
 
-    public void clearScreen(){
+    public static void clearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -236,7 +237,8 @@ public class Terminal implements View{
             playThread.start();
 
             while(!model.winWave()){
-                String answer = scanner.nextLine();
+                Scanner temp = new Scanner(System.in);
+                String answer = temp.nextLine();
                 if(answer.equals("1")){
                     peutPlacerTour();
                 }

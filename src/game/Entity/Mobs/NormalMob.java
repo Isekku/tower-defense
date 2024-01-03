@@ -6,6 +6,6 @@ import static game.ui.Style.*;
 
 public class NormalMob extends Mob{
     public NormalMob(Coordinates coordinates){
-        super("Entite normal", stringGras, 25, 200, 200, coordinates, 200);
+    super("Entite normal", stringGras, 12, 60, coordinates, 10);
     }
 }
