@@ -3,6 +3,7 @@ package game.map;
 import game.Entity.Entity;
 import game.Entity.Mobs.Mob;
 import game.Entity.Projectile;
+import game.Entity.towers.ElectricTower;
 import game.Entity.towers.Tower;
 import game.geometry.Coordinates;
 
@@ -27,6 +28,7 @@ public class Map {
         this.map = new Cell[height][width];
         this.makeEmptyCells();
         instance = this;
+        setEntity(new Coordinates(0, 0), new ElectricTower(new Coordinates(0, 0)));
     }
 
     /**
