@@ -1,8 +1,10 @@
 package game.ui.Vue;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,16 +29,16 @@ public class Playing extends JFrame implements State{
         mapGrid = new JPanel[controller.mapHeight][controller.mapHeight];
         playingPanel = new JPanel();
 
-        try{
-            terreImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(assetPath+"terrain/Tiles/FieldsTile_01.png")));
-            herbeImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(assetPath+"terrain/Tiles/FieldsTile_38.png")));
-            fleurImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(assetPath+"terrain/Objects/6_Flower/2.png")));
+        try{terreImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_01.png"))));
+            herbeImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_38.png"))));
+            fleurImage = createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Objects/7_Decor/Tree1.png"))));
         }
         catch(IOException e){
             System.out.println("L'asset donné n'est pas la bonne");
         }
         catch(IllegalArgumentException e){
             System.out.println("L'URL donné n'est pas le bon");
+            e.printStackTrace();
         }
     }
     private int[][] mapDesign = {
@@ -164,6 +166,7 @@ public class Playing extends JFrame implements State{
                     }
                 };}
                 mapGrid[i][j].setLayout(new GridLayout(1, 1));
+                mapGrid[i][j].add(new JLabel());
                 mapGridPanel.add(mapGrid[i][j]);
             }
 
@@ -207,6 +210,24 @@ public class Playing extends JFrame implements State{
 
     public void notFirstTime(){
         if(isFirstTime()) isFirstTime = false;
+    }
+
+    private ImageIcon createImageIcon(Image img){
+        BufferedImage image = (BufferedImage) img;
+        BufferedImage bufferedImage = compatibleImage(image);
+        return new ImageIcon(bufferedImage);
+    }
+
+    private BufferedImage compatibleImage(BufferedImage image){
+        GraphicsConfiguration gfxConfig = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+        int transparence = image.getColorModel().getTransparency();
+        BufferedImage res = gfxConfig.createCompatibleImage(image.getWidth(), image.getHeight(), transparence);
+
+        Graphics g = res.createGraphics();
+        g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
+        g.dispose();
+
+        return res;
     }
 
     //Méthodes nécessaire pour l'accessiblité externe de la classe :

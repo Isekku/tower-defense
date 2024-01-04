@@ -68,20 +68,12 @@ public class PlayingController extends Controller{
                     for (int j = 0; j < map.getWidth(); j++){
                         if(map.getCell(i, j).getEntity() != null){
                             JPanel panel = view.getMapGrid()[i][j];
-                            panel.removeAll();
-                            JPanel entityPanel = new JPanel(){
-                                @Override
-                                protected void paintComponent(Graphics g) {
-                                    super.paintComponent(g);
+                            JLabel label = (JLabel) panel.getComponent(0);
 
-                                    Graphics2D g2d = (Graphics2D) g.create();
-
-                                    g2d.drawImage(view.fleurImage.getImage(), 0, 0, panel.getWidth()/2, panel.getHeight()/2, view);
-
-                                    g2d.dispose();
-                                }
-                            };
-                            panel.add(entityPanel);
+                            ImageIcon fleurIcon = new ImageIcon(view.fleurImage.getImage());
+                            label.setIcon(fleurIcon);
+                            label.revalidate();
+                            label.repaint();
                         }
                     }
                 }
