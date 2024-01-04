@@ -73,7 +73,12 @@ public class PlayingController extends Controller{
                                 @Override
                                 protected void paintComponent(Graphics g) {
                                     super.paintComponent(g);
-                                    g.drawImage(view.fleurImage.getImage(), 0, 0, panel.getWidth()/2, panel.getHeight()/2, view);
+
+                                    Graphics2D g2d = (Graphics2D) g.create();
+
+                                    g2d.drawImage(view.fleurImage.getImage(), 0, 0, panel.getWidth()/2, panel.getHeight()/2, view);
+
+                                    g2d.dispose();
                                 }
                             };
                             panel.add(entityPanel);
