@@ -1,13 +1,15 @@
 package game.ui.Controller;
 
-import game.Entity.Mobs.NormalMob;
-import game.geometry.Coordinates;
 import game.map.Map;
 import game.ui.Vue.Playing;
-import javax.swing.SwingUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class PlayingController extends Controller{
     private Playing view;
+    public int mapHeight = model.getMap().getHeight();
+    public int mapWidth = model.getMap().getWidth();
 
     public PlayingController(Playing view){
         this.view = view;
@@ -19,7 +21,7 @@ public class PlayingController extends Controller{
                 infoUpdate();
             }
         });
-        
+
     }
 
     public void infoUpdate(){
@@ -36,7 +38,7 @@ public class PlayingController extends Controller{
         if (model.isWaveRunning()){
             System.out.println("combat en cours");
             return;
-        } 
+        }
         System.out.println("Début de la vague: " + (model.getWave() + 1));
         // desactiver le bouton start wave
         view.getStartButton().setEnabled(false);
@@ -51,7 +53,7 @@ public class PlayingController extends Controller{
                 }
             }
         }.start();
-         
+
     }
 
     public void updateMap(){
@@ -59,21 +61,27 @@ public class PlayingController extends Controller{
             public void run(){
                 // on reprint la map
                 view.printMap();
-                
+
                 // on update les cellules
                 Map map = model.getMap();
-                // on ajoute un Normalmob pour tester
-                NormalMob mob = new NormalMob(new Coordinates(9, 0));
-                map.getCell(0, 0).setEntity(mob);
                 for (int i = 0; i < map.getHeight(); i++){
                     for (int j = 0; j < map.getWidth(); j++){
-                        if(map.getCell(i, j) != null){
-                            // map.getCell(i, j).update();
-                            // afficher les mobs
-                            System.out.println(mob);
-                            System.out.println();
-                            System.out.println(map.getCell(i, j).getEntity());
+                        if(map.getCell(i, j).getEntity() != null){
+                            JPanel panel = view.getMapGrid()[i][j];
+                            panel.removeAll();
+                            JPanel entityPanel = new JPanel(){
+                                @Override
+                                protected void paintComponent(Graphics g) {
+                                    super.paintComponent(g);
 
+                                    Graphics2D g2d = (Graphics2D) g.create();
+
+                                    g2d.drawImage(view.fleurImage.getImage(), 0, 0, panel.getWidth()/2, panel.getHeight()/2, view);
+
+                                    g2d.dispose();
+                                }
+                            };
+                            panel.add(entityPanel);
                         }
                     }
                 }
