@@ -39,6 +39,7 @@ public class PlayingController extends Controller{
             System.out.println("combat en cours");
             return;
         }
+        final boolean[] isWaveRunning = {true};
         System.out.println("Début de la vague: " + (model.getWave() + 1));
         // desactiver le bouton start wave
         view.getStartButton().setEnabled(false);
@@ -51,27 +52,36 @@ public class PlayingController extends Controller{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                finally{
+                    isWaveRunning[0] = false;
+                }
             }
         }.start();
-
+        Timer timer = new Timer(16, (event) -> updateMap());
+        timer.setRepeats(true);
+        timer.start();
     }
 
     public void updateMap(){
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
                 // on reprint la map
-                view.printMap();
 
                 // on update les cellules
                 Map map = model.getMap();
                 for (int i = 0; i < map.getHeight(); i++){
                     for (int j = 0; j < map.getWidth(); j++){
-                        if(map.getCell(i, j).getEntity() != null){
-                            JPanel panel = view.getMapGrid()[i][j];
-                            JLabel label = (JLabel) panel.getComponent(0);
+                        JPanel panel = view.getMapGridPanel(i, j);
+                        JLabel label = (JLabel) panel.getComponent(0);
 
+                        if(map.getCell(i, j).getEntity() != null){
                             ImageIcon fleurIcon = new ImageIcon(view.fleurImage.getImage());
                             label.setIcon(fleurIcon);
+                            label.revalidate();
+                            label.repaint();
+                        }
+                        else{
+                            label.setIcon(null);
                             label.revalidate();
                             label.repaint();
                         }

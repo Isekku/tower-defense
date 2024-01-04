@@ -12,6 +12,7 @@ import javax.tools.Tool;
 
 import game.ui.Controller.PlayingController;
 import game.map.Cell;
+import game.ui.Model.MapCell;
 import game.ui.Style;
 
 public class Playing extends JFrame implements State{
@@ -26,7 +27,16 @@ public class Playing extends JFrame implements State{
     //Constructeur unique :
     public Playing(){
         controller = new PlayingController(this);
-        mapGrid = new JPanel[controller.mapHeight][controller.mapHeight];
+        mapGrid = new JPanel[controller.mapHeight][controller.mapWidth];
+        mapDesign = new int[controller.mapHeight][controller.mapWidth];
+        int rotation = 0;
+
+        for(int i = 0; i < controller.mapHeight; i++){
+            for(int j = 0; j < controller.mapWidth; j++){
+                mapDesign[i][j] = rotation%2;
+                rotation++;
+            }
+        }
         playingPanel = new JPanel();
 
         try{terreImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_01.png"))));
@@ -41,16 +51,16 @@ public class Playing extends JFrame implements State{
             e.printStackTrace();
         }
     }
-    private int[][] mapDesign = {
-            {0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0},
-            {1,1,1,1,1,1,1,0,0,0,0},
-            {0,0,0,0,0,0,1,0,0,0,0},
-            {0,0,0,0,0,0,1,1,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1},
-            {0,0,0,0,0,0,0,0,0,0,0}
+    private int[][] mapDesign;
+            /*
+            {
+            {1,0,1,0,1,0,1,0,1},
+            {1,0,1,0,1,0,1,0,1},
+            {1,0,1,0,1,0,1,0,1},
+            {1,0,1,0,1,0,1,0,1},
+            {1,0,1,0,1,0,1,0,1},
     };
+             */
 
     //Les Panels et les Components besoins pour l'affichage :
     protected JPanel playingPanel = new JPanel();
@@ -70,11 +80,11 @@ public class Playing extends JFrame implements State{
             protected JButton pauseButton = new JButton("Pause");
 
 
-    public ImageIcon terreImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources/assets/terrain/Tiles/FieldsTile_01.png"));
+    public static ImageIcon terreImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources/assets/terrain/Tiles/FieldsTile_01.png"));
 
-    private ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
+    public static ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
 
-    public ImageIcon fleurImage;
+    public static ImageIcon fleurImage;
 
 
 
@@ -108,7 +118,8 @@ public class Playing extends JFrame implements State{
 
         playingPanel.setLayout(new BorderLayout());
             mapPanel.setLayout(new BorderLayout());
-                mapGridPanel.setLayout(new GridLayout(mapDesign.length, mapDesign[0].length));
+                mapGridPanel.setLayout(new GridLayout(controller.mapHeight, controller.mapWidth));
+                setMap(); newMap();
                 controller.updateMap();
 
                 mapPanel.add(mapGridPanel, BorderLayout.CENTER);
@@ -142,36 +153,26 @@ public class Playing extends JFrame implements State{
         refresh();
     }
 
-    public void printMap(){
+    public void setMap(){
         mapGridPanel.removeAll();
-        for(int i = 0; i < mapDesign.length; i++){
-            for(int j = 0; j < mapDesign[0].length; j++){
-                if(mapDesign[i][j] == 0){
-                    mapGrid[i][j] = new JPanel() {
-                        protected void paintComponent(Graphics g){
-                            super.paintComponent(g);
-                            g.drawImage(herbeImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-                            if(panelWidth == 0) panelWidth = getWidth();
-                            if(panelHeight == 0) panelHeight = getHeight();
-                        }
-                    };
-                }
-                else{
-                mapGrid[i][j] = new JPanel() {
-                    protected void paintComponent(Graphics g){
-                        super.paintComponent(g);
-                        g.drawImage(terreImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-                        if(panelWidth == 0) panelWidth = getWidth();
-                        if(panelHeight == 0) panelHeight = getHeight();
-                    }
-                };}
-                mapGrid[i][j].setLayout(new GridLayout(1, 1));
-                mapGrid[i][j].add(new JLabel());
+        for(int i = 0; i < controller.mapHeight; i++){
+            for(int j = 0; j < controller.mapWidth; j++){
+                mapGrid[i][j] = new MapCell(mapDesign[i][j]);
                 mapGridPanel.add(mapGrid[i][j]);
             }
 
         }
     }
+
+    public void newMap(){
+        for(int i = 0; i < controller.mapHeight; i++){
+            for(int j = 0; j < controller.mapWidth; j++){
+                mapGrid[i][j].add(new JLabel());
+                System.out.println("i : " + i + "; j : " + j);
+            }
+        }
+    }
+
 
     public void infiniteMoney() {
         Thread moneyThread = new Thread(() -> {

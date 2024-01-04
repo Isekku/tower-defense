@@ -53,7 +53,7 @@ public class Model {
             System.out.println("Model created");
         }
         //this.state = GameState.MENU;
-        this.map = new Map(9, 11);
+        this.map = new Map(5, 9);
         this.money = 50;
         this.wave = 0;
         this.timeOfWave = 10;

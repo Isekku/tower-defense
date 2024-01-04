@@ -22,7 +22,7 @@ public class Map {
     /**
      * Création d'une map avec width et height. Les cellules seront toutes initialisé à null
      */
-    public Map(int width, int height) {
+    public Map(int height, int width) {
         this.width = width;
         this.height = height;
         this.map = new Cell[height][width];
