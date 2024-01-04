@@ -18,15 +18,19 @@ public class Playing extends JFrame implements State{
     private static final Playing instance = new Playing();
     private PlayingController controller;
     private final String assetPath = "/resources/assets/";
+    public int panelWidth;
+    public int panelHeight;
 
     //Constructeur unique :
     public Playing(){
         controller = new PlayingController(this);
+        mapGrid = new JPanel[controller.mapHeight][controller.mapHeight];
         playingPanel = new JPanel();
 
         try{
             terreImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(assetPath+"terrain/Tiles/FieldsTile_01.png")));
             herbeImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(assetPath+"terrain/Tiles/FieldsTile_38.png")));
+            fleurImage = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(assetPath+"terrain/Objects/6_Flower/2.png")));
         }
         catch(IOException e){
             System.out.println("L'asset donné n'est pas la bonne");
@@ -50,7 +54,7 @@ public class Playing extends JFrame implements State{
     protected JPanel playingPanel = new JPanel();
         protected JPanel mapPanel = new JPanel();
             protected JPanel mapGridPanel = new JPanel();
-                protected JPanel mapGrid[][] = new JPanel[mapDesign.length][mapDesign[0].length];
+                protected JPanel mapGrid[][];
 
 
         protected JPanel infoPanel = new JPanel();
@@ -64,15 +68,19 @@ public class Playing extends JFrame implements State{
             protected JButton pauseButton = new JButton("Pause");
 
 
-    private ImageIcon terreImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources/assets/terrain/Tiles/FieldsTile_01.png"));
+    public ImageIcon terreImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources/assets/terrain/Tiles/FieldsTile_01.png"));
 
     private ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
+
+    public ImageIcon fleurImage;
 
 
 
 
     //Méthodes propre à la construction de Component plus spécifique :
 
+
+    public JPanel[][] getMapGrid(){return mapGrid;}
 
     public JPanel getMapGridPanel(int hauteur, int largeur){
         return mapGrid[hauteur][largeur];
@@ -99,7 +107,7 @@ public class Playing extends JFrame implements State{
         playingPanel.setLayout(new BorderLayout());
             mapPanel.setLayout(new BorderLayout());
                 mapGridPanel.setLayout(new GridLayout(mapDesign.length, mapDesign[0].length));
-                printMap();
+                controller.updateMap();
 
                 mapPanel.add(mapGridPanel, BorderLayout.CENTER);
             playingPanel.add(mapPanel, BorderLayout.CENTER);
@@ -139,6 +147,8 @@ public class Playing extends JFrame implements State{
                         protected void paintComponent(Graphics g){
                             super.paintComponent(g);
                             g.drawImage(herbeImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+                            if(panelWidth == 0) panelWidth = getWidth();
+                            if(panelHeight == 0) panelHeight = getHeight();
                         }
                     };
                 }
@@ -147,8 +157,11 @@ public class Playing extends JFrame implements State{
                     protected void paintComponent(Graphics g){
                         super.paintComponent(g);
                         g.drawImage(terreImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+                        if(panelWidth == 0) panelWidth = getWidth();
+                        if(panelHeight == 0) panelHeight = getHeight();
                     }
                 };}
+                mapGrid[i][j].setLayout(new GridLayout(1, 1));
                 mapGridPanel.add(mapGrid[i][j]);
             }
 

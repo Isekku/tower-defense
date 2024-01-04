@@ -2,10 +2,14 @@ package game.ui.Controller;
 
 import game.map.Map;
 import game.ui.Vue.Playing;
-import javax.swing.SwingUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class PlayingController extends Controller{
     private Playing view;
+    public int mapHeight = model.getMap().getHeight();
+    public int mapWidth = model.getMap().getWidth();
 
     public PlayingController(Playing view){
         this.view = view;
@@ -62,8 +66,17 @@ public class PlayingController extends Controller{
                 Map map = model.getMap();
                 for (int i = 0; i < map.getHeight(); i++){
                     for (int j = 0; j < map.getWidth(); j++){
-                        if(map.getCell(i, j) != null){
-                            // map.getCell(i, j).update();
+                        if(map.getCell(i, j).getEntity() != null){
+                            JPanel panel = view.getMapGrid()[i][j];
+                            panel.removeAll();
+                            JPanel entityPanel = new JPanel(){
+                                @Override
+                                protected void paintComponent(Graphics g) {
+                                    super.paintComponent(g);
+                                    g.drawImage(view.fleurImage.getImage(), 0, 0, panel.getWidth()/2, panel.getHeight()/2, view);
+                                }
+                            };
+                            panel.add(entityPanel);
                         }
                     }
                 }
