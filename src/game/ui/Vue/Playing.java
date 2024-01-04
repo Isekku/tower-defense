@@ -125,6 +125,7 @@ public class Playing extends JFrame implements State{
 
         // infiniteMoney();
         System.out.println("Hauteur/Longueur du gridJpanel : " + mapDesign.length + " " + mapDesign[0].length);
+        controller.updateMap();
 
         // controller.updateMap();
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
@@ -132,6 +133,7 @@ public class Playing extends JFrame implements State{
     }
 
     public void printMap(){
+        mapGridPanel.removeAll();
         for(int i = 0; i < mapDesign.length; i++){
             for(int j = 0; j < mapDesign[0].length; j++){
                 if(mapDesign[i][j] == 0){

@@ -397,7 +397,7 @@ public class Model {
         Random r = new Random();
         for(int i = 0; i < ((wave+1) + r.nextInt(0,2)); i++){
             if(wave == 0){
-                Mob m = mobExample.getFirst().clone(new Coordinates(0, map.getWidth()-1));
+                Mob m = mobExample.get(0).clone(new Coordinates(0, map.getWidth()-1));
                 mobInWave.add(m);
             }
             else{

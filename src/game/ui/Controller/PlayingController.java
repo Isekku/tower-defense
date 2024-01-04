@@ -1,5 +1,7 @@
 package game.ui.Controller;
 
+import game.Entity.Mobs.NormalMob;
+import game.geometry.Coordinates;
 import game.map.Map;
 import game.ui.Vue.Playing;
 import javax.swing.SwingUtilities;
@@ -60,10 +62,18 @@ public class PlayingController extends Controller{
                 
                 // on update les cellules
                 Map map = model.getMap();
+                // on ajoute un Normalmob pour tester
+                NormalMob mob = new NormalMob(new Coordinates(9, 0));
+                map.getCell(0, 0).setEntity(mob);
                 for (int i = 0; i < map.getHeight(); i++){
                     for (int j = 0; j < map.getWidth(); j++){
                         if(map.getCell(i, j) != null){
                             // map.getCell(i, j).update();
+                            // afficher les mobs
+                            System.out.println(mob);
+                            System.out.println();
+                            System.out.println(map.getCell(i, j).getEntity());
+
                         }
                     }
                 }
@@ -76,13 +86,13 @@ public class PlayingController extends Controller{
         if (model.isWaveRunning()){
             model.pauseWave();
             model.setWaveOnBreak(false);
-            view.getPauseButton().setText("Resume");
+            view.getPauseButton().setText("Pause");
 
         }
         else{
             model.resumeWave();
             model.setWaveOnBreak(true);
-            view.getPauseButton().setText("Pause");
+            view.getPauseButton().setText("Resume");
         }
     }
 
