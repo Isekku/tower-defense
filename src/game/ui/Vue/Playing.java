@@ -41,7 +41,7 @@ public class Playing extends JFrame implements State{
 
         try{terreImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_01.png"))));
             herbeImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_38.png"))));
-            fleurImage = createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Objects/7_Decor/Tree1.png"))));
+            arbreImage = createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Objects/7_Decor/Tree1.png"))));
         }
         catch(IOException e){
             System.out.println("L'asset donné n'est pas la bonne");
@@ -84,7 +84,7 @@ public class Playing extends JFrame implements State{
 
     public static ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
 
-    public static ImageIcon fleurImage;
+    public static ImageIcon arbreImage;
 
 
 

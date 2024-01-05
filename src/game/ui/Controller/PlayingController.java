@@ -75,7 +75,7 @@ public class PlayingController extends Controller{
                         JLabel label = (JLabel) panel.getComponent(0);
 
                         if(map.getCell(i, j).getEntity() != null){
-                            ImageIcon fleurIcon = new ImageIcon(view.fleurImage.getImage());
+                            ImageIcon fleurIcon = new ImageIcon(view.arbreImage.getImage());
                             label.setIcon(fleurIcon);
                             label.revalidate();
                             label.repaint();
