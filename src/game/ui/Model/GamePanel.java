@@ -20,6 +20,7 @@ public class GamePanel extends JPanel{
         Timer timer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                if(entity != null)
                 moveEntity();
             }
         });

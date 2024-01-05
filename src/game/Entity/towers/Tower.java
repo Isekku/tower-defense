@@ -4,6 +4,9 @@ import game.Entity.Entity;
 import game.Entity.Projectile;
 import game.geometry.Coordinates;
 
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+
 public class Tower extends Entity{
     private int cost;
     public boolean canShoot = true;

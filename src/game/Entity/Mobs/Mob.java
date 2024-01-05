@@ -3,6 +3,9 @@ package game.Entity.Mobs;
 import game.Entity.Entity;
 import game.geometry.Coordinates;
 
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+
 public class Mob extends Entity{
 
     public int value;
@@ -11,6 +14,11 @@ public class Mob extends Entity{
         super(nom, couleur, damage, pv, "X", coordinates);
         this.value = value;
     }
+
+    public void setEntityImage(ImageIcon entityImage){
+        super.setEntityImage(entityImage);
+    }
+
 
     public void destroy(){
         ;

@@ -13,6 +13,7 @@ import javax.tools.Tool;
 import game.ui.Controller.PlayingController;
 import game.map.Cell;
 import game.ui.Model.MapCell;
+import game.ui.Model.SpriteSheet;
 import game.ui.Style;
 
 public class Playing extends JFrame implements State{
@@ -20,7 +21,7 @@ public class Playing extends JFrame implements State{
     public static boolean isFirstTime = true;
     private static final Playing instance = new Playing();
     private PlayingController controller;
-    private final String assetPath = "/resources/assets/";
+    public static final String assetPath = "/resources/assets/";
     public int panelWidth;
     public int panelHeight;
 
@@ -39,9 +40,10 @@ public class Playing extends JFrame implements State{
         }
         playingPanel = new JPanel();
 
-        try{terreImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_01.png"))));
-            herbeImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_38.png"))));
-            arbreImage = createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Objects/7_Decor/Tree1.png"))));
+        try{
+            terreImage = SpriteSheet.createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_01.png"))), true);
+            herbeImage = SpriteSheet.createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_38.png"))), true);
+            fleurImage = SpriteSheet.createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Objects/7_Decor/Tree1.png"))), true);
         }
         catch(IOException e){
             System.out.println("L'asset donné n'est pas la bonne");
@@ -84,7 +86,7 @@ public class Playing extends JFrame implements State{
 
     public static ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
 
-    public static ImageIcon arbreImage;
+    public static ImageIcon fleurImage;
 
 
 
@@ -211,24 +213,6 @@ public class Playing extends JFrame implements State{
 
     public void notFirstTime(){
         if(isFirstTime()) isFirstTime = false;
-    }
-
-    private ImageIcon createImageIcon(Image img){
-        BufferedImage image = (BufferedImage) img;
-        BufferedImage bufferedImage = compatibleImage(image);
-        return new ImageIcon(bufferedImage);
-    }
-
-    private BufferedImage compatibleImage(BufferedImage image){
-        GraphicsConfiguration gfxConfig = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-        int transparence = image.getColorModel().getTransparency();
-        BufferedImage res = gfxConfig.createCompatibleImage(image.getWidth(), image.getHeight(), transparence);
-
-        Graphics g = res.createGraphics();
-        g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
-        g.dispose();
-
-        return res;
     }
 
     //Méthodes nécessaire pour l'accessiblité externe de la classe :
