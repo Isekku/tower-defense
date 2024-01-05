@@ -1,5 +1,6 @@
 package game.ui.Controller;
 
+import game.Entity.Entity;
 import game.map.Map;
 import game.ui.Vue.Playing;
 
@@ -12,6 +13,8 @@ public class PlayingController extends Controller{
     private Playing view;
     public int mapHeight = model.getMap().getHeight();
     public int mapWidth = model.getMap().getWidth();
+
+    private Timer animationTimer;
 
     public PlayingController(Playing view){
         this.view = view;
@@ -120,9 +123,10 @@ public class PlayingController extends Controller{
                             label.repaint();
                         }
                         else{
-                            label.setIcon(null);
-                            label.revalidate();
-                            label.repaint();
+                            view.getMapGrid()[i][j].removeAll();
+                            view.getMapGrid()[i][j].revalidate();
+                            view.getMapGrid()[i][j].repaint();
+                            view.getMapGrid()[i][j].add(new JLabel());
                         }
                     }
                 }
