@@ -41,7 +41,10 @@ public class SpriteSheet {
 
         Graphics g = res.createGraphics();
         if(isGround) g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
-        else drawSprite(g, image, 5);
+        else{
+            DynamicImage temp = new DynamicImage();
+            temp.drawDynamicImage(g, image);
+        }
         g.dispose();
 
         return res;

@@ -24,7 +24,6 @@ public class Cell {
         return this.entity;
     }
 
-
     public String toString() {
         //Ne modifie pas pour l'affichage terminale s'il te plaît
         if (this.entity == null) return "   ";
