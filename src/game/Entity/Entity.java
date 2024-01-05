@@ -3,6 +3,9 @@ package game.Entity;
 import game.geometry.Coordinates;
 import game.ui.Style;
 
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+
 public abstract class Entity {
 
     public Coordinates coordinates;
@@ -12,6 +15,8 @@ public abstract class Entity {
     private int damage;
     private int pv;
     private int pvMax;
+
+    public ImageIcon entityImage;
 
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
@@ -24,6 +29,10 @@ public abstract class Entity {
         this.pv = pv;
         this.pvMax = pv;
         this.coordinates = coordinates;
+    }
+
+    public void setEntityImage(ImageIcon entityImage){
+        this.entityImage = entityImage;
     }
 
     //Getter et Setter

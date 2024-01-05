@@ -1,6 +1,10 @@
 package game.ui.Controller;
 
+import game.Entity.Entity;
+import game.Entity.Mobs.Mob;
+import game.Entity.Mobs.WeakMob;
 import game.map.Map;
+import game.ui.Model.SpriteSheet;
 import game.ui.Vue.Playing;
 
 import javax.swing.*;
@@ -75,7 +79,9 @@ public class PlayingController extends Controller{
                         JLabel label = (JLabel) panel.getComponent(0);
 
                         if(map.getCell(i, j).getEntity() != null){
-                            ImageIcon fleurIcon = new ImageIcon(view.arbreImage.getImage());
+                            Entity entity = map.getCell(i, j).getEntity();
+                            ImageIcon fleurIcon = new ImageIcon(view.fleurImage.getImage());
+                            if(entity instanceof Mob) fleurIcon = SpriteSheet.createImageIcon(entity.entityImage.getImage(), false);
                             label.setIcon(fleurIcon);
                             label.revalidate();
                             label.repaint();
