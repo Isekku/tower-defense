@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
@@ -43,7 +44,7 @@ public class Playing extends JFrame implements State{
             terreImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_01.png"))));
             herbeImage = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Tiles/FieldsTile_38.png"))));
             arbreImage = createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "terrain/Objects/7_Decor/Tree1.png"))));
-            slimeImage = createImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(assetPath + "monstres/1/U_Walk.png"))));
+            slimeImage = new ImageIcon(getClass().getResource(assetPath + "monstres/1/S_Walk.gif")).getImage();
         }
         catch(IOException e){
             System.out.println("L'asset donné n'est pas la bonne");
@@ -88,7 +89,7 @@ public class Playing extends JFrame implements State{
 
     public static ImageIcon arbreImage;
 
-    public static ImageIcon slimeImage;
+    public static Image slimeImage;
 
 
 

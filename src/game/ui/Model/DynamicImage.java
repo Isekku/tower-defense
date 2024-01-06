@@ -7,41 +7,23 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class DynamicImage {
-    private JLabel gifLabel;
+    public JLabel gifLabel;
     private Timer animationTimer;
     private int currentFrame = 0;
-    private BufferedImage[] frames;
+    public Image gif;
 
-    public DynamicImage(ImageIcon image){
-        frames = loadGifFrames(image);
-        gifLabel = new JLabel(new ImageIcon(frames[currentFrame]));
-
-        animationTimer = new Timer(100, new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                currentFrame = (currentFrame + 1) % frames.length;
-                gifLabel.setIcon(new ImageIcon(frames[currentFrame]));
-            }
-        });
-
-        animationTimer.start();
+    public DynamicImage(Image image){
+        this.gif = image;
+        gifLabel = drawGifImage();
     }
 
-    private BufferedImage[] loadGifFrames(ImageIcon image){
-        if(image != null){
-            BufferedImage[] frames = new BufferedImage[image.getIconHeight()];
-
-            for(int i = 0; i < frames.length; i++){
-                image.setImageObserver(gifLabel);
-                frames[i] = new BufferedImage(image.getIconWidth(), image.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-
-                Graphics g = frames[i].getGraphics();
-                image.paintIcon(gifLabel, g, 0, 0);
-                g.dispose();
-
-                image.setImageObserver(null);
-                image.setImage(image.getImage().getScaledInstance(image.getIconWidth(),image.getIconHeight(), Image.SCALE_DEFAULT));
+    private JLabel drawGifImage(){
+        return new JLabel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(gif, gif.getWidth(null), gif.getHeight(null), this);
             }
-        }
-        return frames;
+        };
     }
 }

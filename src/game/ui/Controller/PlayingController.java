@@ -2,6 +2,7 @@ package game.ui.Controller;
 
 import game.Entity.Entity;
 import game.map.Map;
+import game.ui.Model.DynamicImage;
 import game.ui.Vue.Playing;
 
 import javax.swing.*;
@@ -67,42 +68,6 @@ public class PlayingController extends Controller{
         timer.start();
     }
 
-    public void animationEntityTimer(JLabel label) {
-        int x = 0;
-        int imageWidth = 48;
-        final int imageHeight = 48;
-        final int separation = 48;
-        final int nbImage = 6;
-    
-        Timer timer = new Timer(170, new ActionListener() {
-            int x = 0;
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                if (x < (nbImage - 1) * separation) {
-                    x += separation;
-                } else {
-                    x = 0;
-                }
-                System.out.println("x : " + x);
-                // on update la cellule
-                ImageIcon img = Playing.slimeImage;
-                Image image = img.getImage();
-                BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g2d = bufferedImage.createGraphics();
-                g2d.drawImage(image, 0, 0, null);
-                g2d.dispose();
-                BufferedImage subImg = bufferedImage.getSubimage(x, 0, imageWidth, imageHeight);
-                ImageIcon subIcon = new ImageIcon(subImg);
-                label.setIcon(subIcon);
-                label.revalidate();
-                label.repaint();
-            }
-        });
-    
-        timer.setRepeats(true);
-        timer.start();
-    }
-
     public void updateMap(){
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
@@ -118,7 +83,7 @@ public class PlayingController extends Controller{
                         if(map.getCell(i, j).getEntity() != null){
                             // ImageIcon fleurIcon = new ImageIcon(view.arbreImage.getImage());
                             // label.setIcon(fleurIcon);
-                            animationEntityTimer(label);
+                            label.setIcon(new ImageIcon(Playing.slimeImage));
                             label.revalidate();
                             label.repaint();
                         }

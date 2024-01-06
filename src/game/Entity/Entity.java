@@ -4,6 +4,7 @@ import game.geometry.Coordinates;
 import game.ui.Style;
 
 import javax.swing.*;
+import java.awt.*;
 
 public abstract class Entity {
 
@@ -15,9 +16,9 @@ public abstract class Entity {
     private int pv;
     private int pvMax;
     private ImageIcon currentImage;
-    private ImageIcon entityWalk;
-    private ImageIcon entityAttack;
-    private ImageIcon entityDead;
+    public ImageIcon entityWalk;
+    public ImageIcon entityAttack;
+    public ImageIcon entityDead;
 
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
@@ -30,6 +31,17 @@ public abstract class Entity {
         this.pv = pv;
         this.pvMax = pv;
         this.coordinates = coordinates;
+    }
+
+    public void setEntityGif(Image g1, Image g2, Image g3){
+        this.entityWalk = new ImageIcon(g1);
+        this.entityAttack = new ImageIcon(g2);
+        this.entityAttack = new ImageIcon(g3);
+        this.currentImage = this.entityWalk;
+    }
+
+    public Image initializeImage(String path){
+        return new ImageIcon(getClass().getClassLoader().getResource(path)).getImage();
     }
 
     //Getter et Setter
@@ -67,4 +79,10 @@ public abstract class Entity {
     public abstract void destroy();
 
     public abstract Entity clone(Coordinates coordinates);
+
+    public void switchTo(int value){
+        if(value == 0) currentImage = entityWalk;
+        else if(value == 1) currentImage = entityAttack;
+        else currentImage = entityDead;
+    }
 }

@@ -3,6 +3,8 @@ package game.Entity.Mobs;
 import game.Entity.Entity;
 import game.geometry.Coordinates;
 
+import java.awt.*;
+
 public class Mob extends Entity{
 
     public int value;
@@ -17,6 +19,8 @@ public class Mob extends Entity{
     }
 
     public Mob clone(Coordinates coordinates){
-        return new Mob(this.nom, this.couleur, this.getDamage(), this.getPv(), coordinates, this.value);
+        Mob mob = new Mob(this.nom, this.couleur, this.getDamage(), this.getPv(), coordinates, this.value);
+        mob.setEntityGif(this.entityWalk.getImage(), this.entityAttack.getImage(), this.entityDead.getImage());
+        return mob;
     }
 }

@@ -4,6 +4,8 @@ import game.Entity.Entity;
 import game.Entity.Projectile;
 import game.geometry.Coordinates;
 
+import java.awt.*;
+
 public class Tower extends Entity{
     private int cost;
     public boolean canShoot = true;
@@ -26,6 +28,8 @@ public class Tower extends Entity{
     }
     
     public Tower clone(Coordinates coordinates){
-        return new Tower(this.nom, this.couleur, this.getDamage(), this.getPv(), this.printTerminal, this.cost, coordinates);
+        Tower tower =  new Tower(this.nom, this.couleur, this.getDamage(), this.getPv(), this.printTerminal, this.cost, coordinates);
+        tower.setEntityGif(tower.entityWalk.getImage(), tower.entityAttack.getImage(), tower.entityDead.getImage());
+        return tower;
     }
 }
