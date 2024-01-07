@@ -30,7 +30,6 @@ public class Map {
         this.map = new Cell[height][width];
         this.makeEmptyCells();
         instance = this;
-        setEntity(new Coordinates(0, 0), new HeavyMob(new Coordinates(0, 0)));
     }
 
     /**
@@ -192,7 +191,7 @@ public class Map {
     }
 
     public Tower towerInFront(Coordinates c){
-        Coordinates tower = new Coordinates(c.getX(), c.getY()-1);
+        Coordinates tower = new Coordinates(c.getX(), c.getY()-1, 0);
         Entity entity = getEntity(tower);
         if(entity instanceof Tower) return (Tower) entity;
         return null;
@@ -211,6 +210,6 @@ public class Map {
     }
 
     public Entity entityInFront(Coordinates c){
-        return getEntity(new Coordinates(c.getX(), c.getY()+1));
+        return getEntity(new Coordinates(c.getX(), c.getY()+1, 0));
     }
 }

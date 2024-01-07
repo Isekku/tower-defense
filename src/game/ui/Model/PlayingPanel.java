@@ -62,7 +62,7 @@ public class PlayingPanel extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
 
-        Entity mob = new WeakMob(new Coordinates(0, 10));
+        Entity mob = new WeakMob(new Coordinates(0, 10, 0.45f));
 
         PlayingPanel playingPanel = new PlayingPanel();
         JPanel gridPanel = new JPanel(new GridLayout(5, 1));
@@ -76,20 +76,20 @@ public class PlayingPanel extends JPanel{
         frame.add(gridPanel);
         frame.setVisible(true);
 
-        Coordinates c = new Coordinates(10f, plateau[0].getWidth());
+        Coordinates c = new Coordinates(10f, plateau[0].getWidth(), 0.45f);
         Entity entity = new NormalMob(c);
         plateau[0].addEntity(entity);
 
         new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                c.moveLeftWithSpeed();
+                c.moveLeft();
             }
         }).start();
 
         try{
             Thread.sleep(10000);
-            playingPanel.addEntity(new StrongerMob(new Coordinates(10f, playingPanel.getWidth())));
+            playingPanel.addEntity(new StrongerMob(new Coordinates(10f, playingPanel.getWidth(), 0.45f)));
         }
         catch (InterruptedException e){
             e.printStackTrace();

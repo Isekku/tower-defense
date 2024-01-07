@@ -13,7 +13,7 @@ public class HeavyMob extends Mob implements AnimatedGif {
     public static String entityAttack = "resources/assets/monstres/3/S_Walk.gif"; // initializeImage("resources/assets/monstres/3/S_Walk.gif");
     public static String entityDead = "resources/assets/monstres/3/S_Death.gif"; //initializeImage("resources/assets/monstres/3/S_Death.gif");
     public HeavyMob(Coordinates coordinates){
-        super("Mob Lourd", stringCouleurRouge, 16, 80, coordinates, 15, "resources/assets/monstres/3/S_Walk.gif", "resources/assets/monstres/3/S_Walk.gif", "resources/assets/monstres/3/S_Death.gif");
+        super("Mob Lourd", stringCouleurRouge, 16, 80, coordinates, 15, "resources/assets/monstres/3/S_Walk.gif", "resources/assets/monstres/3/S_Walk.gif", "resources/assets/monstres/3/S_Death.gif", 1f);
     }
 
     public String getWalkGif(){return this.entityWalk;}

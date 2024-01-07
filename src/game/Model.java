@@ -8,6 +8,9 @@ import game.geometry.Coordinates;
 import game.map.Map;
 import game.ui.Terminal;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -58,7 +61,7 @@ public class Model {
         this.wave = 0;
         this.timeOfWave = 10;
 
-        Coordinates coordinatesNull = new Coordinates(-1, -1);
+        Coordinates coordinatesNull = new Coordinates(-1, -1, 1);
 
         //Ajout des tours jouable :
         towerExample.add(new BasicTower(coordinatesNull));
@@ -131,7 +134,7 @@ public class Model {
        // System.out.println("state: " + state);
         //System.out.println("map: " + '\n' + map);
 
-        System.out.print(stringBase + stringCouleurVert + "Money: " + money + "; ");
+        System.out.print('\n' + stringBase + stringCouleurVert + "Money: " + money + "; ");
         System.out.println(stringBase + stringCouleurCyan + "Wave: " + wave + "; ");
 
         System.out.println(stringBase + map);
@@ -236,26 +239,25 @@ public class Model {
 
         boolean temp = true;
         addMobInWave(wave);
-        while(temp || (!lose() && !winWave())){
-            setMobInWave();
-            temp = false;
 
-            if(!waveOnBreak) {
-                if(!mobInWave.isEmpty()){
-                    setMobInWave();
-                }
-                //Tour des towers
+        Timer wave = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
                 for(Tower t : towerEmplacement){
                     if(mobOnWay(t.coordinates) && t.canShoot){
+                        t.currentImage = t.entityAttack;
                         t.canShoot = false;
                         Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
                         projectileEmplacement.add(p);
+                        t.currentImage = t.entityWalk;
                     }
                 }
 
                 ArrayList<Projectile> deadProjectile = new ArrayList<>();
                 for(Projectile p : projectileEmplacement){
                     moveAsProjectile(p);
+
+                    System.out.println(p.coordinates + ": " + p.coordinates.speed);
 
                     Mob m = mobInFront(p.coordinates);
                     Entity e2 = map.getEntity(p.coordinates);
@@ -307,13 +309,37 @@ public class Model {
                     }
                     else if(!m.isKilling) moveAsMob(m);
                 }
+            }
+        });
 
+        wave.start();
+
+        Timer mapPrint = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
                 Terminal.clearScreen();
                 print();
-
                 System.out.print("Voulez-vous placer une tour ? (1) Oui : ");
-                Thread.sleep(1500);
                 incrementTime();
+            }
+        });
+
+        mapPrint.start();
+        while(temp || (!lose() && !winWave())){
+            setMobInWave();
+            temp = false;
+
+            if(!wave.isRunning()) wave.start();
+            if(!mapPrint.isRunning()) mapPrint.start();
+            if(!waveOnBreak) {
+                if (!mobInWave.isEmpty()) {
+                    setMobInWave();
+                }
+
+            }
+            else{
+                wave.stop();
+                mapPrint.stop();
             }
         }
 
@@ -322,6 +348,8 @@ public class Model {
             System.exit(0);
         }
         else {
+            wave.stop();
+            mapPrint.stop();
             System.out.println('\n' + "Appuyez sur entrée pour continuer");
             incrementWave();
         }
@@ -397,7 +425,7 @@ public class Model {
         Random r = new Random();
         for(int i = 0; i < ((wave+1) + r.nextInt(0,2)); i++){
             if(wave == 0){
-                Mob m = mobExample.get(0).clone(new Coordinates(0, map.getWidth()-1));
+                Mob m = mobExample.get(0).clone(new Coordinates(0, map.getWidth()-1, mobExample.get(0).speed));
                 mobInWave.add(m);
             }
             else{
@@ -407,7 +435,7 @@ public class Model {
                 else if(wave < 4) mobBound = r.nextInt(0, 2);
                 else if(wave < 6) mobBound = r.nextInt(0, 3);
                 else mobBound = r.nextInt(0, 4);
-                Mob m = mobExample.get(mobBound).clone(new Coordinates(emplacement, map.getWidth()-1));
+                Mob m = mobExample.get(mobBound).clone(new Coordinates(emplacement, map.getWidth()-1, mobExample.get(mobBound).speed));
                 mobInWave.add(m);
             }
         }
