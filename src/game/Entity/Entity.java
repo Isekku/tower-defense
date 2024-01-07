@@ -5,6 +5,7 @@ import game.ui.Style;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public abstract class Entity {
 
@@ -15,15 +16,15 @@ public abstract class Entity {
     private int damage;
     private int pv;
     private int pvMax;
-    private ImageIcon currentImage;
-    public ImageIcon entityWalk;
-    public ImageIcon entityAttack;
-    public ImageIcon entityDead;
+    public Image currentImage;
+    public String entityWalk;
+    public String entityAttack;
+    public String entityDead;
 
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
      * */
-    public Entity(String nom, String couleur, int damage, int pv, String printTerminal, Coordinates coordinates){
+    public Entity(String nom, String couleur, int damage, int pv, String printTerminal, Coordinates coordinates, String entityWalk, String entityAttack, String entityDead){
         this.printTerminal = couleur + printTerminal + Style.stringBase;
         this.nom = nom;
         this.couleur = couleur;
@@ -31,17 +32,19 @@ public abstract class Entity {
         this.pv = pv;
         this.pvMax = pv;
         this.coordinates = coordinates;
+        this.entityWalk = entityWalk;
+        this.entityAttack = entityAttack;
+        this.entityDead = entityDead;
     }
 
-    public void setEntityGif(Image g1, Image g2, Image g3){
-        this.entityWalk = new ImageIcon(g1);
-        this.entityAttack = new ImageIcon(g2);
-        this.entityAttack = new ImageIcon(g3);
-        this.currentImage = this.entityWalk;
+    public void setEntityGif(String g1, String g2, String g3){
+        this.entityWalk = g1;
+        this.entityAttack = g2;
+        this.entityDead= g3;
     }
 
-    public Image initializeImage(String path){
-        return new ImageIcon(getClass().getClassLoader().getResource(path)).getImage();
+    public static Image initializeImage(String path){
+        return new ImageIcon(Entity.class.getClassLoader().getResource(path)).getImage();
     }
 
     //Getter et Setter
@@ -80,9 +83,11 @@ public abstract class Entity {
 
     public abstract Entity clone(Coordinates coordinates);
 
+    /*
     public void switchTo(int value){
         if(value == 0) currentImage = entityWalk;
         else if(value == 1) currentImage = entityAttack;
         else currentImage = entityDead;
     }
+     */
 }

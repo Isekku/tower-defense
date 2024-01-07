@@ -9,8 +9,8 @@ public class Mob extends Entity{
 
     public int value;
     public boolean isKilling = false;
-    public Mob(String nom, String couleur, int damage, int pv, Coordinates coordinates, int value){
-        super(nom, couleur, damage, pv, "X", coordinates);
+    public Mob(String nom, String couleur, int damage, int pv, Coordinates coordinates, int value, String entityWalk, String entityAttack, String entityDead){
+        super(nom, couleur, damage, pv, "X", coordinates, entityWalk, entityAttack, entityDead);
         this.value = value;
     }
 
@@ -19,8 +19,7 @@ public class Mob extends Entity{
     }
 
     public Mob clone(Coordinates coordinates){
-        Mob mob = new Mob(this.nom, this.couleur, this.getDamage(), this.getPv(), coordinates, this.value);
-        mob.setEntityGif(this.entityWalk.getImage(), this.entityAttack.getImage(), this.entityDead.getImage());
+        Mob mob = new Mob(this.nom, this.couleur, this.getDamage(), this.getPv(), coordinates, this.value, this.entityWalk, this.entityAttack, this.entityDead);
         return mob;
     }
 }

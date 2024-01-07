@@ -1,19 +1,23 @@
 package game.Entity.Mobs;
 
+import game.Entity.Entity;
 import game.geometry.Coordinates;
+import game.ui.Model.AnimatedGif;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import static game.ui.Style.*;
 
-public class WeakMob extends Mob{
+public class WeakMob extends Mob {
 
-    public Image entityWalk = initializeImage("resources/assets/monstres/1/S_Walk.gif");
-    public Image entityAttack = initializeImage("resources/assets/monstres/1/S_Walk.gif");
-    public Image entityDead = initializeImage("resources/assets/monstres/1/S_Death.gif");
+    public static String entityWalk = "resources/assets/monstres/1/S_Walk.gif"; //initializeImage("resources/assets/monstres/1/S_Walk.gif");
+    public static String entityAttack = "resources/assets/monstres/1/S_Walk.gif"; //initializeImage("resources/assets/monstres/1/S_Walk.gif");
+    public static Image entttt = initializeImage("resources/assets/monstres/1/S_Death.gif");
+    public static String entityDead = "resources/assets/monstres/1/S_Death.gif"; //initializeImage("resources/assets/monstres/1/S_Death.gif");
 
     public  WeakMob(Coordinates coordinates){
-        super("Mob Faible", stringBase, 8, 40, coordinates, 5);
+        super("Mob Faible", stringBase, 8, 40, coordinates, 5, "resources/assets/monstres/1/S_Walk.gif", "resources/assets/monstres/1/S_Walk.gif", "resources/assets/monstres/1/S_Death.gif");
     }
 }

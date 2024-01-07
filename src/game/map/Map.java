@@ -1,7 +1,9 @@
 package game.map;
 
 import game.Entity.Entity;
+import game.Entity.Mobs.HeavyMob;
 import game.Entity.Mobs.Mob;
+import game.Entity.Mobs.WeakMob;
 import game.Entity.Projectile;
 import game.Entity.towers.ElectricTower;
 import game.Entity.towers.Tower;
@@ -28,7 +30,7 @@ public class Map {
         this.map = new Cell[height][width];
         this.makeEmptyCells();
         instance = this;
-        setEntity(new Coordinates(0, 0), new ElectricTower(new Coordinates(0, 0)));
+        setEntity(new Coordinates(0, 0), new HeavyMob(new Coordinates(0, 0)));
     }
 
     /**

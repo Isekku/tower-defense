@@ -1,7 +1,10 @@
 package game.ui.Controller;
 
 import game.Entity.Entity;
+import game.Entity.Mobs.Mob;
+import game.Entity.Mobs.WeakMob;
 import game.map.Map;
+import game.ui.Model.AnimatedGif;
 import game.ui.Model.DynamicImage;
 import game.ui.Vue.Playing;
 
@@ -82,16 +85,15 @@ public class PlayingController extends Controller{
 
                         if(map.getCell(i, j).getEntity() != null){
                             // ImageIcon fleurIcon = new ImageIcon(view.arbreImage.getImage());
+                            Entity entity =  map.getCell(i, j).getEntity();
                             // label.setIcon(fleurIcon);
-                            label.setIcon(new ImageIcon(Playing.slimeImage));
+                            System.out.println(entity.entityWalk + ". C'est ce que t'es");
+                            label.setIcon(new ImageIcon(Entity.initializeImage(entity.entityWalk)));
                             label.revalidate();
                             label.repaint();
                         }
                         else{
-                            view.getMapGrid()[i][j].removeAll();
-                            view.getMapGrid()[i][j].revalidate();
-                            view.getMapGrid()[i][j].repaint();
-                            view.getMapGrid()[i][j].add(new JLabel());
+                            label.setIcon(null);
                         }
                     }
                 }
