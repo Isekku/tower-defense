@@ -21,6 +21,8 @@ public abstract class Entity {
     public String entityAttack;
     public String entityDead;
 
+    public boolean isOnMap = false;
+
     /**
      * Constructeur permettant d'initialisé un mob. Il peut représenter une entité ou une tour.
      * */

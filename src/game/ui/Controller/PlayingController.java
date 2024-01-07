@@ -87,8 +87,12 @@ public class PlayingController extends Controller{
                             // ImageIcon fleurIcon = new ImageIcon(view.arbreImage.getImage());
                             Entity entity =  map.getCell(i, j).getEntity();
                             // label.setIcon(fleurIcon);
-                            System.out.println(entity.entityWalk + ". C'est ce que t'es");
-                            label.setIcon(new ImageIcon(Entity.initializeImage(entity.entityWalk)));
+                            //label.setIcon(new ImageIcon(Entity.initializeImage(entity.entityWalk)));
+                            if(entity instanceof Mob && !entity.isOnMap){
+                                entity.isOnMap = true;
+                                System.out.println(entity.coordinates.getX());
+                                view.getPlayingGrid()[entity.coordinates.getX()].addEntity(entity);
+                            }
                             label.revalidate();
                             label.repaint();
                         }

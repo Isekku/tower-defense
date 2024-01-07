@@ -15,6 +15,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 
 import static game.ui.Style.*;
@@ -40,9 +41,9 @@ public class Model {
     public ArrayList<Mob> mobExample = new ArrayList<>();
 
     //L'emplacement des tours, mobs et projectile :
-    public ArrayList<Tower> towerEmplacement = new ArrayList<>();
-    public ArrayList<Mob> mobEmplacement = new ArrayList<>();
-    public ArrayList<Projectile> projectileEmplacement = new ArrayList<>();
+    public CopyOnWriteArrayList<Tower> towerEmplacement = new CopyOnWriteArrayList<>();
+    public CopyOnWriteArrayList<Mob> mobEmplacement = new CopyOnWriteArrayList<>();
+    public CopyOnWriteArrayList<Projectile> projectileEmplacement = new CopyOnWriteArrayList<>();
 
     //L'emplacement des mob de la prochaine wave :
     public ArrayList<Mob> mobInWave = new ArrayList<>();
@@ -153,6 +154,18 @@ public class Model {
         return money;
     }
 
+    public CopyOnWriteArrayList<Mob> getMobEmplacement() {
+        return mobEmplacement;
+    }
+
+    public CopyOnWriteArrayList<Projectile> getProjectileEmplacement() {
+        return projectileEmplacement;
+    }
+
+    public CopyOnWriteArrayList<Tower> getTowerEmplacement() {
+        return towerEmplacement;
+    }
+
     public int getWave() {
         return wave;
     }
@@ -240,7 +253,7 @@ public class Model {
         boolean temp = true;
         addMobInWave(wave);
 
-        Timer wave = new Timer(1000, new ActionListener() {
+        Timer wave = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 for(Tower t : towerEmplacement){
@@ -256,8 +269,6 @@ public class Model {
                 ArrayList<Projectile> deadProjectile = new ArrayList<>();
                 for(Projectile p : projectileEmplacement){
                     moveAsProjectile(p);
-
-                    System.out.println(p.coordinates + ": " + p.coordinates.speed);
 
                     Mob m = mobInFront(p.coordinates);
                     Entity e2 = map.getEntity(p.coordinates);
@@ -292,6 +303,7 @@ public class Model {
                     }
                 }
                 projectileEmplacement.removeAll(deadProjectile);
+
 
                 for(Mob m : mobEmplacement){
 
@@ -350,6 +362,9 @@ public class Model {
         else {
             wave.stop();
             mapPrint.stop();
+            print();
+            projectileEmplacement.clear();
+            mobEmplacement.clear();
             System.out.println('\n' + "Appuyez sur entrée pour continuer");
             incrementWave();
         }

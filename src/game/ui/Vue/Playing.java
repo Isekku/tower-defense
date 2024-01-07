@@ -14,6 +14,7 @@ import javax.tools.Tool;
 import game.ui.Controller.PlayingController;
 import game.map.Cell;
 import game.ui.Model.MapCell;
+import game.ui.Model.PlayingPanel;
 import game.ui.Style;
 
 public class Playing extends JFrame implements State{
@@ -71,6 +72,9 @@ public class Playing extends JFrame implements State{
             protected JPanel mapGridPanel = new JPanel();
                 protected JPanel mapGrid[][];
 
+            protected JPanel playingGridPanel = new JPanel(new GridLayout(5, 1));
+                protected PlayingPanel[] playingGrid = new PlayingPanel[5];
+
 
         protected JPanel infoPanel = new JPanel();
             protected JLabel moneyLabel = new JLabel("Money : ");
@@ -127,10 +131,16 @@ public class Playing extends JFrame implements State{
                 setMap(); newMap();
                 controller.updateMap();
 
-                mapPanel.add(mapGridPanel, BorderLayout.CENTER);
-            playingPanel.add(mapPanel, BorderLayout.CENTER);
+                //mapPanel.add(mapGridPanel, BorderLayout.CENTER);
 
-            infoPanel.setLayout(new GridLayout(4, 1));
+                for(int i = 0; i < playingGrid.length; i++){
+                    playingGrid[i] = new PlayingPanel();
+                    playingGridPanel.add(playingGrid[i]);
+                }
+
+            playingPanel.add(playingGridPanel, BorderLayout.CENTER);
+
+            infoPanel.setLayout(new GridLayout(1, 4));
                 infoPanel.add(moneyLabel);
                 infoPanel.add(lifeLabel);
                 infoPanel.add(waveLabel);
@@ -173,7 +183,6 @@ public class Playing extends JFrame implements State{
         for(int i = 0; i < controller.mapHeight; i++){
             for(int j = 0; j < controller.mapWidth; j++){
                 mapGrid[i][j].add(new JLabel());
-                System.out.println("i : " + i + "; j : " + j);
             }
         }
     }
@@ -268,4 +277,6 @@ public class Playing extends JFrame implements State{
     public JButton getPauseButton() {
         return pauseButton;
     }
+
+    public PlayingPanel[] getPlayingGrid(){return this.playingGrid;}
 }

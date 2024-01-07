@@ -48,7 +48,7 @@ public class Coordinates implements Cloneable{
         if(c.length() != 2) return null;
         int x = (c.charAt(0) - 'A');
         int y = Integer.valueOf(c.charAt(1) + "") - 1;
-        return new Coordinates(x, y, 1);
+        return new Coordinates(x, y, 0.23f);
     }
 
     public String toString(){
