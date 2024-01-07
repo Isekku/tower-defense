@@ -16,7 +16,7 @@ public abstract class Entity {
     private int damage;
     private int pv;
     private int pvMax;
-    public Image currentImage;
+    public String currentImage;
     public String entityWalk;
     public String entityAttack;
     public String entityDead;
@@ -32,9 +32,10 @@ public abstract class Entity {
         this.pv = pv;
         this.pvMax = pv;
         this.coordinates = coordinates;
-        this.entityWalk = entityWalk;
         this.entityAttack = entityAttack;
         this.entityDead = entityDead;
+        this.entityWalk = entityWalk;
+        this.currentImage = entityWalk;
     }
 
     public void setEntityGif(String g1, String g2, String g3){
