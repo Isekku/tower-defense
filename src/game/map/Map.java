@@ -6,6 +6,7 @@ import game.Entity.Mobs.Mob;
 import game.Entity.Mobs.WeakMob;
 import game.Entity.Projectile;
 import game.Entity.towers.ElectricTower;
+import game.Entity.towers.IceTower;
 import game.Entity.towers.Tower;
 import game.geometry.Coordinates;
 
@@ -30,6 +31,7 @@ public class Map {
         this.map = new Cell[height][width];
         this.makeEmptyCells();
         instance = this;
+        setEntity(0, 0, new IceTower(new Coordinates(0, 0, 0)));
     }
 
     /**

@@ -23,8 +23,6 @@ public class Playing extends JFrame implements State{
     private static final Playing instance = new Playing();
     private PlayingController controller;
     private final String assetPath = "/resources/assets/";
-    public int panelWidth;
-    public int panelHeight;
 
     //Constructeur unique :
     public Playing(){
@@ -72,6 +70,9 @@ public class Playing extends JFrame implements State{
             protected JPanel mapGridPanel = new JPanel();
                 protected JPanel mapGrid[][];
 
+            protected JPanel towerGridPanel = new JPanel();
+                protected JPanel towerGrid[][];
+
             protected JPanel playingGridPanel = new JPanel(new GridLayout(5, 1));
                 protected PlayingPanel[] playingGrid = new PlayingPanel[5];
 
@@ -103,8 +104,8 @@ public class Playing extends JFrame implements State{
 
     public JPanel[][] getMapGrid(){return mapGrid;}
 
-    public JPanel getMapGridPanel(int hauteur, int largeur){
-        return mapGrid[hauteur][largeur];
+    public JPanel getTowerGridPanel(int hauteur, int largeur){
+        return towerGrid[hauteur][largeur];
     }
 
 
@@ -124,21 +125,35 @@ public class Playing extends JFrame implements State{
     public void enterState() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         controller.refresh();
+        towerGrid = new JPanel[controller.mapHeight][controller.mapWidth];
 
         playingPanel.setLayout(new BorderLayout());
             mapPanel.setLayout(new BorderLayout());
                 mapGridPanel.setLayout(new GridLayout(controller.mapHeight, controller.mapWidth));
+                towerGridPanel.setLayout(new GridLayout(controller.mapHeight, controller.mapWidth));
                 setMap(); newMap();
                 controller.updateMap();
 
-                //mapPanel.add(mapGridPanel, BorderLayout.CENTER);
+                mapPanel.add(mapGridPanel, BorderLayout.CENTER);
 
                 for(int i = 0; i < playingGrid.length; i++){
                     playingGrid[i] = new PlayingPanel();
+                    playingGrid[i].setOpaque(false);
                     playingGridPanel.add(playingGrid[i]);
                 }
 
-            playingPanel.add(playingGridPanel, BorderLayout.CENTER);
+            JPanel overlayLayout = new JPanel();
+            overlayLayout.setLayout(new OverlayLayout(overlayLayout));
+
+            mapPanel.setOpaque(false);
+            playingGridPanel.setOpaque(false);
+            towerGridPanel.setOpaque(false);
+
+            overlayLayout.add(playingGridPanel);
+            overlayLayout.add(towerGridPanel);
+            overlayLayout.add(mapPanel);
+
+            playingPanel.add(overlayLayout, BorderLayout.CENTER);
 
             infoPanel.setLayout(new GridLayout(1, 4));
                 infoPanel.add(moneyLabel);
@@ -173,7 +188,10 @@ public class Playing extends JFrame implements State{
         for(int i = 0; i < controller.mapHeight; i++){
             for(int j = 0; j < controller.mapWidth; j++){
                 mapGrid[i][j] = new MapCell(mapDesign[i][j]);
+                towerGrid[i][j] = new JPanel();
+                towerGrid[i][j].setOpaque(false);
                 mapGridPanel.add(mapGrid[i][j]);
+                towerGridPanel.add(towerGrid[i][j]);
             }
 
         }
@@ -182,7 +200,8 @@ public class Playing extends JFrame implements State{
     public void newMap(){
         for(int i = 0; i < controller.mapHeight; i++){
             for(int j = 0; j < controller.mapWidth; j++){
-                mapGrid[i][j].add(new JLabel());
+                System.out.println("i : " + i + ". j : " + j);
+                towerGrid[i][j].add(new JLabel());
             }
         }
     }

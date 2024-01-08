@@ -3,6 +3,8 @@ package game.ui.Controller;
 import game.Entity.Entity;
 import game.Entity.Mobs.Mob;
 import game.Entity.Mobs.WeakMob;
+import game.Entity.Projectile;
+import game.Entity.towers.Tower;
 import game.map.Map;
 import game.ui.Model.AnimatedGif;
 import game.ui.Model.DynamicImage;
@@ -80,7 +82,7 @@ public class PlayingController extends Controller{
                 Map map = model.getMap();
                 for (int i = 0; i < map.getHeight(); i++){
                     for (int j = 0; j < map.getWidth(); j++){
-                        JPanel panel = view.getMapGridPanel(i, j);
+                        JPanel panel = view.getTowerGridPanel(i, j);
                         JLabel label = (JLabel) panel.getComponent(0);
 
                         if(map.getCell(i, j).getEntity() != null){
@@ -88,10 +90,13 @@ public class PlayingController extends Controller{
                             Entity entity =  map.getCell(i, j).getEntity();
                             // label.setIcon(fleurIcon);
                             //label.setIcon(new ImageIcon(Entity.initializeImage(entity.entityWalk)));
-                            if(entity instanceof Mob && !entity.isOnMap){
+                            if((entity instanceof Mob || entity instanceof Projectile) && !entity.isOnMap){
                                 entity.isOnMap = true;
                                 System.out.println(entity.coordinates.getX());
                                 view.getPlayingGrid()[entity.coordinates.getX()].addEntity(entity);
+                            }
+                            else if(entity instanceof Tower && !entity.isOnMap){
+                                label.setIcon(new ImageIcon(Entity.initializeImage(entity.currentImage)));
                             }
                             label.revalidate();
                             label.repaint();
