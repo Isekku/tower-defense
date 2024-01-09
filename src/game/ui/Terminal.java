@@ -224,7 +224,7 @@ public class Terminal implements View{
     public void cheat() {
         clearScreen();
         boolean valid = false;
-        while (!valid && !model.isWaveRunning()) {
+        while (!valid) {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -237,8 +237,8 @@ public class Terminal implements View{
             };
             new Thread(runnable).start();
 
+            model.setWaveRunning(true);
             while (model.isWaveRunning()) {
-                System.out.println("Je suis bien à kour");
                 String answer = scanner.nextLine();
                 if (answer.equals("1")) peutPlacerTour();
             }
