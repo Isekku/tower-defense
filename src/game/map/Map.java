@@ -31,8 +31,6 @@ public class Map {
         this.map = new Cell[height][width];
         this.makeEmptyCells();
         instance = this;
-        setEntity(0, 0, new IceTower(new Coordinates(0, 0, 0)));
-        setEntity(0, 3, new IceTower(new Coordinates(0, 3, 0)));
     }
 
     /**

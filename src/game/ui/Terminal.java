@@ -104,7 +104,7 @@ public class Terminal implements View{
     private void playMarathonMode(){
         System.out.println("Vous êtes en mode marathon");
         while (!lose){
-            int choix = -1;
+            cheat();
         }
         if(lose) System.out.println("Vous avez tenu " + "Mettre le nombre de vague ici à prendre dans le model" + " vagues !");
         System.exit(0);
@@ -134,7 +134,7 @@ public class Terminal implements View{
         while(choix == -1){
             System.out.print(stringBase + "Quel action souhaité vous réaliser ? : " + stringCouleurVert + "(1) Placer une tour" + stringBase + " | " + stringCouleurRouge + "(2) Commencer le tour" + stringBase + " | " + stringCouleurJaune + "(3) Pause" + stringBase + ": " );
             String value = scanner.nextLine();
-            if(!value.equals("1") && !value.equals("2") && !value.equals("3")) System.out.println(stringErrorMessage);
+            if(!value.equals("1") && !value.equals("2") && !value.equals("3"));
             else choix = Integer.valueOf(value);
         }
         return choix;

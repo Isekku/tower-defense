@@ -335,21 +335,23 @@ public class Model {
                 incrementTime();
             }
         });
-
+        Timer t = setMobInWave();
         mapPrint.start();
-        while(temp || (!lose() && !winWave())){
-            setMobInWave();
+        while(temp || !lose() && !winWave()){
+            if(!mobInWave.isEmpty());
+            else t.stop();
             temp = false;
 
             if(!wave.isRunning()) wave.start();
             if(!mapPrint.isRunning()) mapPrint.start();
             if(!waveOnBreak) {
                 if (!mobInWave.isEmpty()) {
-                    setMobInWave();
+                    t.start();
                 }
 
             }
             else{
+                t.stop();
                 wave.stop();
                 mapPrint.stop();
             }
@@ -424,7 +426,7 @@ public class Model {
     }
 
     public boolean winWave(){
-        return mobEmplacement.isEmpty() && projectileEmplacement.isEmpty();
+        return mobEmplacement.isEmpty() && projectileEmplacement.isEmpty() && mobInWave.isEmpty();
     }
 
     public void makeBreak(){
@@ -456,7 +458,8 @@ public class Model {
         }
     }
 
-    public void setMobInWave(){
+    public Timer setMobInWave(){
+        /*
         ArrayList<Mob> mobRemovable = new ArrayList<>();
         for(Mob m : mobInWave){
             try{
@@ -471,5 +474,20 @@ public class Model {
             }
         }
         mobInWave.removeAll(mobRemovable);
+         */
+
+        Timer t = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(!mobInWave.isEmpty()){
+                    Mob m = mobInWave.getFirst();
+                    if(map.getEntity(m.coordinates) == null){
+                        setMob(m.coordinates, m);
+                        mobInWave.remove(m);
+                    }
+                }
+            }
+        });
+        return t;
     }
 }
