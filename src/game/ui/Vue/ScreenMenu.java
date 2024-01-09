@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import game.ui.Controller.ScreenMenuController;
+import game.Save;
 import game.ui.Style;
 
 public class ScreenMenu extends JFrame implements State {
@@ -31,7 +32,7 @@ public class ScreenMenu extends JFrame implements State {
         private JPanel buttonContainerPanel = new JPanel();
             private JPanel buttonPanel = new JPanel();
                 private JButton playButton = new JButton("Jouer");
-                private JButton optionButton = new JButton("Option");
+                private JButton optionButton = new JButton("Chargez une partie");
                 private JButton quitButton = new JButton("Quitter");
 
     //Méthodes nécessaires pour la construction de la vue :
@@ -72,8 +73,28 @@ public class ScreenMenu extends JFrame implements State {
 
         screenMenuPanel.add(menuPanel, BorderLayout.CENTER);
 
+        checkSave();
+
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
+    }
+    public void checkSave(){
+        if (!Save.isSaveExist()) {
+            optionButton.setEnabled(false);
+            System.out.println("Aucune sauvegarde trouvée");
+        }
+        else {
+            System.out.println("Sauvegarde trouvée");
+        }
+
+    }
+    public void loadSave(){
+        Save save = Save.load();
+        if (save == null) {
+            JOptionPane.showMessageDialog(null, "Aucune sauvegarde trouvée", "Erreur", JOptionPane.ERROR_MESSAGE);
+            optionButton.setEnabled(false);
+        }
+
     }
     public void refresh(){
         SwingUtilities.invokeLater(new Runnable() {
