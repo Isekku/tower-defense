@@ -308,7 +308,6 @@ public class Model {
                 for(Mob m : mobEmplacement){
 
                     if(map.getEntity(m.coordinates) == null) map.setEntity(m.coordinates, m);
-                    m.isKilling = false;
 
                     Tower t = towerInFront(m.coordinates);
                     if(t != null){
@@ -320,6 +319,7 @@ public class Model {
                         }
                     }
                     else if(!m.isKilling) moveAsMob(m);
+                    m.isKilling = false;
                 }
             }
         });
@@ -459,6 +459,12 @@ public class Model {
     public void setMobInWave(){
         ArrayList<Mob> mobRemovable = new ArrayList<>();
         for(Mob m : mobInWave){
+            try{
+                Thread.sleep(3000);
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
             if(map.getEntity(m.coordinates) == null){
                 setMob(m.coordinates, m);
                 mobRemovable.add(m);

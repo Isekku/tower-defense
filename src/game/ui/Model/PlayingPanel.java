@@ -47,7 +47,7 @@ public class PlayingPanel extends JPanel{
         super.paintComponent(g);
         for(Entity e : entityOnPanel){
             int centerY = getHeight()/2 - Entity.initializeImage(e.currentImage).getHeight(null) / 2;
-            drawMob(g, e.currentImage, (e.coordinates.getYAsFloat()*getWidth() /9) - 150, centerY);
+            drawMob(g, e.currentImage, (e.coordinates.getYAsFloat()*getWidth() /9), centerY);
         }
     }
 

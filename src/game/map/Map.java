@@ -32,6 +32,7 @@ public class Map {
         this.makeEmptyCells();
         instance = this;
         setEntity(0, 0, new IceTower(new Coordinates(0, 0, 0)));
+        setEntity(0, 3, new IceTower(new Coordinates(0, 3, 0)));
     }
 
     /**
@@ -144,7 +145,7 @@ public class Map {
     public boolean isValid(int x, int y) {
         return (x >= 0 && y >= 0) && (x < height && y < width);
     }
-
+ 
     /**
      * Permet de vérifier si une coordonnées est bien présente dans la map.
      */
