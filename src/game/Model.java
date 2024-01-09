@@ -245,6 +245,77 @@ public class Model {
         return waveTime;
     }
 
+    public void towerRound(){
+        for(Tower t : towerEmplacement){
+            if(mobOnWay(t.coordinates) && t.canShoot){
+                t.currentImage = t.entityAttack;
+                t.canShoot = false;
+                Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
+                projectileEmplacement.add(p);
+                t.currentImage = t.entityWalk;
+            }
+        }
+    }
+
+    public void projectileRound(){
+        ArrayList<Projectile> deadProjectile = new ArrayList<>();
+        for(Projectile p : projectileEmplacement){
+            moveAsProjectile(p);
+
+            Mob m = mobInFront(p.coordinates);
+            Entity e2 = map.getEntity(p.coordinates);
+
+            if(!map.isValid(p.coordinates)){
+                p.towerParent.canShoot = true;
+                deadProjectile.add(p);
+            }
+            else if(e2 instanceof Mob){
+                Mob m2 = (Mob) e2;
+                boolean dead = p.makeDamage(m2);
+                if(dead){
+                    mobEmplacement.remove(m2);
+                    map.makeEmpty(m2.coordinates);
+                    incrementMoney(m2.value);
+                }
+                p.towerParent.canShoot = true;
+                if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
+                deadProjectile.add(p);
+            }
+
+            else if(m != null){
+                boolean dead = p.makeDamage(m);
+                if(dead){
+                    mobEmplacement.remove(m);
+                    map.makeEmpty(m.coordinates);
+                    incrementMoney(m.value);
+                }
+                p.towerParent.canShoot = true;
+                if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
+                deadProjectile.add(p);
+            }
+        }
+        projectileEmplacement.removeAll(deadProjectile);
+    }
+
+    public void mobRound(){
+        for(Mob m : mobEmplacement){
+
+            if(map.getEntity(m.coordinates) == null) map.setEntity(m.coordinates, m);
+
+            Tower t = towerInFront(m.coordinates);
+            if(t != null){
+                m.isKilling = true;
+                boolean dead = m.makeDamage(t);
+                if(dead){
+                    towerEmplacement.remove(t);
+                    map.makeEmpty(t.coordinates);
+                }
+            }
+            else if(!m.isKilling) moveAsMob(m);
+            m.isKilling = false;
+        }
+    }
+
     public void startWave() throws InterruptedException{
         waveRunning = true;
         Terminal.clearScreen();
@@ -256,74 +327,11 @@ public class Model {
         Timer wave = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                for(Tower t : towerEmplacement){
-                    if(mobOnWay(t.coordinates) && t.canShoot){
-                        t.currentImage = t.entityAttack;
-                        t.canShoot = false;
-                        Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
-                        projectileEmplacement.add(p);
-                        t.currentImage = t.entityWalk;
-                    }
-                }
-
-                ArrayList<Projectile> deadProjectile = new ArrayList<>();
-                for(Projectile p : projectileEmplacement){
-                    moveAsProjectile(p);
-
-                    Mob m = mobInFront(p.coordinates);
-                    Entity e2 = map.getEntity(p.coordinates);
-
-                    if(!map.isValid(p.coordinates)){
-                        p.towerParent.canShoot = true;
-                        deadProjectile.add(p);
-                    }
-                    else if(e2 instanceof Mob){
-                        Mob m2 = (Mob) e2;
-                        boolean dead = p.makeDamage(m2);
-                        if(dead){
-                            mobEmplacement.remove(m2);
-                            map.makeEmpty(m2.coordinates);
-                            incrementMoney(m2.value);
-                        }
-                        p.towerParent.canShoot = true;
-                        if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
-                        deadProjectile.add(p);
-                    }
-
-                    else if(m != null){
-                        boolean dead = p.makeDamage(m);
-                        if(dead){
-                            mobEmplacement.remove(m);
-                            map.makeEmpty(m.coordinates);
-                            incrementMoney(m.value);
-                        }
-                        p.towerParent.canShoot = true;
-                        if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
-                        deadProjectile.add(p);
-                    }
-                }
-                projectileEmplacement.removeAll(deadProjectile);
-
-
-                for(Mob m : mobEmplacement){
-
-                    if(map.getEntity(m.coordinates) == null) map.setEntity(m.coordinates, m);
-
-                    Tower t = towerInFront(m.coordinates);
-                    if(t != null){
-                        m.isKilling = true;
-                        boolean dead = m.makeDamage(t);
-                        if(dead){
-                            towerEmplacement.remove(t);
-                            map.makeEmpty(t.coordinates);
-                        }
-                    }
-                    else if(!m.isKilling) moveAsMob(m);
-                    m.isKilling = false;
-                }
+                towerRound();
+                projectileRound();
+                mobRound();
             }
         });
-
         wave.start();
 
         Timer mapPrint = new Timer(1000, new ActionListener() {
@@ -335,8 +343,10 @@ public class Model {
                 incrementTime();
             }
         });
+
         Timer t = setMobInWave();
         mapPrint.start();
+
         while(temp || !lose() && !winWave()){
             if(!mobInWave.isEmpty());
             else t.stop();
@@ -358,7 +368,7 @@ public class Model {
         }
 
         if(lose()){
-            System.out.println("Vous avez perdu :( (cheh) ! ");
+            System.out.println("Vous avez perdu :( ! ");
             System.exit(0);
         }
         else {
@@ -372,6 +382,7 @@ public class Model {
             System.out.println('\n' + "Appuyez sur entrée pour continuer");
             incrementWave();
         }
+        if(mode == 1) startWave();
     }
 
     public boolean mobOnWay(Coordinates c){
