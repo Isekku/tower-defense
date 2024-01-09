@@ -480,7 +480,7 @@ public class Model {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if(!mobInWave.isEmpty()){
-                    Mob m = mobInWave.getFirst();
+                    Mob m = mobInWave.get(0);
                     if(map.getEntity(m.coordinates) == null){
                         setMob(m.coordinates, m);
                         mobInWave.remove(m);
