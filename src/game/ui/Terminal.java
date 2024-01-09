@@ -77,7 +77,7 @@ public class Terminal implements View{
         System.out.println("Vous êtes en mode Normal :");
         while(!win && !lose){
 
-            if(model.getWave() >= 2) win = true;
+            if(model.getWave() >= 10) win = true;
 
             else {
                 update();
@@ -238,6 +238,7 @@ public class Terminal implements View{
             new Thread(runnable).start();
 
             while (model.isWaveRunning()) {
+                System.out.println("Je suis bien à kour");
                 String answer = scanner.nextLine();
                 if (answer.equals("1")) peutPlacerTour();
             }
