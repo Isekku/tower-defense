@@ -27,7 +27,7 @@ public class Model {
     private Map map;
     private int money;
     private int wave;
-    private int difficulty = -1;
+    private int difficulty;
     private int mapType = -1;
     private int mode = -1;
     private int time;
@@ -453,7 +453,7 @@ public class Model {
 
     public void addMobInWave(int wave){
         Random r = new Random();
-        for(int i = 0; i < ((wave+1) + r.nextInt(0,difficulty)); i++){
+        for(int i = 0; i < ((wave+1) + r.nextInt(0,difficulty+1)); i++){
             if(wave == 0){
                 Mob m = mobExample.get(0).clone(new Coordinates(0, map.getWidth()-1, mobExample.get(0).speed));
                 mobInWave.add(m);
