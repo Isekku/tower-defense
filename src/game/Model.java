@@ -135,7 +135,7 @@ public class Model {
        // System.out.println("state: " + state);
         //System.out.println("map: " + '\n' + map);
 
-        System.out.print(stringBase + stringCouleurVert + "Money: " + money + "; ");
+        System.out.print('\n' + stringBase + stringCouleurVert + "Money: " + money + "; ");
         System.out.println(stringBase + stringCouleurCyan + "Wave: " + wave + "; ");
 
         System.out.println(stringBase + map);
@@ -440,7 +440,7 @@ public class Model {
 
     public void addMobInWave(int wave){
         Random r = new Random();
-        for(int i = 0; i < ((wave+1) + r.nextInt(0,2)); i++){
+        for(int i = 0; i < ((wave+1) + r.nextInt(0,difficulty)); i++){
             if(wave == 0){
                 Mob m = mobExample.get(0).clone(new Coordinates(0, map.getWidth()-1, mobExample.get(0).speed));
                 mobInWave.add(m);

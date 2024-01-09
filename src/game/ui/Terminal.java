@@ -220,35 +220,33 @@ public class Terminal implements View{
         System.out.flush();
     }
 
-    public void cheat(){
+    public void cheat() {
         clearScreen();
         boolean valid = false;
-        while(!valid){
+        while (!valid) {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    try{
+                    try {
                         model.startWave();
-                    }
-                    catch (InterruptedException e){
+                    } catch (InterruptedException e) {
                         System.out.println("La vague est interrompu !");
                     }
                 }
             };
-            Thread playThread = new Thread(runnable);
-            playThread.start();
+            new Thread(runnable).start();
 
-            while(!model.winWave()){
+            while (!model.winWave()) {
                 String answer = scanner.nextLine();
-                if(answer.equals("1")){
+                if (answer.equals("1")) {
                     peutPlacerTour();
-                }
-                else{
+                } else {
                     System.out.println(stringErrorMessage);
                 }
             }
             valid = true;
         }
+    }
 
         /*
             System.out.print("Bonjour mon " + stringCouleurJaune + "roi. " +stringBase + stringGras + "Que voulez-vous faire ? : ");
@@ -285,5 +283,3 @@ public class Terminal implements View{
 
          */
     }
-
-}
