@@ -77,24 +77,27 @@ public class Terminal implements View{
         System.out.println("Vous êtes en mode Normal :");
         while(!win && !lose){
 
-            update();
-            int choix = -1;
-            if(!model.isWaveRunning()) choix = choixNormalAction();
+            if(model.getWave() >= 2) win = true;
 
-            //Le joueur veut placer une tour
-            if(choix == 1){
-                peutPlacerTour();
-            }
+            else {
+                update();
+                int choix = choixNormalAction();
 
-            //Le joueur veut commencer la vague
-            if(choix == 2){
-                cheat();
-            }
+                //Le joueur veut placer une tour
+                if (choix == 1) {
+                    peutPlacerTour();
+                }
 
-            //Le joueur veut entrer dans l'état Option
-            if(choix == 3){
-                //Créer une méthode qui met pause au jeu
-                quitOrRestart();
+                //Le joueur veut commencer la vague
+                else if (choix == 2) {
+                    cheat();
+                }
+
+                //Le joueur veut entrer dans l'état Option
+                else if (choix == 3) {
+                    //Créer une méthode qui met pause au jeu
+                    quitOrRestart();
+                }
             }
         }
         if(win) System.out.println("Vous avez gagné. Félicitation !");
@@ -132,13 +135,11 @@ public class Terminal implements View{
     //Méthode regroupant les choix possible dans les 2 modes :
     private int choixNormalAction(){
         int choix = -1;
-        while(choix == -1){
-            System.out.print(stringBase + "Quel action souhaité vous réaliser ? : " + stringCouleurVert + "(1) Placer une tour" + stringBase + " | " + stringCouleurRouge + "(2) Commencer le tour" + stringBase + " | " + stringCouleurJaune + "(3) Pause" + stringBase + ": " );
-            String value = scanner.nextLine();
-            System.out.println();
-            if(!value.equals("1") && !value.equals("2") && !value.equals("3"));
-            else choix = Integer.valueOf(value);
-        }
+        System.out.print(stringBase + "Quel action souhaité vous réaliser ? : " + stringCouleurVert + "(1) Placer une tour" + stringBase + " | " + stringCouleurRouge + "(2) Commencer le tour" + stringBase + " | " + stringCouleurJaune + "(3) Pause" + stringBase + ": " );
+        String value = scanner.nextLine();
+        System.out.println();
+        if(!value.equals("1") && !value.equals("2") && !value.equals("3")) System.out.println(stringErrorMessage);
+        else choix = Integer.valueOf(value);
         return choix;
     }
 
@@ -223,7 +224,7 @@ public class Terminal implements View{
     public void cheat() {
         clearScreen();
         boolean valid = false;
-        while (!valid) {
+        while (!valid && !model.isWaveRunning()) {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -236,50 +237,11 @@ public class Terminal implements View{
             };
             new Thread(runnable).start();
 
-            while (!model.winWave()) {
+            while (model.isWaveRunning()) {
                 String answer = scanner.nextLine();
-                if (answer.equals("1")) {
-                    peutPlacerTour();
-                } else {
-                    System.out.println(stringErrorMessage);
-                }
+                if (answer.equals("1")) peutPlacerTour();
             }
             valid = true;
         }
     }
-
-        /*
-            System.out.print("Bonjour mon " + stringCouleurJaune + "roi. " +stringBase + stringGras + "Que voulez-vous faire ? : ");
-            String value = scanner.nextLine();
-            if(value.equals("add mob")){
-                boolean temp = false;
-                model.printMap();
-                System.out.print("Dans quel hauteur souhaité vous ? : ");
-                Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
-                System.out.print("Quel mob souhaité vous placer ? (0-3) : ");
-                temp = model.setMob(c, (model.mobExample.get(scanner.nextInt())).clone(c));
-                if(!temp){
-                    clearScreen();
-                    System.out.println(stringCouleurRouge + "Mon roi, je n'aime pas vous dérangez pour ça mais je penses que vous avez fait une erreur sur les coordonnées" + stringBase);
-                }
-                else model.printMap();
-            }
-
-            if(value.equals("mob on way")){
-                model.printMap();
-                System.out.print("Quel sont les coordonnées à vérifier ? : ");
-                Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
-                System.out.println(model.mobOnWay(c));
-            }
-
-            if(value.equals("tower in front")){
-                model.printMap();
-                System.out.print("Quel sont les coordonnées à vérifier ? : ");
-                Coordinates c = Coordinates.coordonateToPoint(scanner.nextLine());
-                System.out.println(model.towerInFront(c));
-            }
-
-            if(value.equals("valid")) valid = true;
-
-         */
-    }
+}

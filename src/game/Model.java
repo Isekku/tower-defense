@@ -246,7 +246,7 @@ public class Model {
     }
 
     public void startWave() throws InterruptedException{
-
+        waveRunning = true;
         Terminal.clearScreen();
         print();
 
@@ -365,6 +365,7 @@ public class Model {
             wave.stop();
             mapPrint.stop();
             print();
+            waveRunning = false;
             projectileEmplacement.clear();
             mobEmplacement.clear();
             System.out.println('\n' + "Appuyez sur entrée pour continuer");
@@ -459,23 +460,6 @@ public class Model {
     }
 
     public Timer setMobInWave(){
-        /*
-        ArrayList<Mob> mobRemovable = new ArrayList<>();
-        for(Mob m : mobInWave){
-            try{
-                Thread.sleep(3000);
-            }
-            catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            if(map.getEntity(m.coordinates) == null){
-                setMob(m.coordinates, m);
-                mobRemovable.add(m);
-            }
-        }
-        mobInWave.removeAll(mobRemovable);
-         */
-
         Timer t = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
