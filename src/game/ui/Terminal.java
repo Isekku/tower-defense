@@ -78,7 +78,8 @@ public class Terminal implements View{
         while(!win && !lose){
 
             update();
-            int choix = choixNormalAction();
+            int choix = -1;
+            if(!model.isWaveRunning()) choix = choixNormalAction();
 
             //Le joueur veut placer une tour
             if(choix == 1){
@@ -134,6 +135,7 @@ public class Terminal implements View{
         while(choix == -1){
             System.out.print(stringBase + "Quel action souhaité vous réaliser ? : " + stringCouleurVert + "(1) Placer une tour" + stringBase + " | " + stringCouleurRouge + "(2) Commencer le tour" + stringBase + " | " + stringCouleurJaune + "(3) Pause" + stringBase + ": " );
             String value = scanner.nextLine();
+            System.out.println();
             if(!value.equals("1") && !value.equals("2") && !value.equals("3"));
             else choix = Integer.valueOf(value);
         }
@@ -237,10 +239,12 @@ public class Terminal implements View{
             playThread.start();
 
             while(!model.winWave()){
-                Scanner temp = new Scanner(System.in);
-                String answer = temp.nextLine();
+                String answer = scanner.nextLine();
                 if(answer.equals("1")){
                     peutPlacerTour();
+                }
+                else{
+                    System.out.println(stringErrorMessage);
                 }
             }
             valid = true;

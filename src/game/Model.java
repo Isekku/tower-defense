@@ -135,7 +135,7 @@ public class Model {
        // System.out.println("state: " + state);
         //System.out.println("map: " + '\n' + map);
 
-        System.out.print('\n' + stringBase + stringCouleurVert + "Money: " + money + "; ");
+        System.out.print(stringBase + stringCouleurVert + "Money: " + money + "; ");
         System.out.println(stringBase + stringCouleurCyan + "Wave: " + wave + "; ");
 
         System.out.println(stringBase + map);
