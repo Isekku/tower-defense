@@ -19,11 +19,12 @@ public class Terminal implements View{
     public String nom;
     public boolean win = false;
     public boolean lose = false;
+    public static boolean isTerminal = false;
     private final Model model = Model.getInstance();
     private final Scanner scanner = new Scanner(System.in);
     public Terminal(){
         clearScreen();
-
+        isTerminal = true;
         //Demande du nom :
         while(this.nom == null){
             System.out.print(stringBase +"Quel est votre nom ? : " + stringGras + stringCouleurPourpre);
@@ -108,7 +109,9 @@ public class Terminal implements View{
     private void playMarathonMode(){
         System.out.println("Vous êtes en mode marathon");
         while (!lose){
-            cheat();
+            if(!model.isWaveRunning()){
+                cheat();
+            }
         }
         if(lose) System.out.println("Vous avez tenu " + "Mettre le nombre de vague ici à prendre dans le model" + " vagues !");
         System.exit(0);

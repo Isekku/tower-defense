@@ -34,7 +34,7 @@ public class Model {
     private int waveTime;
     private int timeOfWave;
     private boolean waveOnBreak = false;
-    private boolean waveRunning = true;
+    private boolean waveRunning = false;
 
     //Ajout des tours jouable et des mobs possible :
     public ArrayList<Tower> towerExample = new ArrayList<>();
@@ -364,6 +364,7 @@ public class Model {
         else {
             wave.stop();
             mapPrint.stop();
+            Terminal.clearScreen();
             print();
             waveRunning = false;
             projectileEmplacement.clear();
