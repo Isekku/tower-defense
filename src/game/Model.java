@@ -282,6 +282,7 @@ public class Model {
             if(!map.isValid(p.coordinates)){
                 p.towerParent.canShoot = true;
                 deadProjectile.add(p);
+                p.takeDamage(p.getPv());
             }
             else if(e2 instanceof Mob){
                 Mob m2 = (Mob) e2;
@@ -293,7 +294,7 @@ public class Model {
                 }
                 p.towerParent.canShoot = true;
                 if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
-                p.takeDamage(p.getDamage());
+                p.takeDamage(p.getPv());
                 deadProjectile.add(p);
             }
         }
