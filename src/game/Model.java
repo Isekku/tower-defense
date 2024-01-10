@@ -308,11 +308,13 @@ public class Model {
 
             Entity t = map.getEntity(m.coordinates); //towerInFront(m.coordinates);
             if(t instanceof Tower){
+                m.currentImage = m.entityAttack;
                 m.isKilling = true;
                 boolean dead = m.makeDamage(t);
                 if(dead){
                     towerEmplacement.remove(t);
                     map.makeEmpty(t.coordinates);
+                    m.currentImage = m.entityWalk;
                 }
             }
             else if(!m.isKilling) moveAsMob(m);
