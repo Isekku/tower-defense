@@ -2,7 +2,7 @@ package game.ui.Controller;
 
 import game.Game;
 import game.GameState;
-import game.ui.Model;
+import game.Model;
 
 import javax.swing.*;
 
