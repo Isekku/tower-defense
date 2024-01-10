@@ -80,10 +80,7 @@ public class PlayingController extends Controller{
                         JLabel label = (JLabel) panel.getComponent(0);
 
                         if(map.getCell(i, j).getEntity() != null){
-                            // ImageIcon fleurIcon = new ImageIcon(view.arbreImage.getImage());
                             Entity entity =  map.getCell(i, j).getEntity();
-                            // label.setIcon(fleurIcon);
-                            //label.setIcon(new ImageIcon(Entity.initializeImage(entity.entityWalk)));
                             if((entity instanceof Mob || entity instanceof Projectile) && !entity.isOnMap){
                                 entity.isOnMap = true;
                                 System.out.println(entity.coordinates.getX());

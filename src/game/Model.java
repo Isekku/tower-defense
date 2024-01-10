@@ -302,11 +302,11 @@ public class Model {
 
     public void mobRound(){
         for(Mob m : mobEmplacement){
-
+            m.isKilling = false;
             if(map.getEntity(m.coordinates) == null) map.setEntity(m.coordinates, m);
 
-            Tower t = towerInFront(m.coordinates);
-            if(t != null){
+            Entity t = map.getEntity(m.coordinates); //towerInFront(m.coordinates);
+            if(t instanceof Tower){
                 m.isKilling = true;
                 boolean dead = m.makeDamage(t);
                 if(dead){
@@ -315,7 +315,6 @@ public class Model {
                 }
             }
             else if(!m.isKilling) moveAsMob(m);
-            m.isKilling = false;
         }
     }
 
@@ -417,7 +416,7 @@ public class Model {
 
         mob.coordinates.moveLeft();
 
-        if(!(map.getEntity(mob.coordinates) instanceof Mob)){
+        if(!(map.getEntity(mob.coordinates) instanceof Mob || map.getEntity(mob.coordinates) instanceof Tower)){
             map.setEntity(mob.coordinates, mob);
         }
     }
