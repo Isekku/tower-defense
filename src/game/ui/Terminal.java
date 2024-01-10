@@ -1,17 +1,10 @@
 package game.ui;
 
-import java.io.Console;
-import java.lang.invoke.SwitchPoint;
 import java.util.Scanner;
 
-import game.Entity.Mobs.Mob;
 import game.Entity.towers.Tower;
-import game.Game;
-import game.Model;
 import game.View;
 import game.geometry.Coordinates;
-import game.map.Map;
-import game.ui.Style;
 
 import static game.ui.Style.*;
 

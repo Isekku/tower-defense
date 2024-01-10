@@ -1,5 +1,7 @@
 package game;
 
+import game.ui.Model;
+
 import java.io.Serializable;
 
 public class Save extends Model implements Serializable {
