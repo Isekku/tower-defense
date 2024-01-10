@@ -28,7 +28,7 @@ public class PlayingPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 for(Entity e : entityOnPanel){
-                    if(e.coordinates.getY() + Entity.initializeImage(e.currentImage).getWidth(null) <= 0){
+                    if(e.coordinates.getY() + Entity.initializeImage(e.currentImage).getWidth(null) <= 0 || e.getPv() <= 0){
                         entityDead.add(e);
                     }
                 }
