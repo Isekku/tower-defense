@@ -24,23 +24,28 @@ public class PlayingPanel extends JPanel{
     public PlayingPanel(){
         entityOnPanel = new ArrayList<>();
         entityDead = new ArrayList<>();
-        timer = new Timer(16, new ActionListener() {
+        SwingUtilities.invokeLater(new Runnable() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                for(Entity e : entityOnPanel){
-                    if(e.coordinates.getY() + Entity.initializeImage(e.currentImage).getWidth(null) <= 0 || e.getPv() <= 0){
-                        entityDead.add(e);
-                    }
-                }
-                for(Entity e : entityDead){
-                    entityOnPanel.remove(e);
-                }
-                entityDead.clear();
+            public void run() {
+                timer = new Timer(16, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        for(Entity e : entityOnPanel){
+                            if(e.coordinates.getY() + Entity.initializeImage(e.currentImage).getWidth(null) <= 0 || e.getPv() <= 0){
+                                entityDead.add(e);
+                            }
+                        }
+                        for(Entity e : entityDead){
+                            entityOnPanel.remove(e);
+                        }
+                        entityDead.clear();
 
-                repaint();
+                        repaint();
+                    }
+                });
+                timer.start();
             }
         });
-        timer.start();
     }
 
     protected void paintComponent(Graphics g){
