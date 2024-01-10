@@ -87,6 +87,14 @@ public class Playing extends JFrame implements State{
             protected JButton startButton = new JButton("Commencer le tour");
             protected JButton pauseButton = new JButton("Pause");
 
+        protected JPanel towerPanel = new JPanel();
+            protected JLabel basicTowerLabel = new JLabel("Basic Tower");
+            protected JLabel electricTowerLabel = new JLabel("Electric Tower");
+            protected JLabel iceTowerLabel = new JLabel("Ice Tower");
+            protected JLabel royalTowerLabel = new JLabel("Royal Tower");
+
+        protected JPanel towerPlusStartPanel = new JPanel(new GridLayout(2, 1));
+
 
     public static ImageIcon terreImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources/assets/terrain/Tiles/FieldsTile_01.png"));
 
@@ -135,6 +143,7 @@ public class Playing extends JFrame implements State{
                 controller.updateMap();
 
                 mapPanel.add(mapGridPanel, BorderLayout.CENTER);
+                
 
                 for(int i = 0; i < playingGrid.length; i++){
                     playingGrid[i] = new PlayingPanel();
@@ -153,14 +162,16 @@ public class Playing extends JFrame implements State{
             overlayLayout.add(towerGridPanel);
             overlayLayout.add(mapPanel);
 
+            // mettre une map carré
             playingPanel.add(overlayLayout, BorderLayout.CENTER);
+            playingPanel.setPreferredSize(new Dimension(100, 100));
 
             infoPanel.setLayout(new GridLayout(1, 4));
                 infoPanel.add(moneyLabel);
                 infoPanel.add(lifeLabel);
                 infoPanel.add(waveLabel);
                 infoPanel.add(timeLabel);
-            playingPanel.add(infoPanel, BorderLayout.SOUTH);
+            // playingPanel.add(infoPanel, BorderLayout.SOUTH);
 
             startPanel.setLayout(new GridLayout(1, 3));
                 startPanel.add(startButton);
@@ -172,7 +183,18 @@ public class Playing extends JFrame implements State{
                     pauseWave();
                 });
 
-            playingPanel.add(startPanel, BorderLayout.NORTH);
+            // playingPanel.add(startPanel, BorderLayout.NORTH);
+
+            towerPanel.setLayout(new GridLayout(1, 4));
+                towerPanel.add(basicTowerLabel);
+                towerPanel.add(electricTowerLabel);
+                towerPanel.add(iceTowerLabel);
+                towerPanel.add(royalTowerLabel);
+            playingPanel.add(towerPanel, BorderLayout.SOUTH);
+
+            towerPlusStartPanel.add(startPanel);
+            towerPlusStartPanel.add(infoPanel);
+            playingPanel.add(towerPlusStartPanel, BorderLayout.NORTH);
 
         // infiniteMoney();
         System.out.println("Hauteur/Longueur du gridJpanel : " + mapDesign.length + " " + mapDesign[0].length);
