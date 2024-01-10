@@ -27,7 +27,7 @@ public class PlayingPanel extends JPanel{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                timer = new Timer(16, new ActionListener() {
+                timer = new Timer(33, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         for(Entity e : entityOnPanel){
