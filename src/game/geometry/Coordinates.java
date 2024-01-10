@@ -25,7 +25,7 @@ public class Coordinates implements Cloneable{
         return (int) x;
     }
     public int getY() {
-        return (int) y;
+        return Math.round(y);
     }
 
     public float getXAsFloat(){return x;}
