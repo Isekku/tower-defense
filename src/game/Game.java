@@ -15,7 +15,6 @@ public class Game {
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("c moua");
                     model = Model.getInstance();
                     screen = new GameFrame();
                     screen.setCurrentPanel(game_state.getState().getView());
