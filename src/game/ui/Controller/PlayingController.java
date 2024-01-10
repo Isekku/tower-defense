@@ -76,25 +76,10 @@ public class PlayingController extends Controller{
                 Map map = model.getMap();
                 for (int i = 0; i < map.getHeight(); i++){
                     for (int j = 0; j < map.getWidth(); j++){
-                        JPanel panel = view.getTowerGridPanel(i, j);
-                        JLabel label = (JLabel) panel.getComponent(0);
-
-                        if(map.getCell(i, j).getEntity() != null){
-                            Entity entity =  map.getCell(i, j).getEntity();
-                            if((entity instanceof Mob || entity instanceof Projectile) && !entity.isOnMap){
-                                entity.isOnMap = true;
-                                System.out.println(entity.coordinates.getX());
-                                view.getPlayingGrid()[entity.coordinates.getX()].addEntity(entity);
-                            }
-                            else if(entity instanceof Tower && !entity.isOnMap){
-                                entity.isOnMap = true;
-                                label.setIcon(new ImageIcon(Entity.initializeImage(entity.currentImage)));
-                            }
-                            label.revalidate();
-                            label.repaint();
-                        }
-                        else{
-                            label.setIcon(null);
+                        Entity e = map.getCell(i, j).getEntity();
+                        if( e != null && !e.isOnMap){
+                            e.isOnMap = true;
+                            view.getPlayingGrid()[e.coordinates.getX()].addEntity(e);
                         }
                     }
                 }
