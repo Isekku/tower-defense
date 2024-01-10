@@ -1,7 +1,9 @@
 package game.Entity.Mobs;
 
 import game.geometry.Coordinates;
-import game.Model.AnimatedGif;
+import game.ui.Model.AnimatedGif;
+
+import java.awt.*;
 
 import static game.ui.Style.*;
 

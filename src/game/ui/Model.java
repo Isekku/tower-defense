@@ -1,4 +1,4 @@
-package game;
+package game.ui;
 
 import game.Entity.Entity;
 import game.Entity.Mobs.*;
@@ -16,7 +16,6 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static game.ui.Style.*;
-import game.ui.*;
 
 
 public class Model {
