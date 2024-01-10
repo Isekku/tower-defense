@@ -171,6 +171,7 @@ public class ChooseMap extends JFrame implements State {
         });
     }
     public void quitState(){
+        System.out.println(difficultySlider.getValue());
         controller.changeDifficulty(difficultySlider.getValue());
     }
     public boolean isFirstTime(){

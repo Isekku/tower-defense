@@ -15,6 +15,7 @@ public class ChooseVersionController extends Controller {
 
     public void mouseClicked(int value) {
         if (value == NORMAL_MODE || value == MARATHON_MODE) {
+            System.out.println(value);
             changeView(GameState.MAP);
             model.setMode(value);
         }

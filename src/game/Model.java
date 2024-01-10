@@ -399,7 +399,7 @@ public class Model {
             System.out.println('\n' + "Appuyez sur entrée pour continuer");
             incrementWave();
         }
-        if(mode == 1) startWave();
+        if(mode == 2) startWave();
     }
 
     public boolean mobOnWay(Coordinates c){

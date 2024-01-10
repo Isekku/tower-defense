@@ -96,6 +96,7 @@ public class PlayingController extends Controller{
                                 view.getPlayingGrid()[entity.coordinates.getX()].addEntity(entity);
                             }
                             else if(entity instanceof Tower && !entity.isOnMap){
+                                entity.isOnMap = true;
                                 label.setIcon(new ImageIcon(Entity.initializeImage(entity.currentImage)));
                             }
                             label.revalidate();
