@@ -1,12 +1,8 @@
 package game.Entity.Mobs;
 
-import game.Entity.Entity;
 import game.geometry.Coordinates;
-import game.ui.Model.AnimatedGif;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import static game.ui.Style.*;
 

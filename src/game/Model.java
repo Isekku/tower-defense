@@ -277,7 +277,6 @@ public class Model {
         for(Projectile p : projectileEmplacement){
             moveAsProjectile(p);
 
-            Mob m = mobInFront(p.coordinates);
             Entity e2 = map.getEntity(p.coordinates);
 
             if(!map.isValid(p.coordinates)){
@@ -291,19 +290,6 @@ public class Model {
                     mobEmplacement.remove(m2);
                     map.makeEmpty(m2.coordinates);
                     incrementMoney(m2.value);
-                }
-                p.towerParent.canShoot = true;
-                if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
-                p.takeDamage(p.getDamage());
-                deadProjectile.add(p);
-            }
-
-            else if(m != null){
-                boolean dead = p.makeDamage(m);
-                if(dead){
-                    mobEmplacement.remove(m);
-                    map.makeEmpty(m.coordinates);
-                    incrementMoney(m.value);
                 }
                 p.towerParent.canShoot = true;
                 if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);

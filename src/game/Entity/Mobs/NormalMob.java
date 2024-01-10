@@ -1,14 +1,11 @@
 package game.Entity.Mobs;
 
 import game.geometry.Coordinates;
-import game.ui.Model.AnimatedGif;
-
-import java.awt.*;
 
 import static game.ui.Style.*;
 
 
-public class NormalMob extends Mob implements AnimatedGif {
+public class NormalMob extends Mob {
     public String entityWalk = "resources/assets/monstres/2/S_Walk.gif"; //initializeImage("resources/assets/monstres/2/S_Walk.gif");
     public String entityAttack = "resources/assets/monstres/2/S_Walk.gif"; //initializeImage("resources/assets/monstres/2/S_Walk.gif");
     public String entityDead = "resources/assets/monstres/2/S_Death.gif"; //initializeImage("resources/assets/monstres/2/S_Death.gif");

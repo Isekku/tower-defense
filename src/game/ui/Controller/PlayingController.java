@@ -2,18 +2,12 @@ package game.ui.Controller;
 
 import game.Entity.Entity;
 import game.Entity.Mobs.Mob;
-import game.Entity.Mobs.WeakMob;
 import game.Entity.Projectile;
 import game.Entity.towers.Tower;
 import game.map.Map;
-import game.ui.Model.AnimatedGif;
-import game.ui.Model.DynamicImage;
 import game.ui.Vue.Playing;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 
 public class PlayingController extends Controller{
     private Playing view;
