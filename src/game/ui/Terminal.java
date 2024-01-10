@@ -3,6 +3,7 @@ package game.ui;
 import java.util.Scanner;
 
 import game.Entity.towers.Tower;
+import game.Model;
 import game.View;
 import game.geometry.Coordinates;
 
