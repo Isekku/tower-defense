@@ -3,19 +3,14 @@ package game.ui.Vue;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.tools.Tool;
 
 import game.ui.Controller.PlayingController;
-import game.map.Cell;
-import game.ui.Model.MapCell;
-import game.ui.Model.PlayingPanel;
-import game.ui.Style;
+import game.Model.MapCell;
+import game.Model.PlayingPanel;
 
 public class Playing extends JFrame implements State{
     //Tout attributs permettant d'instancier la classe :

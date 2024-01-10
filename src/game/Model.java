@@ -6,19 +6,17 @@ import game.Entity.Projectile;
 import game.Entity.towers.*;
 import game.geometry.Coordinates;
 import game.map.Map;
-import game.ui.Terminal;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.Predicate;
 
 import static game.ui.Style.*;
+import game.ui.*;
 
 
 public class Model {
