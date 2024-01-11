@@ -55,10 +55,10 @@ public class PlayingPanel extends JPanel{
             int centerX = (int) (e.coordinates.getYAsFloat() * getWidth() / 9 + Entity.initializeImage(e.currentImage).getWidth(null) / 4);
             int centerY = getHeight()/2 - Entity.initializeImage(e.currentImage).getHeight(null) / 2;
             drawMob(g, e.currentImage, centerX, centerY);
-            if(e instanceof Tower){
-                int cX = (int) (e.coordinates.getYAsFloat() * getWidth() / 9 + Entity.initializeImage(e.entityAttack).getWidth(null) / 2);
-                int cY = (int) (getHeight()/2 - Entity.initializeImage(e.entityAttack).getHeight(null) / 2.5);
-                drawMob(g, e.entityAttack, cX, cY);
+            if(e instanceof Tower t){
+                int cX = (int) (t.coordinates.getYAsFloat() * getWidth() / 9 + Entity.initializeImage(t.currentAnimation).getWidth(null) / 2);
+                int cY = (int) (getHeight()/2 - Entity.initializeImage((t.currentAnimation)).getHeight(null) / 2.5);
+                drawMob(g, t.currentAnimation, cX, cY);
             }
         }
     }
