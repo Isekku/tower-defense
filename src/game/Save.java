@@ -65,8 +65,7 @@ public class Save implements Serializable {
     }
 
     public static boolean isSaveExist() {
-        java.io.File f = new java.io.File(SAVE_FILE_PATH + "save.ser");
-        return f.exists() && !f.isDirectory();
+        return SAVE_FILE.exists();
     }
 
     public static void deleteSave() {
