@@ -137,10 +137,8 @@ public class Playing extends JFrame implements State{
         menuPause.setVisible(true);
         menuPause.setBackground(Color.BLACK);
         menuPause.setForeground(Color.WHITE);
-        System.out.println("Je suis dans afficherMenuPause");
         menuPause.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         menuPause.setOpaque(true);
-        playingPanel.add(menuPause);
         reprendre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -186,7 +184,6 @@ public class Playing extends JFrame implements State{
 
     public void pauseWave(){
         controller.pauseWave();
-        afficherMenuPause();
     }
 
 

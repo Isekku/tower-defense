@@ -29,12 +29,14 @@ public class Controller {
                 Game.game_state = GameState.MAP;
                 break;
             }
+            case PAUSE: {
+                Game.game_state = GameState.PAUSE;
+                break;
+            }
             /* case OPTION: {
                 break;
             }
-            case PAUSE: {
-                break;
-            }
+
             case GAMEOVER: {
                 break;
             }

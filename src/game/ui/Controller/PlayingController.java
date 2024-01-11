@@ -1,5 +1,6 @@
 package game.ui.Controller;
 
+import game.GameState;
 import game.Entity.Entity;
 import game.Entity.Mobs.Mob;
 import game.Entity.Projectile;
@@ -110,6 +111,7 @@ public class PlayingController extends Controller{
             model.resumeWave();
             model.setWaveOnBreak(true);
             view.getPauseButton().setText("Resume");
+            changeView(GameState.PAUSE);
         }
     }
 
