@@ -263,11 +263,24 @@ public class Model {
     public void towerRound(){
         for(Tower t : towerEmplacement){
             if((mobOnWay(t.coordinates) || mobInCell(t.coordinates) != null) && t.canShoot){
-                t.currentImage = t.entityAttack;
+                t.currentAnimation = t.archerAttack;
+                Runnable temp = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                            t.currentAnimation = t.archerHandle;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                Thread thread = new Thread(temp);
+                thread.start();
+                System.out.println(t.archerAttack);
                 t.canShoot = false;
                 Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
                 projectileEmplacement.add(p);
-                t.currentImage = t.entityWalk;
                 System.out.println("shooted");
             }
         }

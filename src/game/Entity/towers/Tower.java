@@ -9,10 +9,16 @@ import java.awt.*;
 public class Tower extends Entity{
     private int cost;
     public boolean canShoot = true;
+    public String currentAnimation;
+    public String archerHandle;
+    public String archerAttack;
 
     public Tower(String nom, String couleur, int damage, int pv, String printTerminal, int cost, Coordinates coordinates, String entityWalk, String entityAttack, String entityDead) {
         super(nom, couleur, damage, pv, printTerminal, coordinates, entityWalk, entityAttack, entityDead);
         this.cost = cost;
+        this.archerHandle = entityAttack;
+        this.archerAttack = entityDead;
+        this.currentAnimation = this.archerHandle;
     }
 
     public int getCost(){
