@@ -121,14 +121,14 @@ public class Playing extends JFrame implements State{
         return towerGrid[hauteur][largeur];
     }
 
-    public void tourSurSouris(int hauteur, int largeur, ImageIcon towerIcon){
+    public void tourSurSouris(int hauteur, int largeur, String towerImage){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 System.out.println(hauteur + " " + largeur);
                 tourSurSouris.removeAll();
                 tourSurSouris.setLayout(new BorderLayout());
-                tourSurSouris.add(new JLabel(towerIcon));
+                tourSurSouris.add(new JLabel(new ImageIcon(Entity.initializeImage(towerImage))));
                 tourSurSouris.setOpaque(false);
                 tourSurSouris.setBounds(largeur * 100, hauteur * 100, 100, 100);
                 playingResized.add(tourSurSouris);
@@ -149,8 +149,8 @@ public class Playing extends JFrame implements State{
         controller.pauseWave();
     }
 
-    public void towerClicked(int tower, ImageIcon towerIcon){
-        controller.towerClicked(tower, towerIcon);
+    public void towerClicked(int tower, String towerImage){
+        controller.towerClicked(tower, towerImage);
     }
 
     public void moovedWithTower(java.awt.event.MouseEvent e){
@@ -231,25 +231,25 @@ public class Playing extends JFrame implements State{
             basicTowerLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    towerClicked(0, (ImageIcon) basicTowerLabel.getIcon());
+                    towerClicked(0, "resources/assets/archer/2_Idle/2.gif");
                 }
             });
             electricTowerLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    towerClicked(1, (ImageIcon) electricTowerLabel.getIcon());
+                    towerClicked(1, "resources/assets/archer/2_Idle/3.gif");
                 }
             });
             iceTowerLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    towerClicked(2, (ImageIcon) iceTowerLabel.getIcon());
+                    towerClicked(2, "resources/assets/archer/2_Idle/5.gif");
                 }
             });
             royalTowerLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    towerClicked(3, (ImageIcon) royalTowerLabel.getIcon());
+                    towerClicked(3, "resources/assets/archer/2_Idle/6.gif");
                 }
             });
 

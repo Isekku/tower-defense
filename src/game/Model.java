@@ -37,7 +37,7 @@ public class Model {
     private boolean waveRunning = false;
     private boolean haveClickedOnTower = false;
     private int clickedTower;
-    private ImageIcon clickedTowerImage;
+    private String clickedTowerImage;
 
     //Ajout des tours jouable et des mobs possible :
     public ArrayList<Tower> towerExample = new ArrayList<>();
@@ -275,11 +275,11 @@ public class Model {
         this.haveClickedOnTower = haveClickedOnTower;
     }
 
-    public ImageIcon getClickedTowerImage() {
+    public String getClickedTowerImage() {
         return clickedTowerImage;
     }
 
-    public void setClickedTowerImage(ImageIcon clickedTowerImage) {
+    public void setClickedTowerImage(String clickedTowerImage) {
         this.clickedTowerImage = clickedTowerImage;
     }
 

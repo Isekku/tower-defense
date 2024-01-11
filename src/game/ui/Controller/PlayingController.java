@@ -115,7 +115,7 @@ public class PlayingController extends Controller{
         infoUpdate();
     }
 
-    public void towerClicked(int towerType, ImageIcon towerIcon){ 
+    public void towerClicked(int towerType, String towerIcon){
         model.setHaveClickedOnTower(true);
         model.setClickedTower(towerType);
         model.setClickedTowerImage(towerIcon);
