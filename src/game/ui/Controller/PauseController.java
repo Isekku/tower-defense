@@ -15,9 +15,13 @@ public class PauseController extends Controller{
     public void mouseClicked(int value) {
         if (value == 1) { // replendre
             changeView(GameState.PLAYING);
+            model.pauseWave();
+            model.setWaveOnBreak(false);
         }
         if (value == 2) { // retour menu principal
             changeView(GameState.MENU);
+            model.pauseWave();
+            model.setWaveOnBreak(false);
         }
         if (value == 3) { // sauvagarder
             model.save();

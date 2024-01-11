@@ -101,18 +101,17 @@ public class PlayingController extends Controller{
     }
 
     public void pauseWave(){
-        if (model.isWaveRunning()){
-            model.pauseWave();
-            model.setWaveOnBreak(false);
-            view.getPauseButton().setText("Pause");
+        // if (model.isWaveRunning()){
+        //     model.pauseWave();
+        //     model.setWaveOnBreak(false);
+        //     view.getPauseButton().setText("Pause");
 
-        }
-        else{
+        // }
+        // else{
             model.resumeWave();
             model.setWaveOnBreak(true);
-            view.getPauseButton().setText("Resume");
             changeView(GameState.PAUSE);
-        }
+        // }
     }
 
     public void incrementMoney(int money){
