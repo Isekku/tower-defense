@@ -122,60 +122,6 @@ public class Playing extends JFrame implements State{
         return towerGrid[hauteur][largeur];
     }
 
-    public void afficherMenuPause(){
-        JPanel menuPause = new JPanel();
-        menuPause.setLayout(new GridLayout(4, 1));
-        JButton reprendre = new JButton("Reprendre");
-        JButton retourMenuPrincipal = new JButton("Retour au menu principal");
-        JButton sauvegarder = new JButton("Sauvegarder");
-        JButton quitter = new JButton("Quitter");
-        menuPause.add(reprendre);
-        menuPause.add(retourMenuPrincipal);
-        menuPause.add(sauvegarder);
-        menuPause.add(quitter);
-        menuPause.setBounds(200, 200, 400, 200);
-        menuPause.setVisible(true);
-        menuPause.setBackground(Color.BLACK);
-        menuPause.setForeground(Color.WHITE);
-        menuPause.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        menuPause.setOpaque(true);
-        reprendre.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playingPanel.remove(menuPause);
-                playingPanel.revalidate();
-                playingPanel.repaint();
-                pauseWave();
-            }
-        });
-        retourMenuPrincipal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // controller.endGame();
-                playingPanel.remove(menuPause);
-                playingPanel.revalidate();
-                playingPanel.repaint();
-            }
-        });
-        sauvegarder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // controller.saveGame();
-                playingPanel.remove(menuPause);
-                playingPanel.revalidate();
-                playingPanel.repaint();
-            }
-        });
-        quitter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-    }
-
-
     //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
 
     public void startWave(){
