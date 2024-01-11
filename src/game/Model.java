@@ -143,16 +143,26 @@ public class Model implements Serializable{
         clickedTower = 0;
         clickedTowerImage = "";
         map = new Map(5, 9);
+        for(Tower t : towerEmplacement){
+            t.takeDamage(t.getPv());
+            map.makeEmpty(t.coordinates);
+        }
         towerEmplacement.clear();
+
+        for(Mob m : mobEmplacement){
+            m.takeDamage(m.getPv());
+            map.makeEmpty(m.coordinates);
+        }
         mobEmplacement.clear();
+
+        for(Projectile p : projectileEmplacement){
+            p.takeDamage(p.getPv());
+            map.makeEmpty(p.coordinates);
+        }
         projectileEmplacement.clear();
+
         mobInWave.clear();
         // set all to null
-        for (int i = 0; i < map.getHeight(); i++){
-            for (int j = 0; j < map.getWidth(); j++){
-                map.getCell(i, j).setEntity(null);
-            }
-        }
     }
 
     public void print(){
