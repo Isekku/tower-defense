@@ -86,6 +86,12 @@ public class ScreenMenu extends JFrame implements State {
         }
         else {
             System.out.println("Sauvegarde trouvée");
+            optionButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    loadSave();
+                }
+            });
         }
 
     }
