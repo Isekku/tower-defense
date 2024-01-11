@@ -262,27 +262,14 @@ public class Model {
 
     public void towerRound(){
         for(Tower t : towerEmplacement){
+            projectileEmplacement.addAll(t.projectileShooted);
+            t.projectileShooted.clear();
             if(map.getEntity(t.coordinates) == null) map.setEntity(t.coordinates, t);
-            if((mobOnWay(t.coordinates) || mobInCell(t.coordinates) != null) && t.canShoot){
-                t.currentAnimation = t.archerAttack;
-                Runnable temp = new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(500);
-                            t.currentAnimation = t.archerHandle;
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                Thread thread = new Thread(temp);
-                thread.start();
-                t.canShoot = false;
-                Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
-                projectileEmplacement.add(p);
-                System.out.println("shooted");
+            System.out.println(mobOnWay(t.coordinates));
+            if((mobOnWay(t.coordinates) || mobInCell(t.coordinates) != null)){
+                if(!t.timer.isRunning()) t.timer.start();
             }
+            else t.timer.stop();
         }
     }
 
