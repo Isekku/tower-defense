@@ -8,6 +8,8 @@ import game.map.Map;
 import game.ui.Vue.Playing;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PlayingController extends Controller{
     private Playing view;
@@ -39,6 +41,18 @@ public class PlayingController extends Controller{
         });
     }
 
+    public void startRefreshing(){
+        Timer timer = new Timer(16, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                infoUpdate();
+                updateMap();
+            }
+        });
+        timer.setRepeats(true);
+        timer.start();
+    }
+
     public void startWave(){
         if (model.isWaveRunning()){
             System.out.println("combat en cours");
@@ -62,9 +76,6 @@ public class PlayingController extends Controller{
                 }
             }
         }.start();
-        Timer timer = new Timer(16, (event) -> updateMap());
-        timer.setRepeats(true);
-        timer.start();
     }
 
     public void updateMap(){
@@ -114,7 +125,7 @@ public class PlayingController extends Controller{
     }
 
     public void addTower(Tower tower){
-        model.setTower(tower.coordinates, tower);
+        if(model.getMoney() >= tower.getCost()) model.setTower(tower.coordinates, tower);
     }
 
 }
