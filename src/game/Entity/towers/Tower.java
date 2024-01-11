@@ -33,7 +33,6 @@ public class Tower extends Entity{
         timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("shooté");
                 projectileShooted.add(shoot(Map.getInstance().getWidth(), Map.getInstance().getHeight()));
             }
         });
