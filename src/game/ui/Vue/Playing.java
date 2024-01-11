@@ -74,7 +74,7 @@ public class Playing extends JFrame implements State{
                 protected JPanel mapGrid[][];
 
             protected JPanel towerGridPanel = new JPanel();
-                protected JPanel towerGrid[][];
+                protected JLabel towerGrid[][];
 
             protected JPanel playingGridPanel = new JPanel(new GridLayout(5, 1));
                 protected PlayingPanel[] playingGrid = new PlayingPanel[5];
@@ -118,7 +118,7 @@ public class Playing extends JFrame implements State{
 
     public JPanel[][] getMapGrid(){return mapGrid;}
 
-    public JPanel getTowerGridPanel(int hauteur, int largeur){
+    public JLabel getTowerGridPanel(int hauteur, int largeur){
         return towerGrid[hauteur][largeur];
     }
 
@@ -141,10 +141,10 @@ public class Playing extends JFrame implements State{
         controller.refresh();
         towerGridPanel.setLayout(new GridLayout(controller.mapHeight, controller.mapWidth));
         towerGridPanel.setOpaque(false);
-        towerGrid = new JPanel[controller.mapHeight][controller.mapWidth];
+        towerGrid = new JLabel[controller.mapHeight][controller.mapWidth];
         for(int i = 0; i < towerGrid.length; i++){
             for(int j = 0; j < towerGrid[0].length; j++){
-                towerGrid[i][j] = new JPanel();
+                towerGrid[i][j] = new JLabel();
                 towerGrid[i][j].setOpaque(false);
                 towerGridPanel.add(towerGrid[i][j]);
 
@@ -171,13 +171,14 @@ public class Playing extends JFrame implements State{
                                 default -> {}
                             }
                             if(!placed){
-                                towerGrid[finalI][finalJ].setBorder(Style.redLine);
+                                towerGrid[finalI][finalJ].setBorder(Style.redCompound);
+                                towerGrid[finalI][finalJ].setIcon(null);
                                 Runnable run = new Runnable() {
                                     @Override
                                     public void run() {
                                         try{
                                             Thread.sleep(500);
-                                            towerGrid[finalI][finalJ].setBorder(Style.compound);
+                                            towerGrid[finalI][finalJ].setBorder(null);
                                         }
                                         catch (InterruptedException e){
                                             e.printStackTrace();
@@ -189,19 +190,23 @@ public class Playing extends JFrame implements State{
                             }
                             else {
                                 towerGrid[finalI][finalJ].setBorder(null);
+                                towerGrid[finalI][finalJ].setIcon(null);
                                 canPlaceATower = -1;
                             }
-                            //towerGrid[finalI][finalJ].setBorder(null);
-                            //controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
                         }
                     }
 
                     public void mouseEntered(MouseEvent e){
-                        if(canPlaceATower != -1)towerGrid[finalI][finalJ].setBorder(Style.compound);
+                        if(canPlaceATower != -1){
+                            towerGrid[finalI][finalJ].setBorder(Style.compound);
+                            ImageIcon icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/2.gif"));
+                            towerGrid[finalI][finalJ].setIcon(icon);
+                        }
                     }
 
                     public void mouseExited(MouseEvent e){
                         towerGrid[finalI][finalJ].setBorder(null);
+                        towerGrid[finalI][finalJ].setIcon(null);
                     }
                 });
             }
@@ -242,14 +247,23 @@ public class Playing extends JFrame implements State{
             // mettre une map carré
             playingPanel.add(playingResized, BorderLayout.CENTER);
 
-            infoPanel.setLayout(new GridLayout(1, 4));
+            infoPanel.setLayout(new GridLayout(1, 3));
+            infoPanel.setBackground(new Color(236, 148, 100));
+            infoPanel.setBorder(Style.greenLine);
                 infoPanel.add(moneyLabel);
-                infoPanel.add(lifeLabel);
+                moneyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
                 infoPanel.add(waveLabel);
+                waveLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
                 infoPanel.add(timeLabel);
+                timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+                timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             // playingPanel.add(infoPanel, BorderLayout.SOUTH);
 
-            startPanel.setLayout(new GridLayout(1, 3));
+            startPanel.setLayout(new GridLayout(1, 2));
+            startPanel.setBackground(Style.backgroundColor);
                 startPanel.add(startButton);
                 startButton.addActionListener(e -> {
                     startWave();
@@ -296,7 +310,6 @@ public class Playing extends JFrame implements State{
 
 
         // infiniteMoney();
-        System.out.println("Hauteur/Longueur du gridJpanel : " + mapDesign.length + " " + mapDesign[0].length);
         controller.updateMap();
 
         // controller.updateMap();
@@ -321,8 +334,8 @@ public class Playing extends JFrame implements State{
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("j'ai cliqué :)");
-                canPlaceATower = n;
+                if(canPlaceATower == -1 || n != canPlaceATower) canPlaceATower = n;
+                else canPlaceATower = -1;
             }
         });
     }
@@ -375,7 +388,7 @@ public class Playing extends JFrame implements State{
         panel.setOpaque(false);
         panel.add(label);
 
-        JLabel textPrice = new JLabel(price + "pièces");
+        JLabel textPrice = new JLabel(price + " pièces");
         textPrice.setAlignmentY(Component.CENTER_ALIGNMENT);
         panel.add(textPrice);
         return panel;
