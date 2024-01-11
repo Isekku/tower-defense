@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import game.ui.Controller.ScreenMenuController;
+import game.Model;
 import game.Save;
 import game.ui.Style;
 
@@ -89,7 +90,7 @@ public class ScreenMenu extends JFrame implements State {
 
     }
     public void loadSave(){
-        Save save = Save.load();
+        Model save = Save.load();
         if (save == null) {
             JOptionPane.showMessageDialog(null, "Aucune sauvegarde trouvée", "Erreur", JOptionPane.ERROR_MESSAGE);
             optionButton.setEnabled(false);
