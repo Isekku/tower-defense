@@ -76,19 +76,19 @@ public class Model {
         mobExample.add(new HeavyMob(coordinatesNull));
         mobExample.add(new StrongerMob(coordinatesNull));
 
-        Coordinates c = new Coordinates(0, 0, 0.1f);
+        Coordinates c = new Coordinates(0, 0, 0.15f);
         setTower(c, new BasicTower(c));
 
-        Coordinates d = new Coordinates(1, 1, 0.1f);
+        Coordinates d = new Coordinates(1, 1, 0.15f);
         setTower(d, new ElectricTower(d));
 
-        Coordinates e = new Coordinates(2, 2, 0.1f);
+        Coordinates e = new Coordinates(2, 2, 0.15f);
         setTower(e, new IceTower(e));
 
-        Coordinates f = new Coordinates(3, 3, 0.1f);
+        Coordinates f = new Coordinates(3, 3, 0.15f);
         setTower(f, new RoyalTower(f));
 
-        Coordinates g = new Coordinates(4, 1, 0.1f);
+        Coordinates g = new Coordinates(4, 1, 0.15f);
         setTower(g, new RoyalTower(g));
     }
 
@@ -262,6 +262,7 @@ public class Model {
 
     public void towerRound(){
         for(Tower t : towerEmplacement){
+            if(map.getEntity(t.coordinates) == null) map.setEntity(t.coordinates, t);
             if((mobOnWay(t.coordinates) || mobInCell(t.coordinates) != null) && t.canShoot){
                 t.currentAnimation = t.archerAttack;
                 Runnable temp = new Runnable() {
@@ -277,7 +278,6 @@ public class Model {
                 };
                 Thread thread = new Thread(temp);
                 thread.start();
-                System.out.println(t.archerAttack);
                 t.canShoot = false;
                 Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
                 projectileEmplacement.add(p);
@@ -346,9 +346,9 @@ public class Model {
         Timer wave = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                mobRound();
                 towerRound();
                 projectileRound();
-                mobRound();
             }
         });
         wave.start();

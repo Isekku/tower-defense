@@ -36,6 +36,10 @@ public class Coordinates implements Cloneable{
         this.speedMax = speed;
     }
 
+    public void setY(int y){
+        this.y += y;
+    }
+
     public void moveLeft(){
         y -= speed;
     }
