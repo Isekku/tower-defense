@@ -115,16 +115,7 @@ public class PlayingController extends Controller{
         }
     }
 
-    public void incrementMoney(int money){
-        model.incrementMoney(money);
-        model.printWithoutMap(); // terminal
-        infoUpdate(); // graphic
-    }
-
-    public void incrementTime(){
-        model.incrementTime();
-        infoUpdate();
-    }
+    public int whichMap(){return model.getMapType();}
 
     public boolean addTower(Tower tower){
         if(model.getMoney() >= tower.getCost()) return model.setTower(tower.coordinates, tower);

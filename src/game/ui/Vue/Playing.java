@@ -54,12 +54,20 @@ public class Playing extends JFrame implements State{
             e.printStackTrace();
         }
     }
-    private String[][] mapDesign = {
+    private String[][] mapDesertDesign = {
             {"06", "35", "35", "35", "35", "35", "35", "12", "38"},
             {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
             {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
             {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
             {"22", "04", "04", "04", "04", "04", "04", "24", "38"},
+    };
+
+    private String[][] mapGrassDesign = {
+            {"06", "30", "30", "30", "30", "30", "30", "30", "12"},
+            {"32", "38", "38", "38", "38", "38", "38", "38", "32"},
+            {"32", "38", "38", "38", "47", "38", "38", "38", "32"},
+            {"32", "38", "38", "38", "38", "38", "38", "38", "32"},
+            {"26", "30", "30", "30", "30", "30", "30", "30", "28"},
     };
 
     private JPanel tourSurSouris = new JPanel();
@@ -387,6 +395,9 @@ public class Playing extends JFrame implements State{
 
     public void setMap(){
         mapGridPanel.removeAll();
+        String[][] mapDesign = null;
+        if(controller.whichMap() == 1) mapDesign = mapGrassDesign;
+        else mapDesign = mapDesertDesign;
         for(int i = 0; i < controller.mapHeight; i++){
             for(int j = 0; j < controller.mapWidth; j++){
                 mapGrid[i][j] = new MapCell(mapDesign[i][j]);
