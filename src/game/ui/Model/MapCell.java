@@ -1,6 +1,7 @@
 package game.ui.Model;
 
 import game.Entity.Entity;
+import game.ui.Style;
 import game.ui.Vue.Playing;
 
 import javax.swing.*;
