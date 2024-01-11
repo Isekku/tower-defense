@@ -28,7 +28,7 @@ public class Style {
     public static final String stringErrorMessage = stringGras + stringCouleurRouge + "La valeur entré est incorrecte !";
     public static final String stringNotEnoughMoney = stringGras + stringCouleurRouge + "Vous n'avez pas assez de monnaie !";
     public static final String stringTowerAlreadyHere = stringGras + stringCouleurRouge + "Une tour est déjà placé ici !";
-
+    public static final Color backgroundColor = new Color(166, 176, 79);
 
     public static void buttonIsHovered(JButton button){
         button.setForeground(Color.GRAY);

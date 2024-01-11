@@ -12,7 +12,6 @@ public class MapCell extends JPanel {
     public MapCell(String terrainType){
         this.terrainType = terrainType;
         this.setOpaque(false);
-        System.out.println(terrainType);
     }
 
     protected void paintComponent(Graphics g){

@@ -1,6 +1,10 @@
 package game.ui.Vue;
 
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -9,12 +13,17 @@ import java.util.Objects;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.tools.Tool;
 
+import game.Entity.Entity;
+import game.Entity.towers.BasicTower;
+import game.geometry.Coordinates;
 import game.ui.Controller.PlayingController;
 import game.map.Cell;
 import game.ui.Model.MapCell;
 import game.ui.Model.PlayingPanel;
+import game.ui.Model.TransferableImageIcon;
 import game.ui.Style;
 
 public class Playing extends JFrame implements State{
@@ -78,10 +87,10 @@ public class Playing extends JFrame implements State{
             protected JButton pauseButton = new JButton("Pause");
 
         protected JPanel towerPanel = new JPanel();
-            protected JLabel basicTowerLabel = new JLabel("Basic Tower");
-            protected JLabel electricTowerLabel = new JLabel("Electric Tower");
-            protected JLabel iceTowerLabel = new JLabel("Ice Tower");
-            protected JLabel royalTowerLabel = new JLabel("Royal Tower");
+            protected JLabel basicTowerLabel = new JLabel(new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/2.gif")));
+            protected JLabel electricTowerLabel = new JLabel(new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/3.gif")));
+            protected JLabel iceTowerLabel = new JLabel(new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/5.gif")));
+            protected JLabel royalTowerLabel = new JLabel(new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/6.gif")));
 
         protected JPanel towerPlusStartPanel = new JPanel(new GridLayout(2, 1));
 
@@ -152,6 +161,8 @@ public class Playing extends JFrame implements State{
 
             playingResized.setLayout(new FlowLayout(FlowLayout.CENTER));
             playingResized.add(overlayLayout);
+            playingResized.setBackground(Style.backgroundColor);
+            overlayLayout.setBackground(Style.backgroundColor);
             overlayLayout.setPreferredSize(new Dimension(800, 550));
 
             // mettre une map carré
@@ -177,6 +188,8 @@ public class Playing extends JFrame implements State{
             // playingPanel.add(startPanel, BorderLayout.NORTH);
 
             towerPanel.setLayout(new GridLayout(1, 4));
+            towerPanel.setBorder(new EmptyBorder(0, 0, 20, 0));
+            towerPanel.setBackground(Style.backgroundColor);
                 towerPanel.add(basicTowerLabel);
                 towerPanel.add(electricTowerLabel);
                 towerPanel.add(iceTowerLabel);
