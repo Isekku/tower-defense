@@ -531,7 +531,7 @@ public class Model implements Serializable{
 
     public void addMobInWave(int wave){
         Random r = new Random();
-        for(int i = 0; i < ((wave+1) + r.nextInt(0,difficulty+1)); i++){
+        for(int i = 0; i < ((wave+1) + r.nextInt(difficulty+1)); i++){
             if(wave == 0){
                 Mob m = mobExample.get(0).clone(new Coordinates(0, map.getWidth()-1, mobExample.get(0).speed));
                 mobInWave.add(m);
@@ -540,9 +540,9 @@ public class Model implements Serializable{
                 int emplacement = r.nextInt(map.getHeight());
                 int mobBound;
                 if(wave < 2) mobBound = 0;
-                else if(wave < 4) mobBound = r.nextInt(0, 2);
-                else if(wave < 6) mobBound = r.nextInt(0, 3);
-                else mobBound = r.nextInt(0, 4);
+                else if(wave < 4) mobBound = r.nextInt(2);
+                else if(wave < 6) mobBound = r.nextInt(3);
+                else mobBound = r.nextInt(4);
                 Mob m = mobExample.get(mobBound).clone(new Coordinates(emplacement, map.getWidth()-1, mobExample.get(mobBound).speed));
                 mobInWave.add(m);
             }

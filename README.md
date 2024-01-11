@@ -4,7 +4,7 @@ Repository du tower defense de Dimitri Fernez et de Sékou Cissé
 ## Installation
 Pour lancer le jeu :
 ```
-lancer run.sh
+./run.sh
 ```
 ou
 ```
@@ -13,3 +13,11 @@ javac game/Game.java
 java game.Game
 ```
 
+en mode terminal : 
+```
+./run.sh -terminal
+```
+ou 
+```
+java game.Game -terminal
+```

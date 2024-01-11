@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import game.ui.Controller.PauseController;
+
 import game.ui.Model.PlayingPanel;
 
 import java.awt.event.ActionEvent; 
@@ -27,6 +28,7 @@ public class Pause extends JFrame implements State{
 
     //Les Panels et les Components besoins pour l'affichage :
     private JPanel pausePanel = new JPanel();
+
         private JPanel buttonPanel = new JPanel();
             JButton reprendre = new JButton("Reprendre");
             JButton retourMenuPrincipal = new JButton("Retour au menu principal");
@@ -54,6 +56,7 @@ public class Pause extends JFrame implements State{
 
         pausePanel.add(buttonPanel, BorderLayout.CENTER);
         pausePanel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
+
 
 
 

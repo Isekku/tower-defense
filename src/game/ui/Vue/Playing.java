@@ -54,12 +54,20 @@ public class Playing extends JFrame implements State{
             e.printStackTrace();
         }
     }
-    private String[][] mapDesign = {
+    private String[][] mapDesertDesign = {
             {"06", "35", "35", "35", "35", "35", "35", "12", "38"},
             {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
             {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
             {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
             {"22", "04", "04", "04", "04", "04", "04", "24", "38"},
+    };
+
+    private String[][] mapGrassDesign = {
+            {"06", "30", "30", "30", "30", "30", "30", "30", "12"},
+            {"32", "38", "38", "38", "38", "38", "38", "38", "32"},
+            {"32", "38", "38", "38", "47", "38", "38", "38", "32"},
+            {"32", "38", "38", "38", "38", "38", "38", "38", "32"},
+            {"26", "30", "30", "30", "30", "30", "30", "30", "28"},
     };
 
     private JPanel tourSurSouris = new JPanel();
@@ -74,7 +82,7 @@ public class Playing extends JFrame implements State{
                 protected JPanel mapGrid[][];
 
             protected JPanel towerGridPanel = new JPanel();
-                protected JPanel towerGrid[][];
+                protected JLabel towerGrid[][];
 
             protected JPanel playingGridPanel = new JPanel(new GridLayout(5, 1));
                 protected PlayingPanel[] playingGrid = new PlayingPanel[5];
@@ -118,9 +126,10 @@ public class Playing extends JFrame implements State{
 
     public JPanel[][] getMapGrid(){return mapGrid;}
 
-    public JPanel getTowerGridPanel(int hauteur, int largeur){
+    public JLabel getTowerGridPanel(int hauteur, int largeur){
         return towerGrid[hauteur][largeur];
     }
+
 
     //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
 
@@ -140,10 +149,10 @@ public class Playing extends JFrame implements State{
         controller.refresh();
         towerGridPanel.setLayout(new GridLayout(controller.mapHeight, controller.mapWidth));
         towerGridPanel.setOpaque(false);
-        towerGrid = new JPanel[controller.mapHeight][controller.mapWidth];
+        towerGrid = new JLabel[controller.mapHeight][controller.mapWidth];
         for(int i = 0; i < towerGrid.length; i++){
             for(int j = 0; j < towerGrid[0].length; j++){
-                towerGrid[i][j] = new JPanel();
+                towerGrid[i][j] = new JLabel();
                 towerGrid[i][j].setOpaque(false);
                 towerGridPanel.add(towerGrid[i][j]);
 
@@ -155,50 +164,71 @@ public class Playing extends JFrame implements State{
                         if (canPlaceATower != -1) {
                             boolean placed = false;
                             switch (canPlaceATower){
-                                case 0 -> {
-                                    placed = controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                case 0 : {
+                                    placed = controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
-                                case 1 ->{
-                                    placed = controller.addTower(new ElectricTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                case 1 : {
+                                    placed = controller.addTower(new ElectricTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
-                                case 2 ->{
-                                    placed = controller.addTower(new IceTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                case 2 : {
+                                    placed = controller.addTower(new IceTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
-                                case 3 ->{
-                                    placed = controller.addTower(new RoyalTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                case 3 : {
+                                    placed = controller.addTower(new RoyalTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
-                                default -> {}
+                                default : {}
                             }
                             if(!placed){
-                                towerGrid[finalI][finalJ].setBorder(Style.redLine);
-                                SwingUtilities.invokeLater(new Runnable() {
+                                towerGrid[finalI][finalJ].setBorder(Style.redCompound);
+                                towerGrid[finalI][finalJ].setIcon(null);
+                                Runnable run = new Runnable() {
                                     @Override
                                     public void run() {
                                         try{
                                             Thread.sleep(500);
-                                            towerGrid[finalI][finalJ].setBorder(Style.compound);
+                                            towerGrid[finalI][finalJ].setBorder(null);
                                         }
                                         catch (InterruptedException e){
                                             e.printStackTrace();
                                         };
                                     }
-                                });
+                                };
+                                Thread thread = new Thread(run);
+                                thread.start();
                             }
                             else {
                                 towerGrid[finalI][finalJ].setBorder(null);
+                                towerGrid[finalI][finalJ].setIcon(null);
                                 canPlaceATower = -1;
                             }
-                            //towerGrid[finalI][finalJ].setBorder(null);
-                            //controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
                         }
                     }
 
                     public void mouseEntered(MouseEvent e){
-                        if(canPlaceATower != -1)towerGrid[finalI][finalJ].setBorder(Style.compound);
+                        if(canPlaceATower != -1){
+                            towerGrid[finalI][finalJ].setBorder(Style.compound);
+                            ImageIcon icon = null;
+                            switch (canPlaceATower){
+                                case 0 : {
+                                    icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/2.gif"));
+                                }
+                                case 1 : {
+                                    icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/3.gif"));
+                                }
+                                case 2 : {
+                                    icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/5.gif"));
+                                }
+                                case 3 : {
+                                    icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/6.gif"));
+                                }
+                            }
+                            towerGrid[finalI][finalJ].setIcon(icon);
+                        }
                     }
 
                     public void mouseExited(MouseEvent e){
                         towerGrid[finalI][finalJ].setBorder(null);
+                        towerGrid[finalI][finalJ].setIcon(null);
                     }
                 });
             }
@@ -239,14 +269,23 @@ public class Playing extends JFrame implements State{
             // mettre une map carré
             playingPanel.add(playingResized, BorderLayout.CENTER);
 
-            infoPanel.setLayout(new GridLayout(1, 4));
+            infoPanel.setLayout(new GridLayout(1, 3));
+            infoPanel.setBackground(new Color(236, 148, 100));
+            infoPanel.setBorder(Style.greenLine);
                 infoPanel.add(moneyLabel);
-                infoPanel.add(lifeLabel);
+                moneyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
                 infoPanel.add(waveLabel);
+                waveLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
                 infoPanel.add(timeLabel);
+                timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+                timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             // playingPanel.add(infoPanel, BorderLayout.SOUTH);
 
-            startPanel.setLayout(new GridLayout(1, 3));
+            startPanel.setLayout(new GridLayout(1, 2));
+            startPanel.setBackground(Style.backgroundColor);
                 startPanel.add(startButton);
                 startButton.addActionListener(e -> {
                     startWave();
@@ -293,7 +332,6 @@ public class Playing extends JFrame implements State{
 
 
         // infiniteMoney();
-        System.out.println("Hauteur/Longueur du gridJpanel : " + mapDesign.length + " " + mapDesign[0].length);
         controller.updateMap();
 
         // controller.updateMap();
@@ -304,6 +342,9 @@ public class Playing extends JFrame implements State{
 
     public void setMap(){
         mapGridPanel.removeAll();
+        String[][] mapDesign = null;
+        if(controller.whichMap() == 1) mapDesign = mapGrassDesign;
+        else mapDesign = mapDesertDesign;
         for(int i = 0; i < controller.mapHeight; i++){
             for(int j = 0; j < controller.mapWidth; j++){
                 mapGrid[i][j] = new MapCell(mapDesign[i][j]);
@@ -318,8 +359,8 @@ public class Playing extends JFrame implements State{
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("j'ai cliqué :)");
-                canPlaceATower = n;
+                if(canPlaceATower == -1 || n != canPlaceATower) canPlaceATower = n;
+                else canPlaceATower = -1;
             }
         });
     }
@@ -372,7 +413,7 @@ public class Playing extends JFrame implements State{
         panel.setOpaque(false);
         panel.add(label);
 
-        JLabel textPrice = new JLabel(price + "pièces");
+        JLabel textPrice = new JLabel(price + " pièces");
         textPrice.setAlignmentY(Component.CENTER_ALIGNMENT);
         panel.add(textPrice);
         return panel;
