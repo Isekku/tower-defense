@@ -14,6 +14,6 @@ public class WeakMob extends Mob {
     public static String entityDead = "resources/assets/monstres/1/S_Death.gif"; //initializeImage("resources/assets/monstres/1/S_Death.gif");
 
     public  WeakMob(Coordinates coordinates){
-        super("Mob Faible", stringBase, 8, 40, coordinates, 25, "resources/assets/monstres/1/S_Walk.gif", "resources/assets/monstres/1/S_Walk.gif", "resources/assets/monstres/1/S_Death.gif", 0.05f);
+        super("Mob Faible", stringBase, 8, 40, coordinates, 25, "resources/assets/monstres/1/S_Walk.gif", "resources/assets/monstres/1/S_Walk.gif", "resources/assets/monstres/1/S_Death.gif", 0.05f, 1000);
     }
 }

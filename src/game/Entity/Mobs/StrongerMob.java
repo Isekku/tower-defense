@@ -9,7 +9,7 @@ public class StrongerMob extends Mob {
     public static String entityAttack = "resources/assets/monstres/4/S_Walk.gif"; //initializeImage("resources/assets/monstres/4/S_Walk.gif");
     public static String entityDead = "resources/assets/monstres/4/S_Death.gif"; //initializeImage("resources/assets/monstres/4/S_Death.gif");
     public StrongerMob(Coordinates coordinates){
-        super("Mob Fort", (stringGras + stringCouleurRouge), 20, 200, coordinates, 100, "resources/assets/monstres/4/S_Walk.gif", "resources/assets/monstres/4/S_Walk.gif", "resources/assets/monstres/4/S_Death.gif", 0.2f);
+        super("Mob Fort", (stringGras + stringCouleurRouge), 20, 200, coordinates, 100, "resources/assets/monstres/4/S_Walk.gif", "resources/assets/monstres/4/S_Walk.gif", "resources/assets/monstres/4/S_Death.gif", 0.2f, 2500);
     }
 
     public String getWalkGif(){return this.entityWalk;}
