@@ -25,23 +25,24 @@ public class Pause extends JFrame implements State{
 
     //Les Panels et les Components besoins pour l'affichage :
     private JPanel pausePanel = new JPanel();
-        private JPanel difficultyPanel = new JPanel();
-            private JPanel difficultyAndDescriptionLabel = new JPanel();
-                private JLabel difficultyText = new JLabel("Difficulté : ");
-                private JSlider difficultySlider = new JSlider();
-        private JPanel chooseTextPanel = new JPanel();
-            private JLabel chooseText = new JLabel("Choix de Map :");
-
-
-
+        JButton reprendre = new JButton("Reprendre");
+        JButton retourMenuPrincipal = new JButton("Retour au menu principal");
+        JButton sauvegarder = new JButton("Sauvegarder");
+        JButton quitter = new JButton("Quitter");
 
     //Méthodes nécessaires pour la construction de la vue :
     public void enterState() {
-        pausePanel.setLayout(new GridLayout(2, 1));
+        pausePanel.setLayout(new GridLayout(4, 1));
 
-        difficultyPanel.setLayout(new BorderLayout());
-            difficultyAndDescriptionLabel.setLayout(new BorderLayout());
-                difficultyText.setFont(new Font("Comics Sans MS", Font.BOLD, 50));
+            pausePanel.add(reprendre);
+            addClickListener(reprendre, 1);
+            pausePanel.add(retourMenuPrincipal);
+            addClickListener(retourMenuPrincipal, 2);
+            pausePanel.add(sauvegarder);
+            addClickListener(sauvegarder, 3);
+            pausePanel.add(quitter);
+            addClickListener(quitter, 4);
+
 
     }
 
@@ -80,7 +81,7 @@ public class Pause extends JFrame implements State{
     public void quitState() {
 
     }
-    
+
     public void refresh() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

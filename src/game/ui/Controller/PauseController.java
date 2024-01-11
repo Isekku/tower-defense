@@ -12,12 +12,17 @@ public class PauseController extends Controller{
     }
 
     public void mouseClicked(int value) {
-        if (value == 1) {
-            System.out.println(value);
+        if (value == 1) { // replendre
             changeView(GameState.PLAYING);
         }
-        if (value == 2) {
+        if (value == 2) { // retour menu principal
             changeView(GameState.MENU);
+        }
+        if (value == 3) { // sauvagarder
+            
+        }
+        if (value == 4) { // quitter
+            System.exit(0);
         }
     }
 
