@@ -172,7 +172,7 @@ public class Playing extends JFrame implements State{
                             }
                             if(!placed){
                                 towerGrid[finalI][finalJ].setBorder(Style.redLine);
-                                SwingUtilities.invokeLater(new Runnable() {
+                                Runnable run = new Runnable() {
                                     @Override
                                     public void run() {
                                         try{
@@ -183,7 +183,9 @@ public class Playing extends JFrame implements State{
                                             e.printStackTrace();
                                         };
                                     }
-                                });
+                                };
+                                Thread thread = new Thread(run);
+                                thread.start();
                             }
                             else {
                                 towerGrid[finalI][finalJ].setBorder(null);
