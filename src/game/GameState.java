@@ -3,6 +3,7 @@ package game;
 import game.ui.Vue.State;
 import game.ui.Vue.ChooseMap;
 import game.ui.Vue.ChooseVersion;
+import game.ui.Vue.Pause;
 import game.ui.Vue.Playing;
 import game.ui.Vue.ScreenMenu;
 
@@ -10,9 +11,9 @@ public enum GameState {
     MENU(ScreenMenu.getInstance()),
     VERSION(ChooseVersion.getInstance()),
     PLAYING(Playing.getInstance()),
-    MAP(ChooseMap.getInstance());
+    MAP(ChooseMap.getInstance()),
+    PAUSE(Pause.getInstance());
     //OPTION,
-    //PAUSE,
     //GAMEOVER,
     //WIN;
 

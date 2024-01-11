@@ -1,0 +1,99 @@
+package game.ui.Vue;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+import game.ui.Controller.PauseController;
+import java.awt.event.ActionEvent; 
+
+public class Pause extends JFrame implements State{
+
+    //Tout attributs permettant d'instancier la classe :
+    public static boolean isFirstTime = true;
+    private static final Pause instance = new Pause();
+    private PauseController controller;
+
+    //Constructeur unique :
+    public Pause() {
+        controller = new PauseController(this);
+        pausePanel = new JPanel(new GridLayout(2, 1));
+        String imagePath = "/resources/buttons/";
+
+    }
+
+    //Les Panels et les Components besoins pour l'affichage :
+    private JPanel pausePanel = new JPanel();
+        private JPanel difficultyPanel = new JPanel();
+            private JPanel difficultyAndDescriptionLabel = new JPanel();
+                private JLabel difficultyText = new JLabel("Difficulté : ");
+                private JSlider difficultySlider = new JSlider();
+        private JPanel chooseTextPanel = new JPanel();
+            private JLabel chooseText = new JLabel("Choix de Map :");
+
+
+
+
+    //Méthodes nécessaires pour la construction de la vue :
+    public void enterState() {
+        pausePanel.setLayout(new GridLayout(2, 1));
+
+        difficultyPanel.setLayout(new BorderLayout());
+            difficultyAndDescriptionLabel.setLayout(new BorderLayout());
+                difficultyText.setFont(new Font("Comics Sans MS", Font.BOLD, 50));
+
+    }
+
+    public void exitState() {
+
+    }
+
+    public void addClickListener(JButton button, int value) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.mouseClicked(value);
+            }
+        });
+    }
+
+    
+
+
+    public static Pause getInstance(){
+        return instance;
+    }
+
+    public boolean isFirstTime(){
+        return isFirstTime;
+    }
+
+    public void notFirstTime(){
+        if(isFirstTime()) isFirstTime = false;
+    }
+
+    public JPanel getView(){
+        return this.pausePanel;
+    }
+
+    public void quitState() {
+
+    }
+    
+    public void refresh() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                pausePanel.revalidate();
+                pausePanel.repaint();
+            }
+        });
+    }
+
+    
+
+
+
+
+}
