@@ -272,18 +272,6 @@ public class Model {
         return waveTime;
     }
 
-    public void towerRound(){
-        for(Tower t : towerEmplacement){
-            projectileEmplacement.addAll(t.projectileShooted);
-            t.projectileShooted.clear();
-            if(map.getEntity(t.coordinates) == null) map.setEntity(t.coordinates, t);
-            if((mobOnWay(t.coordinates) || mobInCell(t.coordinates) != null)){
-                if(!t.timer.isRunning()) t.timer.start();
-            }
-            else t.timer.stop();
-        }
-    }
-
     public void projectileRound(){
         ArrayList<Projectile> deadProjectile = new ArrayList<>();
         for(Projectile p : projectileEmplacement){
@@ -301,6 +289,7 @@ public class Model {
                     mobEmplacement.remove(m);
                     map.makeEmpty(m.coordinates);
                     incrementMoney(m.value);
+                    m.timer.stop();
                 }
                 p.towerParent.canShoot = true;
                 if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
@@ -313,8 +302,33 @@ public class Model {
         projectileEmplacement.removeAll(deadProjectile);
     }
 
+    public void towerRound(){
+        for(Tower t : towerEmplacement){
+            projectileEmplacement.addAll(t.projectileShooted);
+            t.projectileShooted.clear();
+            if(map.getEntity(t.coordinates) == null) map.setEntity(t.coordinates, t);
+            if((mobOnWay(t.coordinates) || mobInCell(t.coordinates) != null)){
+                if(!t.timer.isRunning()) t.timer.start();
+            }
+            else t.timer.stop();
+        }
+    }
+
     public void mobRound(){
         for(Mob m : mobEmplacement){
+            towerEmplacement.removeAll(m.towerKilled);
+            m.towerKilled.clear();
+            if(towerInCell(m.coordinates) !=  null && !m.timer.isRunning()){
+                m.currentTower = towerInCell(m.coordinates);
+                m.timer.start();
+                m.currentImage = m.entityAttack;
+            }
+            else if (towerInCell(m.coordinates) == null){
+                if(m.timer.isRunning()) m.timer.stop();
+                m.currentImage = m.entityWalk;
+                moveAsMob(m);
+            }
+            /*
             m.isKilling = false;
             if(map.getEntity(m.coordinates) == null) map.setEntity(m.coordinates, m);
 
@@ -330,6 +344,8 @@ public class Model {
                 }
             }
             else if(!m.isKilling) moveAsMob(m);
+
+             */
         }
     }
 
