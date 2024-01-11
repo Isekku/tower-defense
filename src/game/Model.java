@@ -20,8 +20,9 @@ import java.util.function.Predicate;
 
 import static game.ui.Style.*;
 
+import java.io.Serializable;
 
-public class Model {
+public class Model implements Serializable{
     private static final Model instance = new Model();
    // private GameState state;
     private Map map;

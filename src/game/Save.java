@@ -1,10 +1,12 @@
 package game;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.io.File;
 
 public class Save implements Serializable {
 
@@ -17,8 +19,9 @@ public class Save implements Serializable {
     public static void save(Model model) {
         System.out.println("Tentative de sauvegarde");
         System.out.println("path: " + SAVE_FILE_PATH + "save.ser");
+        System.out.println(SAVE_FILE);
         try {
-            FileOutputStream fileOut = new FileOutputStream(SAVE_FILE_PATH + "save.ser");
+            FileOutputStream fileOut = new FileOutputStream(new File(SAVE_FILE));
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(model);
             out.close();
