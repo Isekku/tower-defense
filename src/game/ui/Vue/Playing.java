@@ -199,7 +199,21 @@ public class Playing extends JFrame implements State{
                     public void mouseEntered(MouseEvent e){
                         if(canPlaceATower != -1){
                             towerGrid[finalI][finalJ].setBorder(Style.compound);
-                            ImageIcon icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/2.gif"));
+                            ImageIcon icon = null;
+                            switch (canPlaceATower){
+                                case 0 -> {
+                                    icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/2.gif"));
+                                }
+                                case 1 -> {
+                                    icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/3.gif"));
+                                }
+                                case 2 -> {
+                                    icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/5.gif"));
+                                }
+                                case 3 -> {
+                                    icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/6.gif"));
+                                }
+                            }
                             towerGrid[finalI][finalJ].setIcon(icon);
                         }
                     }
