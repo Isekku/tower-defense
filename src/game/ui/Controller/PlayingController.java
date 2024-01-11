@@ -113,6 +113,8 @@ public class PlayingController extends Controller{
         infoUpdate();
     }
 
-
+    public void addTower(Tower tower){
+        model.setTower(tower.coordinates, tower);
+    }
 
 }

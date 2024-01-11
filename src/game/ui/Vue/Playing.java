@@ -5,6 +5,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -18,16 +19,18 @@ import javax.tools.Tool;
 
 import game.Entity.Entity;
 import game.Entity.towers.BasicTower;
+import game.Entity.towers.Tower;
 import game.geometry.Coordinates;
 import game.ui.Controller.PlayingController;
 import game.map.Cell;
 import game.ui.Model.MapCell;
 import game.ui.Model.PlayingPanel;
-import game.ui.Model.TransferableImageIcon;
 import game.ui.Style;
 
 public class Playing extends JFrame implements State{
     //Tout attributs permettant d'instancier la classe :
+    public boolean canPlaceATower = false;
+
     public static boolean isFirstTime = true;
     private static final Playing instance = new Playing();
     private PlayingController controller;
@@ -63,6 +66,8 @@ public class Playing extends JFrame implements State{
 
 
     //Les Panels et les Components besoins pour l'affichage :
+
+    protected JLabel currentJLabel = null;
     protected JPanel playingPanel = new JPanel();
         protected JPanel playingResized = new JPanel();
         protected JPanel mapPanel = new JPanel();
@@ -132,7 +137,29 @@ public class Playing extends JFrame implements State{
     public void enterState() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         controller.refresh();
+        towerGridPanel.setLayout(new GridLayout(controller.mapHeight, controller.mapWidth));
+        towerGridPanel.setOpaque(false);
         towerGrid = new JPanel[controller.mapHeight][controller.mapWidth];
+        for(int i = 0; i < towerGrid.length; i++){
+            for(int j = 0; j < towerGrid[0].length; j++){
+                towerGrid[i][j] = new JPanel();
+                towerGrid[i][j].setOpaque(false);
+                towerGrid[i][j].setBorder(Style.compound);
+                towerGridPanel.add(towerGrid[i][j]);
+
+                int finalI = i;
+                int finalJ = j;
+                towerGrid[i][j].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        if (canPlaceATower) {
+                            controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
+                            canPlaceATower = false;
+                        }
+                    }
+                });
+            }
+        }
 
         playingPanel.setLayout(new BorderLayout());
             mapPanel.setLayout(new BorderLayout());
@@ -156,6 +183,7 @@ public class Playing extends JFrame implements State{
             mapGridPanel.setOpaque(false);
             playingGridPanel.setOpaque(false);
 
+            overlayLayout.add(towerGridPanel);
             overlayLayout.add(playingGridPanel);
             overlayLayout.add(mapPanel);
 
@@ -191,6 +219,8 @@ public class Playing extends JFrame implements State{
             towerPanel.setBorder(new EmptyBorder(0, 0, 20, 0));
             towerPanel.setBackground(Style.backgroundColor);
                 towerPanel.add(basicTowerLabel);
+                setMouseEvent(basicTowerLabel);
+
                 towerPanel.add(electricTowerLabel);
                 towerPanel.add(iceTowerLabel);
                 towerPanel.add(royalTowerLabel);
@@ -221,19 +251,15 @@ public class Playing extends JFrame implements State{
         }
     }
 
-
-    public void infiniteMoney() {
-        Thread moneyThread = new Thread(() -> {
-            while (true) {
-                controller.incrementMoney(1);
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    public void setMouseEvent(JLabel label){
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("j'ai cliqué :)");
+                canPlaceATower = true;
+                label.setBorder(Style.compound);
             }
         });
-        moneyThread.start();
     }
 
     public void refresh(){

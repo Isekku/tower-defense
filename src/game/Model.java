@@ -75,21 +75,6 @@ public class Model {
         mobExample.add(new NormalMob(coordinatesNull));
         mobExample.add(new HeavyMob(coordinatesNull));
         mobExample.add(new StrongerMob(coordinatesNull));
-
-        Coordinates c = new Coordinates(0, 0, 0.15f);
-        setTower(c, new BasicTower(c));
-
-        Coordinates d = new Coordinates(1, 1, 0.15f);
-        setTower(d, new ElectricTower(d));
-
-        Coordinates e = new Coordinates(2, 2, 0.15f);
-        setTower(e, new IceTower(e));
-
-        Coordinates f = new Coordinates(3, 3, 0.15f);
-        setTower(f, new RoyalTower(f));
-
-        Coordinates g = new Coordinates(4, 1, 0.15f);
-        setTower(g, new RoyalTower(g));
     }
 
     public void printMap(){

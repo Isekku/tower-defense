@@ -120,12 +120,23 @@ public class Map {
      *  Permet de placer une tour si cela est possible :
      */
     public boolean setEntity(int x, int y, Entity entity){
-        if(isValid(x,y)){
-            if(isEmpty(x, y) || map[x][y].getEntity() instanceof Projectile){
-                return setCell(x, y, entity);
+        if(entity instanceof Tower){
+            if(isValidForTower(x, y)){
+                if(isEmpty(x, y) || map[x][y].getEntity() instanceof Projectile){
+                    return setCell(x, y, entity);
+                }
+                else{
+                    return false;
+                }
             }
-            else{
-                return false;
+        }
+        else {
+            if (isValid(x, y)) {
+                if (isEmpty(x, y) || map[x][y].getEntity() instanceof Projectile) {
+                    return setCell(x, y, entity);
+                } else {
+                    return false;
+                }
             }
         }
         return false;
@@ -140,6 +151,10 @@ public class Map {
      */
     public boolean isValid(int x, int y) {
         return (x >= 0 && y >= 0) && (x < height && y < width);
+    }
+
+    public boolean isValidForTower(int x, int y){
+        return (x >= 0 && y >= 0) && (x < height && y < width-1);
     }
  
     /**
