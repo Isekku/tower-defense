@@ -265,7 +265,6 @@ public class Model {
             projectileEmplacement.addAll(t.projectileShooted);
             t.projectileShooted.clear();
             if(map.getEntity(t.coordinates) == null) map.setEntity(t.coordinates, t);
-            System.out.println(mobOnWay(t.coordinates));
             if((mobOnWay(t.coordinates) || mobInCell(t.coordinates) != null)){
                 if(!t.timer.isRunning()) t.timer.start();
             }
