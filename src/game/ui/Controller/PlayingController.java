@@ -124,8 +124,9 @@ public class PlayingController extends Controller{
         infoUpdate();
     }
 
-    public void addTower(Tower tower){
-        if(model.getMoney() >= tower.getCost()) model.setTower(tower.coordinates, tower);
+    public boolean addTower(Tower tower){
+        if(model.getMoney() >= tower.getCost()) return model.setTower(tower.coordinates, tower);
+        return false;
     }
 
 }

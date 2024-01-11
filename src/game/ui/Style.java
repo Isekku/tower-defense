@@ -17,6 +17,7 @@ public class Style {
     public static Dimension buttonDimension = new Dimension(300, 70);
     public static Dimension littleButtonDimension = new Dimension(200, 50);
     public static Border line = new LineBorder(Color.BLACK,5, true);
+    public static Border redLine = new LineBorder(Color.RED,5, true);
     public static Border compound = new CompoundBorder(line, new EmptyBorder(5, 5, 5, 5));
     public static String stringGras = "\u001B[1m";
     public static String stringBase = "\u001B[0m";

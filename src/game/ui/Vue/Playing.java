@@ -3,9 +3,7 @@ package game.ui.Vue;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -124,23 +122,6 @@ public class Playing extends JFrame implements State{
         return towerGrid[hauteur][largeur];
     }
 
-    public void tourSurSouris(int hauteur, int largeur, String towerImage){
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println(hauteur + " " + largeur);
-                tourSurSouris.removeAll();
-                tourSurSouris.setLayout(new BorderLayout());
-                tourSurSouris.add(new JLabel(new ImageIcon(Entity.initializeImage(towerImage))));
-                tourSurSouris.setOpaque(false);
-                tourSurSouris.setBounds(largeur * 100, hauteur * 100, 100, 100);
-                playingResized.add(tourSurSouris);
-
-            }
-        });
-        
-    }
-
 
     //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
 
@@ -150,14 +131,6 @@ public class Playing extends JFrame implements State{
 
     public void pauseWave(){
         controller.pauseWave();
-    }
-
-    public void towerClicked(int tower, String towerImage){
-        controller.towerClicked(tower, towerImage);
-    }
-
-    public void moovedWithTower(java.awt.event.MouseEvent e){
-        controller.moovedWithTower(e);
     }
 
 
@@ -181,22 +154,42 @@ public class Playing extends JFrame implements State{
                     @Override
                     public void mouseReleased(MouseEvent e) {
                         if (canPlaceATower != -1) {
+                            boolean placed = false;
                             switch (canPlaceATower){
                                 case 0 -> {
-                                    controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                    placed = controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
                                 }
                                 case 1 ->{
-                                    controller.addTower(new ElectricTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                    placed = controller.addTower(new ElectricTower(new Coordinates(finalI, finalJ, 0.15f)));
                                 }
                                 case 2 ->{
-                                    controller.addTower(new IceTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                    placed = controller.addTower(new IceTower(new Coordinates(finalI, finalJ, 0.15f)));
                                 }
                                 case 3 ->{
-                                    controller.addTower(new RoyalTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                    placed = controller.addTower(new RoyalTower(new Coordinates(finalI, finalJ, 0.15f)));
                                 }
                                 default -> {}
                             }
-                            canPlaceATower = -1;
+                            if(!placed){
+                                towerGrid[finalI][finalJ].setBorder(Style.redLine);
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try{
+                                            Thread.sleep(500);
+                                            towerGrid[finalI][finalJ].setBorder(Style.compound);
+                                        }
+                                        catch (InterruptedException e){
+                                            e.printStackTrace();
+                                        };
+                                    }
+                                });
+                            }
+                            else {
+                                towerGrid[finalI][finalJ].setBorder(null);
+                                canPlaceATower = -1;
+                            }
+                            //towerGrid[finalI][finalJ].setBorder(null);
                             //controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
                         }
                     }
@@ -285,30 +278,7 @@ public class Playing extends JFrame implements State{
             playingPanel.add(towerPanel, BorderLayout.SOUTH);
             
             // rajoouter les listener pour toutes les tours
-            basicTowerLabel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    towerClicked(0, "resources/assets/archer/2_Idle/2.gif");
-                }
-            });
-            electricTowerLabel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    towerClicked(1, "resources/assets/archer/2_Idle/3.gif");
-                }
-            });
-            iceTowerLabel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    towerClicked(2, "resources/assets/archer/2_Idle/5.gif");
-                }
-            });
-            royalTowerLabel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    towerClicked(3, "resources/assets/archer/2_Idle/6.gif");
-                }
-            });
+
 
 
             towerPlusStartPanel.add(startPanel);
@@ -322,13 +292,6 @@ public class Playing extends JFrame implements State{
             }
         });
 
-        playingPanel.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                // on bouge la tour quand on bouge la souris
-                moovedWithTower(e);
-            }
-        });
 
         // infiniteMoney();
         System.out.println("Hauteur/Longueur du gridJpanel : " + mapDesign.length + " " + mapDesign[0].length);
