@@ -262,12 +262,13 @@ public class Model {
 
     public void towerRound(){
         for(Tower t : towerEmplacement){
-            if(mobOnWay(t.coordinates) && t.canShoot){
+            if((mobOnWay(t.coordinates) || mobInCell(t.coordinates) != null) && t.canShoot){
                 t.currentImage = t.entityAttack;
                 t.canShoot = false;
                 Projectile p = t.shoot(t, map.getWidth(), map.getHeight());
                 projectileEmplacement.add(p);
                 t.currentImage = t.entityWalk;
+                System.out.println("shooted");
             }
         }
     }
@@ -277,20 +278,19 @@ public class Model {
         for(Projectile p : projectileEmplacement){
             moveAsProjectile(p);
 
-            Entity e2 = map.getEntity(p.coordinates);
+            Mob m = mobInCell(p.coordinates);//map.getEntity(p.coordinates);
 
             if(!map.isValid(p.coordinates)){
                 p.towerParent.canShoot = true;
                 deadProjectile.add(p);
                 p.takeDamage(p.getPv());
             }
-            else if(e2 instanceof Mob){
-                Mob m2 = (Mob) e2;
-                boolean dead = p.makeDamage(m2);
+            else if(m != null){
+                boolean dead = p.makeDamage(m);
                 if(dead){
-                    mobEmplacement.remove(m2);
-                    map.makeEmpty(m2.coordinates);
-                    incrementMoney(m2.value);
+                    mobEmplacement.remove(m);
+                    map.makeEmpty(m.coordinates);
+                    incrementMoney(m.value);
                 }
                 p.towerParent.canShoot = true;
                 if(map.getEntity(p.coordinates) == p) map.makeEmpty(p.coordinates);
@@ -306,8 +306,8 @@ public class Model {
             m.isKilling = false;
             if(map.getEntity(m.coordinates) == null) map.setEntity(m.coordinates, m);
 
-            Entity t = map.getEntity(m.coordinates); //towerInFront(m.coordinates);
-            if(t instanceof Tower){
+            Tower t = towerInCell(m.coordinates);//map.getEntity(m.coordinates); //towerInFront(m.coordinates);
+            if(t != null){
                 m.currentImage = m.entityAttack;
                 m.isKilling = true;
                 boolean dead = m.makeDamage(t);
@@ -454,6 +454,20 @@ public class Model {
 
     public void restartWave(){
         waveOnBreak = false;
+    }
+
+    public Mob mobInCell(Coordinates c){
+        for(Mob m : mobEmplacement){
+            if(m.coordinates.getX() == c.getX() && m.coordinates.getY() == c.getY()) return m;
+        }
+        return null;
+    }
+
+    public Tower towerInCell(Coordinates c){
+        for(Tower t : towerEmplacement){
+            if(t.coordinates.getX() == c.getX() && t.coordinates.getY() == c.getY()) return t;
+        }
+        return null;
     }
 
     public void addMobInWave(int wave){
