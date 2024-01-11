@@ -18,8 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.tools.Tool;
 
 import game.Entity.Entity;
-import game.Entity.towers.BasicTower;
-import game.Entity.towers.Tower;
+import game.Entity.towers.*;
 import game.geometry.Coordinates;
 import game.ui.Controller.PlayingController;
 import game.map.Cell;
@@ -29,7 +28,7 @@ import game.ui.Style;
 
 public class Playing extends JFrame implements State{
     //Tout attributs permettant d'instancier la classe :
-    public boolean canPlaceATower = false;
+    public int canPlaceATower = -1;
 
     public static boolean isFirstTime = true;
     private static final Playing instance = new Playing();
@@ -152,9 +151,24 @@ public class Playing extends JFrame implements State{
                 towerGrid[i][j].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent e) {
-                        if (canPlaceATower) {
-                            controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
-                            canPlaceATower = false;
+                        if (canPlaceATower != -1) {
+                            switch (canPlaceATower){
+                                case 0 -> {
+                                    controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                }
+                                case 1 ->{
+                                    controller.addTower(new ElectricTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                }
+                                case 2 ->{
+                                    controller.addTower(new IceTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                }
+                                case 3 ->{
+                                    controller.addTower(new RoyalTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                }
+                                default -> {}
+                            }
+                            canPlaceATower = -1;
+                            //controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
                         }
                     }
                 });
@@ -218,12 +232,19 @@ public class Playing extends JFrame implements State{
             towerPanel.setLayout(new GridLayout(1, 4));
             towerPanel.setBorder(new EmptyBorder(0, 0, 20, 0));
             towerPanel.setBackground(Style.backgroundColor);
+
                 towerPanel.add(basicTowerLabel);
-                setMouseEvent(basicTowerLabel);
+                setMouseEvent(basicTowerLabel, 0);
 
                 towerPanel.add(electricTowerLabel);
+                setMouseEvent(electricTowerLabel, 1);
+
                 towerPanel.add(iceTowerLabel);
+                setMouseEvent(iceTowerLabel, 2);
+
                 towerPanel.add(royalTowerLabel);
+                setMouseEvent(royalTowerLabel, 3);
+
             playingPanel.add(towerPanel, BorderLayout.SOUTH);
 
             towerPlusStartPanel.add(startPanel);
@@ -237,6 +258,7 @@ public class Playing extends JFrame implements State{
         // controller.updateMap();
         //Instruction permettant d'avoir un affichage correcte dans notre fenêtre :
         refresh();
+        controller.startRefreshing();
     }
 
     public void setMap(){
@@ -251,13 +273,12 @@ public class Playing extends JFrame implements State{
         }
     }
 
-    public void setMouseEvent(JLabel label){
+    public void setMouseEvent(JLabel label, int n){
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("j'ai cliqué :)");
-                canPlaceATower = true;
-                label.setBorder(Style.compound);
+                canPlaceATower = n;
             }
         });
     }
