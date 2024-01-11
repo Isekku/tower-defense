@@ -1,22 +1,26 @@
 package game;
 
 import java.io.Serializable;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
-public class Save extends Model implements Serializable {
+public class Save implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final String SAVE_FILE_PATH = "save/";
+    private static final String SAVE_FILE_PATH = "save\\";
 
     public Save() {
-        System.out.println("Création d'une nouvelle sauvegarde");
     }
 
-    public void save() {
+    public static void save(Model model) {
         System.out.println("Tentative de sauvegarde");
+        System.out.println("path: " + SAVE_FILE_PATH + "save.ser");
         try {
-            java.io.FileOutputStream fileOut = new java.io.FileOutputStream(SAVE_FILE_PATH + "save.ser");
-            java.io.ObjectOutputStream out = new java.io.ObjectOutputStream(fileOut);
-            out.writeObject(this);
+            FileOutputStream fileOut = new FileOutputStream(SAVE_FILE_PATH + "save.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(model);
             out.close();
             fileOut.close();
             System.out.println("Serialized data is saved in save.ser");
@@ -28,8 +32,8 @@ public class Save extends Model implements Serializable {
     public static Save load() {
         Save save = null;
         try {
-            java.io.FileInputStream fileIn = new java.io.FileInputStream(SAVE_FILE_PATH + "save.ser");
-            java.io.ObjectInputStream in = new java.io.ObjectInputStream(fileIn);
+            FileInputStream fileIn = new FileInputStream(SAVE_FILE_PATH + "save.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
             save = (Save) in.readObject();
             in.close();
             fileIn.close();
@@ -54,8 +58,5 @@ public class Save extends Model implements Serializable {
         f.delete();
     }
 
-    public static Save getInstance(){
-        return new Save();
-    }
 
 }
