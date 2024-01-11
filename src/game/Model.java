@@ -533,4 +533,10 @@ public class Model {
         });
         return t;
     }
+
+    public void save() {
+        System.out.println("Sauvegarde en cours...");
+        Save save = Save.getInstance();
+        // save.save();
+    }
 }

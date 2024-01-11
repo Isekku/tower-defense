@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import game.ui.Controller.PauseController;
+import game.ui.Model.PlayingPanel;
+
 import java.awt.event.ActionEvent; 
 
 public class Pause extends JFrame implements State{
@@ -25,23 +27,34 @@ public class Pause extends JFrame implements State{
 
     //Les Panels et les Components besoins pour l'affichage :
     private JPanel pausePanel = new JPanel();
-        JButton reprendre = new JButton("Reprendre");
-        JButton retourMenuPrincipal = new JButton("Retour au menu principal");
-        JButton sauvegarder = new JButton("Sauvegarder");
-        JButton quitter = new JButton("Quitter");
+        private JPanel buttonPanel = new JPanel();
+            JButton reprendre = new JButton("Reprendre");
+            JButton retourMenuPrincipal = new JButton("Retour au menu principal");
+            JButton sauvegarder = new JButton("Sauvegarder");
+            JButton quitter = new JButton("Quitter");
 
     //Méthodes nécessaires pour la construction de la vue :
     public void enterState() {
-        pausePanel.setLayout(new GridLayout(4, 1));
+        pausePanel.setLayout(new FlowLayout());
+            buttonPanel.setLayout(new GridLayout(4, 1));
+                buttonPanel.add(reprendre);
+                addClickListener(reprendre, 1);
+                buttonPanel.add(retourMenuPrincipal);
+                addClickListener(retourMenuPrincipal, 2);
+                buttonPanel.add(sauvegarder);
+                addClickListener(sauvegarder, 3);
+                buttonPanel.add(quitter);
+                addClickListener(quitter, 4);
 
-            pausePanel.add(reprendre);
-            addClickListener(reprendre, 1);
-            pausePanel.add(retourMenuPrincipal);
-            addClickListener(retourMenuPrincipal, 2);
-            pausePanel.add(sauvegarder);
-            addClickListener(sauvegarder, 3);
-            pausePanel.add(quitter);
-            addClickListener(quitter, 4);
+                reprendre.setPreferredSize(new Dimension(400, 100));
+                retourMenuPrincipal.setPreferredSize(new Dimension(400, 100));
+                sauvegarder.setPreferredSize(new Dimension(400, 100));
+                quitter.setPreferredSize(new Dimension(400, 100));
+
+
+        pausePanel.add(buttonPanel, BorderLayout.CENTER);
+        pausePanel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
+
 
 
     }
