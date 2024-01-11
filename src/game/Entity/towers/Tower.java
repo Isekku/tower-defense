@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Tower extends Entity{
+public class Tower extends Entity implements java.io.Serializable{
     private int cost;
     public boolean canShoot = true;
     public String currentAnimation;

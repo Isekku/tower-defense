@@ -20,8 +20,9 @@ import java.util.function.Predicate;
 
 import static game.ui.Style.*;
 
+import java.io.Serializable;
 
-public class Model {
+public class Model implements Serializable{
     private static final Model instance = new Model();
    // private GameState state;
     private Map map;
@@ -131,7 +132,37 @@ public class Model {
     }
 
     public void reset(){
+        money = 50;
+        wave = 0;
+        timeOfWave = 10;
+        time = 0;
+        waveTime = 0;
+        waveOnBreak = false;
+        waveRunning = false;
+        haveClickedOnTower = false;
+        clickedTower = 0;
+        clickedTowerImage = "";
+        map = new Map(5, 9);
+        for(Tower t : towerEmplacement){
+            t.takeDamage(t.getPv());
+            map.makeEmpty(t.coordinates);
+        }
+        towerEmplacement.clear();
 
+        for(Mob m : mobEmplacement){
+            m.takeDamage(m.getPv());
+            map.makeEmpty(m.coordinates);
+        }
+        mobEmplacement.clear();
+
+        for(Projectile p : projectileEmplacement){
+            p.takeDamage(p.getPv());
+            map.makeEmpty(p.coordinates);
+        }
+        projectileEmplacement.clear();
+
+        mobInWave.clear();
+        // set all to null
     }
 
     public void print(){
@@ -532,5 +563,10 @@ public class Model {
             }
         });
         return t;
+    }
+
+    public void save() {
+        System.out.println("Sauvegarde en cours...");
+        Save.save(this);
     }
 }

@@ -3,7 +3,7 @@ package game.map;
 import game.Entity.Entity;
 import game.Entity.towers.Tower;
 
-public class Cell {
+public class Cell implements java.io.Serializable{
     private Entity entity;
 
     //Création d'une cellule vide;

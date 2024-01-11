@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import game.ui.Controller.ScreenMenuController;
+import game.Model;
 import game.Save;
 import game.ui.Style;
 
@@ -85,13 +86,19 @@ public class ScreenMenu extends JFrame implements State {
         }
         else {
             System.out.println("Sauvegarde trouvée");
+            optionButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    loadSave();
+                }
+            });
         }
 
     }
     public void loadSave(){
-        Save save = Save.load();
+        Model save = Save.load();
         if (save == null) {
-            JOptionPane.showMessageDialog(null, "Aucune sauvegarde trouvée", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erreur : La partie n'a pas pu être chargé", "Erreur", JOptionPane.ERROR_MESSAGE);
             optionButton.setEnabled(false);
         }
 

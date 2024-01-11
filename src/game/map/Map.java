@@ -15,7 +15,7 @@ import java.awt.*;
 * Cellule représentant chaque cellule de la map.
 */
 
-public class Map {
+public class Map implements java.io.Serializable{
     private int width;
     private int height;
     private Cell[][] map;
