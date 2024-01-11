@@ -276,9 +276,8 @@ public class Model {
     public void projectileRound(){
         ArrayList<Projectile> deadProjectile = new ArrayList<>();
         for(Projectile p : projectileEmplacement){
-            moveAsProjectile(p);
 
-            Mob m = mobInCell(p.coordinates);//map.getEntity(p.coordinates);
+            Mob m = mobInCell(new Coordinates(p.coordinates.getX(), p.coordinates.getY()-1, p.coordinates.speed));//map.getEntity(p.coordinates);
 
             if(!map.isValid(p.coordinates)){
                 p.towerParent.canShoot = true;
@@ -297,6 +296,8 @@ public class Model {
                 p.takeDamage(p.getPv());
                 deadProjectile.add(p);
             }
+
+            if(map.isValid(p.coordinates) && p.getPv() > 0) moveAsProjectile(p);
         }
         projectileEmplacement.removeAll(deadProjectile);
     }
