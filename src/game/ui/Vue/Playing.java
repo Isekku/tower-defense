@@ -28,15 +28,6 @@ public class Playing extends JFrame implements State{
     public Playing(){
         controller = new PlayingController(this);
         mapGrid = new JPanel[controller.mapHeight][controller.mapWidth];
-        mapDesign = new int[controller.mapHeight][controller.mapWidth];
-        int rotation = 0;
-
-        for(int i = 0; i < controller.mapHeight; i++){
-            for(int j = 0; j < controller.mapWidth; j++){
-                mapDesign[i][j] = rotation%2;
-                rotation++;
-            }
-        }
         playingPanel = new JPanel();
 
         try{
@@ -53,19 +44,18 @@ public class Playing extends JFrame implements State{
             e.printStackTrace();
         }
     }
-    private int[][] mapDesign;
-            /*
-            {
-            {1,0,1,0,1,0,1,0,1},
-            {1,0,1,0,1,0,1,0,1},
-            {1,0,1,0,1,0,1,0,1},
-            {1,0,1,0,1,0,1,0,1},
-            {1,0,1,0,1,0,1,0,1},
+    private String[][] mapDesign = {
+            {"06", "35", "35", "35", "35", "35", "35", "12", "38"},
+            {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
+            {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
+            {"13", "11", "11", "11", "11", "11", "11", "17", "38"},
+            {"22", "04", "04", "04", "04", "04", "04", "24", "38"},
     };
-             */
+
 
     //Les Panels et les Components besoins pour l'affichage :
     protected JPanel playingPanel = new JPanel();
+        protected JPanel playingResized = new JPanel();
         protected JPanel mapPanel = new JPanel();
             protected JPanel mapGridPanel = new JPanel();
                 protected JPanel mapGrid[][];
@@ -138,8 +128,7 @@ public class Playing extends JFrame implements State{
         playingPanel.setLayout(new BorderLayout());
             mapPanel.setLayout(new BorderLayout());
                 mapGridPanel.setLayout(new GridLayout(controller.mapHeight, controller.mapWidth));
-                towerGridPanel.setLayout(new GridLayout(controller.mapHeight, controller.mapWidth));
-                setMap(); newMap();
+                setMap();
                 controller.updateMap();
 
                 mapPanel.add(mapGridPanel, BorderLayout.CENTER);
@@ -155,16 +144,18 @@ public class Playing extends JFrame implements State{
             overlayLayout.setLayout(new OverlayLayout(overlayLayout));
 
             mapPanel.setOpaque(false);
+            mapGridPanel.setOpaque(false);
             playingGridPanel.setOpaque(false);
-            towerGridPanel.setOpaque(false);
 
             overlayLayout.add(playingGridPanel);
-            overlayLayout.add(towerGridPanel);
             overlayLayout.add(mapPanel);
 
+            playingResized.setLayout(new FlowLayout(FlowLayout.CENTER));
+            playingResized.add(overlayLayout);
+            overlayLayout.setPreferredSize(new Dimension(800, 550));
+
             // mettre une map carré
-            playingPanel.add(overlayLayout, BorderLayout.CENTER);
-            playingPanel.setPreferredSize(new Dimension(100, 100));
+            playingPanel.add(playingResized, BorderLayout.CENTER);
 
             infoPanel.setLayout(new GridLayout(1, 4));
                 infoPanel.add(moneyLabel);
@@ -210,21 +201,10 @@ public class Playing extends JFrame implements State{
         for(int i = 0; i < controller.mapHeight; i++){
             for(int j = 0; j < controller.mapWidth; j++){
                 mapGrid[i][j] = new MapCell(mapDesign[i][j]);
-                towerGrid[i][j] = new JPanel();
-                towerGrid[i][j].setOpaque(false);
+                mapGrid[i][j].setOpaque(false);
                 mapGridPanel.add(mapGrid[i][j]);
-                towerGridPanel.add(towerGrid[i][j]);
             }
 
-        }
-    }
-
-    public void newMap(){
-        for(int i = 0; i < controller.mapHeight; i++){
-            for(int j = 0; j < controller.mapWidth; j++){
-                System.out.println("i : " + i + ". j : " + j);
-                towerGrid[i][j].add(new JLabel());
-            }
         }
     }
 
