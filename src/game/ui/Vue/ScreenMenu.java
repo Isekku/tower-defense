@@ -98,7 +98,7 @@ public class ScreenMenu extends JFrame implements State {
     public void loadSave(){
         Model save = Save.load();
         if (save == null) {
-            JOptionPane.showMessageDialog(null, "Aucune sauvegarde trouvée", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erreur : La partie n'a pas pu être chargé", "Erreur", JOptionPane.ERROR_MESSAGE);
             optionButton.setEnabled(false);
         }
 
