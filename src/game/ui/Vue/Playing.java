@@ -157,16 +157,16 @@ public class Playing extends JFrame implements State{
                             boolean placed = false;
                             switch (canPlaceATower){
                                 case 0 -> {
-                                    placed = controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                    placed = controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
                                 case 1 ->{
-                                    placed = controller.addTower(new ElectricTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                    placed = controller.addTower(new ElectricTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
                                 case 2 ->{
-                                    placed = controller.addTower(new IceTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                    placed = controller.addTower(new IceTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
                                 case 3 ->{
-                                    placed = controller.addTower(new RoyalTower(new Coordinates(finalI, finalJ, 0.15f)));
+                                    placed = controller.addTower(new RoyalTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
                                 default -> {}
                             }
