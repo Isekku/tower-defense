@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 public class Save implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final String SAVE_FILE_PATH = "save\\";
+    private static final String SAVE_FILE_PATH = "save/";
 
     public Save() {
     }
