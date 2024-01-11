@@ -173,7 +173,6 @@ public class Playing extends JFrame implements State{
             for(int j = 0; j < towerGrid[0].length; j++){
                 towerGrid[i][j] = new JPanel();
                 towerGrid[i][j].setOpaque(false);
-                towerGrid[i][j].setBorder(Style.compound);
                 towerGridPanel.add(towerGrid[i][j]);
 
                 int finalI = i;
@@ -200,6 +199,14 @@ public class Playing extends JFrame implements State{
                             canPlaceATower = -1;
                             //controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.15f)));
                         }
+                    }
+
+                    public void mouseEntered(MouseEvent e){
+                        if(canPlaceATower != -1)towerGrid[finalI][finalJ].setBorder(Style.compound);
+                    }
+
+                    public void mouseExited(MouseEvent e){
+                        towerGrid[finalI][finalJ].setBorder(null);
                     }
                 });
             }
@@ -263,16 +270,16 @@ public class Playing extends JFrame implements State{
             towerPanel.setBorder(new EmptyBorder(0, 0, 20, 0));
             towerPanel.setBackground(Style.backgroundColor);
 
-                towerPanel.add(basicTowerLabel);
+                towerPanel.add(createTowerBuyPanel(basicTowerLabel, 25));
                 setMouseEvent(basicTowerLabel, 0);
 
-                towerPanel.add(electricTowerLabel);
+                towerPanel.add(createTowerBuyPanel(electricTowerLabel, 50));
                 setMouseEvent(electricTowerLabel, 1);
 
-                towerPanel.add(iceTowerLabel);
+                towerPanel.add(createTowerBuyPanel(iceTowerLabel, 75));
                 setMouseEvent(iceTowerLabel, 2);
 
-                towerPanel.add(royalTowerLabel);
+                towerPanel.add(createTowerBuyPanel(royalTowerLabel, 100));
                 setMouseEvent(royalTowerLabel, 3);
 
             playingPanel.add(towerPanel, BorderLayout.SOUTH);
@@ -396,6 +403,17 @@ public class Playing extends JFrame implements State{
         g.dispose();
 
         return res;
+    }
+
+    private JPanel createTowerBuyPanel(JLabel label, int price){
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panel.setOpaque(false);
+        panel.add(label);
+
+        JLabel textPrice = new JLabel(price + "pièces");
+        textPrice.setAlignmentY(Component.CENTER_ALIGNMENT);
+        panel.add(textPrice);
+        return panel;
     }
 
     //Méthodes nécessaire pour l'accessiblité externe de la classe :
