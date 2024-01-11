@@ -45,23 +45,23 @@ public class Save implements Serializable {
         }
     }
 
-    public static Save load() {
-        Save save = null;
+    public static Model load() {
+        Model model = null;
         try {
-            FileInputStream fileIn = new FileInputStream(SAVE_FILE_PATH + "save.ser");
+            FileInputStream fileIn = new FileInputStream(SAVE_FILE);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            save = (Save) in.readObject();
+            model = (Model) in.readObject();
             in.close();
             fileIn.close();
         } catch (java.io.IOException i) {
             i.printStackTrace();
             return null;
         } catch (ClassNotFoundException c) {
-            System.out.println("Save class not found");
+            System.out.println("Model class not found");
             c.printStackTrace();
             return null;
         }
-        return save;
+        return model;
     }
 
     public static boolean isSaveExist() {
