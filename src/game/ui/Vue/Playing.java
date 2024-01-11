@@ -217,19 +217,19 @@ public class Playing extends JFrame implements State{
                         if (canPlaceATower != -1) {
                             boolean placed = false;
                             switch (canPlaceATower){
-                                case 0 -> {
+                                case 0 : {
                                     placed = controller.addTower(new BasicTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
-                                case 1 ->{
+                                case 1 : {
                                     placed = controller.addTower(new ElectricTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
-                                case 2 ->{
+                                case 2 : {
                                     placed = controller.addTower(new IceTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
-                                case 3 ->{
+                                case 3 : {
                                     placed = controller.addTower(new RoyalTower(new Coordinates(finalI, finalJ, 0.12f)));
                                 }
-                                default -> {}
+                                default : {}
                             }
                             if(!placed){
                                 towerGrid[finalI][finalJ].setBorder(Style.redCompound);
@@ -262,16 +262,16 @@ public class Playing extends JFrame implements State{
                             towerGrid[finalI][finalJ].setBorder(Style.compound);
                             ImageIcon icon = null;
                             switch (canPlaceATower){
-                                case 0 -> {
+                                case 0 : {
                                     icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/2.gif"));
                                 }
-                                case 1 -> {
+                                case 1 : {
                                     icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/3.gif"));
                                 }
-                                case 2 -> {
+                                case 2 : {
                                     icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/5.gif"));
                                 }
-                                case 3 -> {
+                                case 3 : {
                                     icon = new ImageIcon(Entity.initializeImage("resources/assets/archer/2_Idle/6.gif"));
                                 }
                             }
