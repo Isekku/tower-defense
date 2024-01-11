@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,6 +19,7 @@ import javax.tools.Tool;
 
 import game.Entity.Entity;
 import game.Entity.towers.BasicTower;
+import game.Entity.towers.Tower;
 import game.geometry.Coordinates;
 import game.ui.Controller.PlayingController;
 import game.map.Cell;
@@ -61,6 +63,7 @@ public class Playing extends JFrame implements State{
             {"22", "04", "04", "04", "04", "04", "04", "24", "38"},
     };
 
+    private JPanel tourSurSouris = new JPanel();
 
     //Les Panels et les Components besoins pour l'affichage :
     protected JPanel playingPanel = new JPanel();
@@ -95,6 +98,8 @@ public class Playing extends JFrame implements State{
         protected JPanel towerPlusStartPanel = new JPanel(new GridLayout(2, 1));
 
 
+
+
     public static ImageIcon terreImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources/assets/terrain/Tiles/FieldsTile_01.png"));
 
     public static ImageIcon herbeImage; //= new ImageIcon(Toolkit.getDefaultToolkit().getImage("resources\\assets\\terrain\\Tiles\\FieldsTile_38.png"));
@@ -102,6 +107,7 @@ public class Playing extends JFrame implements State{
     public static ImageIcon arbreImage;
 
     public static Image slimeImage;
+
 
 
 
@@ -115,6 +121,23 @@ public class Playing extends JFrame implements State{
         return towerGrid[hauteur][largeur];
     }
 
+    public void tourSurSouris(int hauteur, int largeur, ImageIcon towerIcon){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(hauteur + " " + largeur);
+                tourSurSouris.removeAll();
+                tourSurSouris.setLayout(new BorderLayout());
+                tourSurSouris.add(new JLabel(towerIcon));
+                tourSurSouris.setOpaque(false);
+                tourSurSouris.setBounds(largeur * 100, hauteur * 100, 100, 100);
+                playingResized.add(tourSurSouris);
+
+            }
+        });
+        
+    }
+
 
     //Méthodes permettant d'attribuer les méthodes en fonction d'action produit sur le bouton :
 
@@ -124,6 +147,14 @@ public class Playing extends JFrame implements State{
 
     public void pauseWave(){
         controller.pauseWave();
+    }
+
+    public void towerClicked(int tower, ImageIcon towerIcon){
+        controller.towerClicked(tower, towerIcon);
+    }
+
+    public void moovedWithTower(java.awt.event.MouseEvent e){
+        controller.moovedWithTower(e);
     }
 
 
@@ -195,10 +226,52 @@ public class Playing extends JFrame implements State{
                 towerPanel.add(iceTowerLabel);
                 towerPanel.add(royalTowerLabel);
             playingPanel.add(towerPanel, BorderLayout.SOUTH);
+            
+            // rajoouter les listener pour toutes les tours
+            basicTowerLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    towerClicked(0, (ImageIcon) basicTowerLabel.getIcon());
+                }
+            });
+            electricTowerLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    towerClicked(1, (ImageIcon) electricTowerLabel.getIcon());
+                }
+            });
+            iceTowerLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    towerClicked(2, (ImageIcon) iceTowerLabel.getIcon());
+                }
+            });
+            royalTowerLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    towerClicked(3, (ImageIcon) royalTowerLabel.getIcon());
+                }
+            });
+
 
             towerPlusStartPanel.add(startPanel);
             towerPlusStartPanel.add(infoPanel);
             playingPanel.add(towerPlusStartPanel, BorderLayout.NORTH);
+
+        playingPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // on vérifie que le clic est bien légal
+            }
+        });
+
+        playingPanel.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                // on bouge la tour quand on bouge la souris
+                moovedWithTower(e);
+            }
+        });
 
         // infiniteMoney();
         System.out.println("Hauteur/Longueur du gridJpanel : " + mapDesign.length + " " + mapDesign[0].length);

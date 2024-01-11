@@ -9,6 +9,8 @@ import game.ui.Vue.Playing;
 
 import javax.swing.*;
 
+import org.w3c.dom.events.MouseEvent;
+
 public class PlayingController extends Controller{
     private Playing view;
     public int mapHeight = model.getMap().getHeight();
@@ -113,6 +115,18 @@ public class PlayingController extends Controller{
         infoUpdate();
     }
 
+    public void towerClicked(int towerType, ImageIcon towerIcon){ 
+        model.setHaveClickedOnTower(true);
+        model.setClickedTower(towerType);
+        model.setClickedTowerImage(towerIcon);
+        System.out.println("Tower clicked: " + towerType);
+    }
 
-
+    public void moovedWithTower(java.awt.event.MouseEvent e) {
+        if (model.isHaveClickedOnTower()){
+            // on bouge la tour
+            System.out.println("Tower mooved: " + model.getClickedTower());
+            view.tourSurSouris(e.getY(),e.getY(), model.getClickedTowerImage());
+        }
+    }
 }

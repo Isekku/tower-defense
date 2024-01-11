@@ -35,6 +35,9 @@ public class Model {
     private int timeOfWave;
     private boolean waveOnBreak = false;
     private boolean waveRunning = false;
+    private boolean haveClickedOnTower = false;
+    private int clickedTower;
+    private ImageIcon clickedTowerImage;
 
     //Ajout des tours jouable et des mobs possible :
     public ArrayList<Tower> towerExample = new ArrayList<>();
@@ -254,6 +257,30 @@ public class Model {
 
     public int getTimeOfWave(){
         return timeOfWave;
+    }
+
+    public boolean isHaveClickedOnTower() {
+        return haveClickedOnTower;
+    }
+
+    public int getClickedTower() {
+        return clickedTower;
+    }
+
+    public void setClickedTower(int towerClicked) {
+        this.clickedTower = towerClicked;
+    }
+
+    public void setHaveClickedOnTower(boolean haveClickedOnTower) {
+        this.haveClickedOnTower = haveClickedOnTower;
+    }
+
+    public ImageIcon getClickedTowerImage() {
+        return clickedTowerImage;
+    }
+
+    public void setClickedTowerImage(ImageIcon clickedTowerImage) {
+        this.clickedTowerImage = clickedTowerImage;
     }
 
     public int getWaveTime(){
