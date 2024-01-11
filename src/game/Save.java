@@ -47,6 +47,7 @@ public class Save implements Serializable {
 
     public static Model load() {
         Model model = null;
+        System.out.println("Tentative de chargement ...");
         try {
             FileInputStream fileIn = new FileInputStream(SAVE_FILE);
             ObjectInputStream in = new ObjectInputStream(fileIn);
