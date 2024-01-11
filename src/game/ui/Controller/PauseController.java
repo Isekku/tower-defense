@@ -19,9 +19,11 @@ public class PauseController extends Controller{
             model.setWaveOnBreak(false);
         }
         if (value == 2) { // retour menu principal
-            changeView(GameState.MENU);
+            System.out.println("retour menu principal");
             model.pauseWave();
             model.setWaveOnBreak(false);
+            model.reset();
+            changeView(GameState.MENU);
         }
         if (value == 3) { // sauvagarder
             model.save();

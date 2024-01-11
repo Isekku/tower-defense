@@ -132,7 +132,27 @@ public class Model implements Serializable{
     }
 
     public void reset(){
-
+        money = 50;
+        wave = 0;
+        timeOfWave = 10;
+        time = 0;
+        waveTime = 0;
+        waveOnBreak = false;
+        waveRunning = false;
+        haveClickedOnTower = false;
+        clickedTower = 0;
+        clickedTowerImage = "";
+        map = new Map(5, 9);
+        towerEmplacement.clear();
+        mobEmplacement.clear();
+        projectileEmplacement.clear();
+        mobInWave.clear();
+        // set all to null
+        for (int i = 0; i < map.getHeight(); i++){
+            for (int j = 0; j < map.getWidth(); j++){
+                map.getCell(i, j).setEntity(null);
+            }
+        }
     }
 
     public void print(){
