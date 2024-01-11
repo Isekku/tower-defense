@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Mob extends Entity{
+public class Mob extends Entity implements java.io.Serializable{
 
     public int value;
     public boolean isKilling = false;

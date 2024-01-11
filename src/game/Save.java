@@ -1,27 +1,40 @@
 package game;
 
 import java.io.Serializable;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.File;
+import java.nio.file.Paths;
 
 public class Save implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final String SAVE_FILE_PATH = "save/";
+    private static final File SAVE_FILE;
+    static {
+        File saveFile = null;
+        try {
+            saveFile = Paths.get(Save.class.getClassLoader().getResource(SAVE_FILE_PATH + "save.ser").toURI()).toFile();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        SAVE_FILE = saveFile;
+    }
+
 
     public Save() {
     }
 
     public static void save(Model model) {
         System.out.println("Tentative de sauvegarde");
-        System.out.println("path: " + SAVE_FILE_PATH + "save.ser");
-        System.out.println(SAVE_FILE);
+        System.out.println("path: " + SAVE_FILE);
+
         try {
-            FileOutputStream fileOut = new FileOutputStream(new File(SAVE_FILE));
+            FileOutputStream fileOut = new FileOutputStream(SAVE_FILE);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(model);
             out.close();
